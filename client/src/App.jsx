@@ -17,6 +17,7 @@ import TeamManagement from './components/team/TeamManagement';
 import LabSettings from './components/settings/LabSettings';
 import OnboardingScreen from './components/OnboardingScreen';
 import LoginModal from './components/auth/LoginModal';
+import ChemicalMixingLoader from './components/common/ChemicalMixingLoader';
 
 function MainApp() {
   const { user, loading, showOnboarding, setShowOnboarding } = useAuth();
@@ -78,14 +79,12 @@ function MainApp() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
-        <div className="w-12 h-12 rounded-2xl bg-red-600 flex items-center justify-center text-white shadow-xl shadow-red-500/20 animate-bounce mb-3">
-          <span className="font-extrabold text-lg">LL</span>
-        </div>
-        <div className="h-1.5 w-36 bg-slate-200 rounded-full overflow-hidden">
-          <div className="h-full bg-red-600 rounded-full animate-pulse" />
-        </div>
-        <p className="text-xs font-semibold text-slate-500 mt-2">Initializing LabLedger Biobank System...</p>
+      <div className="min-h-screen bg-gradient-to-b from-white via-rose-50/40 to-slate-100 flex flex-col items-center justify-center p-4">
+        <ChemicalMixingLoader
+          text="Initializing LabLedger Biobank System..."
+          subtext="Connecting to MongoDB Atlas & mounting cold-chain cryogenic registry"
+          size="lg"
+        />
       </div>
     );
   }

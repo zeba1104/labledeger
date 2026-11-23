@@ -215,21 +215,26 @@ export default function OnboardingScreen({ onOpenLogin }) {
               return (
                 <div 
                   key={idx}
-                  className="card-interactive relative group bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-red-300 shadow-sm flex flex-col justify-between"
+                  className="card-interactive relative group bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-red-400/80 shadow-xs hover:shadow-xl hover:shadow-red-500/10 flex flex-col justify-between overflow-hidden transition-all duration-300"
                   style={{ animationDelay: `${idx * 80}ms` }}
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-rose-600 rounded-t-2xl transition-all duration-300"></div>
-                  <div>
+                  {/* Clean, perfectly clipped top accent bar that smoothly fades in on hover */}
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                  {/* Ambient subtle warm glow in corner */}
+                  <div className="absolute -top-12 -right-12 w-28 h-28 bg-red-500/0 group-hover:bg-red-500/5 rounded-full blur-xl transition-all duration-500 pointer-events-none" />
+
+                  <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                      <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-red-500/25 transition-all duration-300 shadow-xs">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="text-[11px] font-semibold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100 group-hover:border-red-200 group-hover:bg-red-100 transition-colors">
+                      <span className="text-[11px] font-bold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100 group-hover:border-red-200 group-hover:bg-red-100 transition-colors">
                         {f.badge}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-700 transition-colors mb-2">
+                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-700 transition-colors duration-200 mb-2">
                       {f.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
@@ -237,8 +242,8 @@ export default function OnboardingScreen({ onOpenLogin }) {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
-                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
+                  <div className="relative z-10 pt-3 border-t border-slate-100 group-hover:border-red-100/60 flex items-center text-xs font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
+                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600 group-hover:scale-110 transition-transform duration-200" />
                     <span>Laboratory Verified</span>
                   </div>
                 </div>
@@ -265,11 +270,11 @@ export default function OnboardingScreen({ onOpenLogin }) {
               { num: '4', title: 'Experiment Notes', desc: 'Assay results & protocols linked to used sample IDs.' },
               { num: '5', title: 'Audit History', desc: 'Unchangeable record of every edit for accountability.' },
             ].map((step, i) => (
-              <div key={i} className="card-interactive flex flex-col items-center text-center p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-red-300 transition-all">
-                <div className="w-8 h-8 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 transition-transform">
+              <div key={i} className="card-interactive group flex flex-col items-center text-center p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-red-400 shadow-xs hover:shadow-lg hover:shadow-red-500/10 transition-all overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:shadow-red-500/30 transition-transform">
                   {step.num}
                 </div>
-                <h4 className="text-xs font-bold text-slate-900 mb-1">{step.title}</h4>
+                <h4 className="text-xs font-bold text-slate-900 mb-1 group-hover:text-red-600 transition-colors">{step.title}</h4>
                 <p className="text-[11px] text-slate-500 leading-normal">{step.desc}</p>
               </div>
             ))}
@@ -285,21 +290,21 @@ export default function OnboardingScreen({ onOpenLogin }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {roles.map(r => (
-              <div key={r.role} className="card-interactive border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-red-300 transition-all bg-white hover:shadow-lg hover:shadow-red-500/5">
+              <div key={r.role} className="card-interactive group border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-red-400 transition-all bg-white hover:shadow-lg hover:shadow-red-500/10 overflow-hidden">
                 <div>
                   <div className="flex items-center space-x-2.5 mb-3">
-                    <div className={`w-8 h-8 rounded-lg ${r.avatarColor} flex items-center justify-center text-xs font-bold shadow-sm`}>
+                    <div className={`w-8 h-8 rounded-lg ${r.avatarColor} flex items-center justify-center text-xs font-bold shadow-sm group-hover:scale-105 transition-transform`}>
                       {r.role[0]}
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900">{r.role}</h4>
+                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-red-700 transition-colors">{r.role}</h4>
                       <p className="text-[11px] text-slate-500">{r.title}</p>
                     </div>
                   </div>
                   <p className="text-xs text-slate-600 mb-3">{r.desc}</p>
                 </div>
-                <div className="mt-2 py-1 px-2.5 bg-slate-50 text-slate-500 border border-slate-200 rounded-lg text-[10px] font-semibold text-center flex items-center justify-center space-x-1">
-                  <Lock className="w-3 h-3 text-slate-400" />
+                <div className="mt-2 py-1 px-2.5 bg-slate-50 text-slate-500 border border-slate-200 rounded-lg text-[10px] font-semibold text-center flex items-center justify-center space-x-1 group-hover:border-red-200 group-hover:bg-red-50/60 group-hover:text-red-700 transition-colors">
+                  <Lock className="w-3 h-3 text-slate-400 group-hover:text-red-600 transition-colors" />
                   <span>Requires Authorized Sign In</span>
                 </div>
               </div>

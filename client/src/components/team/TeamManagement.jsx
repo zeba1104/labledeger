@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function TeamManagement() {
   const { user: currentUser, permissions } = useAuth();
@@ -234,56 +235,64 @@ export default function TeamManagement() {
           )}
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                <th className="py-3 px-4">Scientist / Staff</th>
-                <th className="py-3 px-4">Email</th>
-                <th className="py-3 px-4">Department</th>
-                <th className="py-3 px-4">Role Assignment</th>
-                <th className="py-3 px-4">Joined</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {users.map((u) => (
-                <tr key={u._id} className="hover:bg-slate-50/60 transition-colors">
-                  <td className="py-3 px-4">
-                    <div className="font-bold text-slate-900 flex items-center space-x-2">
-                      <div className="w-7 h-7 rounded-lg bg-red-50 text-red-700 font-bold flex items-center justify-center text-xs">
-                        {u.name[0]}
-                      </div>
-                      <span>{u.name}</span>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4 text-slate-600 font-mono text-[11px]">{u.email}</td>
-                  <td className="py-3 px-4 text-slate-700 font-medium">{u.department}</td>
-                  <td className="py-3 px-4">
-                    {permissions.canManageTeam ? (
-                      <select
-                        value={u.role}
-                        onChange={(e) => handleRoleChange(u._id, e.target.value)}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-bold border focus:outline-none ${roleColors[u.role]}`}
-                      >
-                        <option value="Admin">Admin (PI / Owner)</option>
-                        <option value="Researcher">Researcher</option>
-                        <option value="Technician">Technician</option>
-                        <option value="Viewer">Viewer / Auditor</option>
-                      </select>
-                    ) : (
-                      <span className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${roleColors[u.role]}`}>
-                        {u.role}
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-3 px-4 text-slate-400">
-                    {new Date(u.createdAt).toLocaleDateString()}
-                  </td>
+        {loading && users.length === 0 ? (
+          <ChemicalMixingLoader 
+            size="sm"
+            text="Querying Authorized Personnel Directory..."
+            subtext="Loading verified laboratory staff, roles, and cryptographic permissions"
+          />
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  <th className="py-3 px-4">Scientist / Staff</th>
+                  <th className="py-3 px-4">Email</th>
+                  <th className="py-3 px-4">Department</th>
+                  <th className="py-3 px-4">Role Assignment</th>
+                  <th className="py-3 px-4">Joined</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {users.map((u) => (
+                  <tr key={u._id} className="hover:bg-slate-50/60 transition-colors">
+                    <td className="py-3 px-4">
+                      <div className="font-bold text-slate-900 flex items-center space-x-2">
+                        <div className="w-7 h-7 rounded-lg bg-red-50 text-red-700 font-bold flex items-center justify-center text-xs">
+                          {u.name[0]}
+                        </div>
+                        <span>{u.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-slate-600 font-mono text-[11px]">{u.email}</td>
+                    <td className="py-3 px-4 text-slate-700 font-medium">{u.department}</td>
+                    <td className="py-3 px-4">
+                      {permissions.canManageTeam ? (
+                        <select
+                          value={u.role}
+                          onChange={(e) => handleRoleChange(u._id, e.target.value)}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold border focus:outline-none ${roleColors[u.role]}`}
+                        >
+                          <option value="Admin">Admin (PI / Owner)</option>
+                          <option value="Researcher">Researcher</option>
+                          <option value="Technician">Technician</option>
+                          <option value="Viewer">Viewer / Auditor</option>
+                        </select>
+                      ) : (
+                        <span className={`px-2.5 py-1 rounded-lg text-xs font-bold border ${roleColors[u.role]}`}>
+                          {u.role}
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4 text-slate-400">
+                      {new Date(u.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Role Permissions Comparison Matrix (Exact matching PDF Page 3) */}

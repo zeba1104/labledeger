@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function SamplesList({ 
   onOpenNewSample, 
@@ -206,10 +207,11 @@ export default function SamplesList({
       {/* Samples Table / Cards */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-slate-500 text-xs">
-            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-            <p>Loading specimen registry...</p>
-          </div>
+          <ChemicalMixingLoader 
+            size="sm"
+            text="Filtering Specimen Registry..."
+            subtext="Querying cryo-vial barcodes, aliquots, and cold-chain audit metadata"
+          />
         ) : samples.length === 0 ? (
           <div className="p-12 text-center text-slate-500">
             <FlaskConical className="w-10 h-10 text-slate-300 mx-auto mb-3" />

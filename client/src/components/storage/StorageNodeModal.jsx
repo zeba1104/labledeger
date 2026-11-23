@@ -78,7 +78,7 @@ export default function StorageNodeModal({ isOpen, onClose, onNodeSaved, parentN
           <p className="text-xs text-rose-100 mt-0.5">Build Room &rarr; Freezer &rarr; Shelf &rarr; Rack &rarr; Box hierarchy</p>
         </div>
 
-        <div className="p-6">
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1">
           {error && (
             <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start space-x-2">
               <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />

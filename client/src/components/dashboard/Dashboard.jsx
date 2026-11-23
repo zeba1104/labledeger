@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function Dashboard({ 
   setActiveView, 
@@ -49,13 +50,11 @@ export default function Dashboard({
 
   if (loading) {
     return (
-      <div className="p-6 space-y-6 animate-pulse">
-        <div className="h-28 bg-slate-200/70 rounded-2xl"></div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-32 bg-slate-200/60 rounded-2xl"></div>
-          ))}
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+        <ChemicalMixingLoader 
+          text="Synthesizing Laboratory Metrics..." 
+          subtext="Aggregating cryogenic occupancy, chain-of-custody transfers, and GLP audit events"
+        />
       </div>
     );
   }

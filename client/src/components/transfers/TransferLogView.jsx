@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function TransferLogView({ 
   onOpenSampleDetails, 
@@ -196,10 +197,11 @@ export default function TransferLogView({
       {/* Transfers Timeline / Table */}
       <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-            <p>Loading chain of custody ledger...</p>
-          </div>
+          <ChemicalMixingLoader 
+            size="sm"
+            text="Tracking Chain of Custody..."
+            subtext="Verifying cold-chain relocation signatures and custodian approvals"
+          />
         ) : transfers.length === 0 ? (
           <div className="p-12 text-center text-slate-500 text-xs">
             <ArrowRightLeft className="w-10 h-10 text-slate-300 mx-auto mb-2" />
@@ -276,7 +278,7 @@ export default function TransferLogView({
               <p className="text-xs text-rose-100 mt-0.5">Move specimen between freezers, racks, or research labs</p>
             </div>
 
-            <div className="p-6">
+            <div className="p-5 sm:p-6 overflow-y-auto flex-1">
               {formError && (
                 <div className="mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start space-x-2">
                   <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />

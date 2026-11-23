@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function StorageMap({ 
   onOpenSampleDetails, 
@@ -111,6 +112,17 @@ export default function StorageMap({
 
   const boxes = allNodes.filter(n => n.type === 'box');
   const activeBox = allNodes.find(n => n._id === selectedBoxId);
+
+  if (loading && allNodes.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] p-8">
+        <ChemicalMixingLoader 
+          text="Mapping Cryogenic Infrastructure..." 
+          subtext="Discovering ultralow freezers, liquid nitrogen dewars, and storage racks"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6">
@@ -220,10 +232,11 @@ export default function StorageMap({
 
             {/* Matrix Visualization */}
             {loadingBox ? (
-              <div className="p-16 text-center text-slate-400 text-xs">
-                <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-                <p>Generating cryogenic slot coordinates...</p>
-              </div>
+              <ChemicalMixingLoader 
+                size="sm"
+                text="Synthesizing Cryo Matrix..."
+                subtext="Generating 2D coordinates and verifying temperature stability"
+              />
             ) : !boxGridData ? (
               <div className="p-12 text-center text-slate-400 text-xs">No storage grid data found.</div>
             ) : (
