@@ -75,20 +75,20 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
                 onClick={() => handleNav(item.id)}
                 className={`
                   w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold
-                  transition-all duration-150 group
+                  transition-all duration-200 group
                   ${isActive 
-                    ? 'bg-red-50 text-red-700 font-bold border border-red-200/70 shadow-xs' 
-                    : 'text-slate-600 hover:text-red-700 hover:bg-slate-50'
+                    ? 'bg-red-50 text-red-700 font-bold border border-red-200/70 shadow-xs translate-x-1' 
+                    : 'text-slate-600 hover:text-red-700 hover:bg-slate-50 hover:translate-x-1'
                   }
                 `}
               >
                 <div className="flex items-center space-x-2.5 truncate">
-                  <Icon className={`w-4 h-4 flex-shrink-0 transition-colors ${isActive ? 'text-red-600' : 'text-slate-400 group-hover:text-red-600'}`} />
+                  <Icon className={`w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:scale-115 ${isActive ? 'text-red-600' : 'text-slate-400 group-hover:text-red-600'}`} />
                   <span className="truncate">{item.label}</span>
                 </div>
 
                 {item.badge && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium ${
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium transition-colors ${
                     isActive 
                       ? 'bg-red-200/80 text-red-800' 
                       : 'bg-slate-100 text-slate-500 group-hover:bg-red-100 group-hover:text-red-700'

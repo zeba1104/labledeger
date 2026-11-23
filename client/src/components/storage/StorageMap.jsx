@@ -151,10 +151,11 @@ export default function StorageMap({
           </div>
           {activeBox && (
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-50 text-blue-800 border border-blue-200">
-                Temp: {activeBox.temperature || '-80°C'}
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-800 border border-blue-200 shadow-xs animate-frost flex items-center space-x-1">
+                <Thermometer className="w-3 h-3 text-blue-600 animate-pulse" />
+                <span>Temp: {activeBox.temperature || '-80°C'}</span>
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700">
+              <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-700">
                 Grid: {activeBox.gridRows || 9}x{activeBox.gridCols || 9} ({activeBox.capacity || 81} slots)
               </span>
             </div>
@@ -263,10 +264,10 @@ export default function StorageMap({
                               onMouseLeave={() => setHoveredCell(null)}
                               title={isOccupied ? `${sample.sampleId}: ${sample.name}` : `Empty slot ${cell.position}`}
                               className={`
-                                w-7 h-7 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center font-mono text-[10px] sm:text-xs font-bold transition-all relative
+                                w-7 h-7 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center font-mono text-[10px] sm:text-xs font-bold transition-all duration-200 relative
                                 ${isOccupied 
-                                  ? `${typeBadgeColors[sample.type] || 'bg-red-600 text-white'} shadow-xs hover:scale-110 hover:z-20 ring-2 ring-transparent hover:ring-slate-900` 
-                                  : 'bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-red-700 border border-slate-200/80 hover:border-red-300'
+                                  ? `${typeBadgeColors[sample.type] || 'bg-red-600 text-white'} shadow-xs hover:scale-125 hover:z-20 hover:shadow-lg ring-2 ring-transparent hover:ring-red-400 cursor-pointer` 
+                                  : 'bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-red-700 border border-slate-200/80 hover:border-red-300 hover:scale-110 hover:z-10'
                                 }
                               `}
                             >
@@ -274,7 +275,10 @@ export default function StorageMap({
 
                               {/* Tiny indicator dot for occupied */}
                               {isOccupied && (
-                                <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-white opacity-80" />
+                                <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-white opacity-90 animate-ping" />
+                              )}
+                              {isOccupied && (
+                                <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-white opacity-90" />
                               )}
                             </button>
                           );

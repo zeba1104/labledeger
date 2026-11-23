@@ -107,7 +107,7 @@ export default function QRScannerModal({ isOpen, onClose, onSampleFound }) {
 
   return createPortal(
     <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-lg w-full overflow-hidden animate-scale-in my-auto max-h-[92vh] flex flex-col">
+      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-lg w-full overflow-hidden animate-modal-pop my-auto max-h-[92vh] flex flex-col">
         {/* Header Ribbon */}
         <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 p-6 text-white relative">
           <button

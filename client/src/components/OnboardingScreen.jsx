@@ -146,22 +146,37 @@ export default function OnboardingScreen({ onOpenLogin }) {
       </header>
 
       {/* Main Hero & Onboarding Content */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative">
+        {/* Floating Ambient Biological Elements */}
+        <div className="absolute top-12 left-10 text-rose-300/40 pointer-events-none animate-float-slow hidden md:block">
+          <Dna className="w-16 h-16" />
+        </div>
+        <div className="absolute top-28 right-16 text-red-300/35 pointer-events-none animate-float-reverse hidden md:block">
+          <FlaskConical className="w-14 h-14" />
+        </div>
+        <div className="absolute bottom-20 left-20 text-slate-300/40 pointer-events-none animate-float hidden lg:block">
+          <Microscope className="w-16 h-16" />
+        </div>
+
         {/* Hero Section */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/60 shadow-sm mb-5">
-            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-red-600" />
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 relative z-10 animate-fade-up">
+          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/70 shadow-sm mb-5 hover:scale-105 transition-transform duration-300">
+            <span className="relative flex h-2 w-2 mr-2">
+              <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+            </span>
+            <Sparkles className="w-3.5 h-3.5 mr-1 text-red-600" />
             Designed Exclusively for Medical, Biotech & Academic Research Labs
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
             Total Traceability for Every <br />
-            <span className="bg-gradient-to-r from-red-600 via-rose-600 to-red-800 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-600 via-rose-600 to-red-800 bg-clip-text text-transparent hover:brightness-110 transition-all duration-300">
               Laboratory Specimen
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8">
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
             Replace spreadsheets and paper binders with an interactive digital logbook.
             Track what each sample is, exactly where it is stored in cryogenic racks, who moved it, and its linked experiment results.
           </p>
@@ -169,10 +184,11 @@ export default function OnboardingScreen({ onOpenLogin }) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={onOpenLogin}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-2xl shadow-lg shadow-red-500/25 hover:shadow-red-500/35 transition-all"
+              className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-2xl shadow-xl shadow-red-500/25 hover:shadow-red-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200"
             >
               <LogIn className="w-4 h-4 mr-2" />
               <span>Sign In with Email & Password</span>
+              <ChevronRight className="w-4 h-4 ml-1.5 opacity-70 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
@@ -184,9 +200,12 @@ export default function OnboardingScreen({ onOpenLogin }) {
               <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Core Laboratory Capabilities</h2>
               <p className="text-sm text-slate-500">Every feature defined in the scientific protocol specifications</p>
             </div>
-            <div className="hidden sm:flex items-center space-x-2 text-xs text-slate-500">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Secure Authentication & Audit Trail</span>
+            <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-slate-600 bg-white/80 px-3 py-1.5 rounded-full border border-slate-200/80 shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>Secure Authentication & Real-Time Sync</span>
             </div>
           </div>
 
@@ -196,15 +215,16 @@ export default function OnboardingScreen({ onOpenLogin }) {
               return (
                 <div 
                   key={idx}
-                  className="relative group bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-red-300 shadow-sm hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 flex flex-col justify-between"
+                  className="card-interactive relative group bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-red-300 shadow-sm flex flex-col justify-between"
+                  style={{ animationDelay: `${idx * 80}ms` }}
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-rose-600 rounded-t-2xl transition-all"></div>
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-transparent group-hover:bg-gradient-to-r group-hover:from-red-500 group-hover:to-rose-600 rounded-t-2xl transition-all duration-300"></div>
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-105 transition-transform">
+                      <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-sm">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="text-[11px] font-semibold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100">
+                      <span className="text-[11px] font-semibold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100 group-hover:border-red-200 group-hover:bg-red-100 transition-colors">
                         {f.badge}
                       </span>
                     </div>
@@ -217,7 +237,7 @@ export default function OnboardingScreen({ onOpenLogin }) {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500">
+                  <div className="pt-3 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
                     <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />
                     <span>Laboratory Verified</span>
                   </div>
@@ -245,8 +265,8 @@ export default function OnboardingScreen({ onOpenLogin }) {
               { num: '4', title: 'Experiment Notes', desc: 'Assay results & protocols linked to used sample IDs.' },
               { num: '5', title: 'Audit History', desc: 'Unchangeable record of every edit for accountability.' },
             ].map((step, i) => (
-              <div key={i} className="flex flex-col items-center text-center p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-red-50/40 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-sm">
+              <div key={i} className="card-interactive flex flex-col items-center text-center p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-red-300 transition-all">
+                <div className="w-8 h-8 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 transition-transform">
                   {step.num}
                 </div>
                 <h4 className="text-xs font-bold text-slate-900 mb-1">{step.title}</h4>
@@ -265,10 +285,10 @@ export default function OnboardingScreen({ onOpenLogin }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {roles.map(r => (
-              <div key={r.role} className="border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-red-300 transition-all bg-white">
+              <div key={r.role} className="card-interactive border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-red-300 transition-all bg-white hover:shadow-lg hover:shadow-red-500/5">
                 <div>
                   <div className="flex items-center space-x-2.5 mb-3">
-                    <div className={`w-8 h-8 rounded-lg ${r.avatarColor} flex items-center justify-center text-xs font-bold`}>
+                    <div className={`w-8 h-8 rounded-lg ${r.avatarColor} flex items-center justify-center text-xs font-bold shadow-sm`}>
                       {r.role[0]}
                     </div>
                     <div>

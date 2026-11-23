@@ -248,12 +248,12 @@ export default function SamplesList({
                   <tr 
                     key={sample._id}
                     onClick={() => onOpenSampleDetails(sample)}
-                    className="hover:bg-rose-50/30 transition-colors cursor-pointer group"
+                    className="hover:bg-rose-50/50 transition-all duration-200 cursor-pointer group hover:shadow-xs"
                   >
                     {/* ID & QR Column */}
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-0.5 flex-shrink-0 shadow-xs group-hover:border-red-300 transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-0.5 flex-shrink-0 shadow-xs group-hover:border-red-400 group-hover:scale-110 transition-all duration-200">
                           {sample.qrCodeData ? (
                             <img src={sample.qrCodeData} alt="QR" className="w-full h-full object-contain" />
                           ) : (

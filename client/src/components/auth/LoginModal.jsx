@@ -77,17 +77,21 @@ export default function LoginModal({ isOpen, onClose }) {
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-md w-full overflow-hidden animate-scale-in my-auto max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-md w-full overflow-hidden animate-modal-pop my-auto max-h-[92vh] flex flex-col">
         {/* Header Ribbon */}
         <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 p-6 text-white relative">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-white/90 hover:text-white transition-colors"
+            className="absolute top-5 right-5 p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-white/90 hover:text-white hover:rotate-90 transition-all duration-200"
           >
             <X className="w-5 h-5" />
           </button>
           <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-rose-200 mb-1">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-rose-300 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-400"></span>
+            </span>
             <ShieldCheck className="w-4 h-4 text-rose-300" />
             <span>Authorized Personnel Access</span>
           </div>
@@ -214,7 +218,7 @@ export default function LoginModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/25 hover:shadow-red-500/35 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+              className="btn-shimmer w-full mt-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-500/25 hover:shadow-red-500/35 hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
