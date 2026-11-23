@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import ChainOfCustodyTimeline from '../common/ChainOfCustodyTimeline';
 
 export default function SampleDetailsModal({ 
   sample: initialSample, 
@@ -123,7 +124,7 @@ export default function SampleDetailsModal({
             }`}
           >
             <Layers className="w-3.5 h-3.5 text-red-600" />
-            <span>Full Story & Chain</span>
+            <span>Chain of Custody Timeline</span>
           </button>
 
           <button
@@ -222,84 +223,15 @@ export default function SampleDetailsModal({
                 </div>
               </div>
 
-              {/* Step 2: Storage Map Location Chain */}
-              <div className="bg-white rounded-2xl p-4 border border-red-200/90 shadow-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-1.5">
-                    <Box className="w-4 h-4 text-red-600" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">Storage Map Drilldown</h4>
-                  </div>
-                  {sample.storageLocation?.position && (
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-red-100 text-red-800 border border-red-200">
-                      Position Slot: {sample.storageLocation.position}
-                    </span>
-                  )}
-                </div>
-                <div className="p-3 bg-rose-50/50 rounded-xl border border-rose-100 font-medium text-slate-700">
-                  {sample.storagePath || 'No physical storage path assigned.'}
-                </div>
-              </div>
-
-              {/* Step 3: Movement Summary */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-1.5">
-                    <ArrowRightLeft className="w-4 h-4 text-amber-600" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">Transfer Chain of Custody</h4>
-                  </div>
-                  <span className="text-[11px] text-slate-500">{transfers.length} movements recorded</span>
-                </div>
-                {transfers.length === 0 ? (
-                  <p className="text-slate-400 italic">No transfers logged for this sample yet.</p>
-                ) : (
-                  <div className="space-y-2">
-                    {transfers.map((t) => (
-                      <div key={t._id} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                        <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
-                          <span>Moved by {t.movedBy} &bull; Custodian: {t.custodian}</span>
-                          <span className="text-slate-400">{new Date(t.date).toLocaleDateString()}</span>
-                        </div>
-                        <p className="text-slate-600 mt-1">
-                          From <span className="font-medium text-slate-800">{t.sourceLocation}</span> &rarr; To <span className="font-medium text-red-700">{t.targetLocation}</span>
-                        </p>
-                        <p className="text-[10px] text-slate-400 mt-0.5 italic">Reason: "{t.reason}"</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Step 4: Linked Experiments */}
-              <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-1.5">
-                    <FileText className="w-4 h-4 text-rose-600" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">Linked Experiment Notes</h4>
-                  </div>
-                  <span className="text-[11px] text-slate-500">{experiments.length} experiments linked</span>
-                </div>
-                {experiments.length === 0 ? (
-                  <p className="text-slate-400 italic">No experiment notes linked to this sample yet.</p>
-                ) : (
-                  <div className="space-y-2">
-                    {experiments.map((e) => (
-                      <div key={e._id} className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                        <div className="flex items-center justify-between font-bold text-slate-900">
-                          <span>{e.title}</span>
-                          <span className="text-[10px] text-slate-400">{e.date}</span>
-                        </div>
-                        <p className="text-[11px] text-red-700 font-semibold">{e.protocolName}</p>
-                        <p className="text-slate-600 mt-1">{e.notes}</p>
-                        {e.results && (
-                          <div className="mt-1.5 p-2 rounded-lg bg-emerald-50 text-emerald-800 text-[11px]">
-                            <b>Results:</b> {e.results}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {/* Visual Vertical Chain of Custody Timeline */}
+              <ChainOfCustodyTimeline
+                sample={sample}
+                transfers={transfers}
+                auditLogs={auditLogs}
+                experiments={experiments}
+                onOpenTransfer={onOpenTransfer}
+                onOpenPrint={onOpenPrintSheet}
+              />
             </div>
           )}
 

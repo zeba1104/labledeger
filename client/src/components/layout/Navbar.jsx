@@ -99,32 +99,31 @@ export default function Navbar({
           <button
             onClick={onOpenQRScanner}
             title="Scan Tube or Box QR Code"
-            className="btn-shimmer inline-flex items-center px-2 sm:px-3 py-1.5 rounded-xl text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 border border-red-200/80 shadow-xs hover:scale-105 active:scale-95 transition-all duration-200"
+            className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 border border-red-200/80 shadow-xs hover:scale-105 active:scale-95 transition-all duration-200"
           >
-            <QrCode className="w-3.5 h-3.5 sm:mr-1.5 text-red-600 animate-pulse-subtle flex-shrink-0" />
+            <QrCode className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5 text-red-600 animate-pulse-subtle flex-shrink-0" />
             <span className="hidden sm:inline">Scan QR Code</span>
-            <span className="hidden xs:inline sm:hidden">Scan</span>
           </button>
 
           {/* New Sample Button */}
           {permissions.canRegisterSample && (
             <button
               onClick={onOpenNewSample}
-              className="btn-shimmer inline-flex items-center px-2.5 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/20 hover:scale-105 active:scale-95 transition-all duration-200 flex-shrink-0"
+              title="Register New Research Specimen"
+              className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3.5 sm:py-1.5 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/20 hover:scale-105 active:scale-95 transition-all duration-200 flex-shrink-0"
             >
-              <Plus className="w-3.5 h-3.5 sm:mr-1" />
+              <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1" />
               <span className="hidden sm:inline">Register Specimen</span>
-              <span className="sm:hidden">Add</span>
             </button>
           )}
 
-          {/* Static Logged-in Role Badge with live radar */}
-          <div className={`flex items-center space-x-1 sm:space-x-1.5 px-2 sm:px-3 py-1 rounded-xl text-xs font-bold border select-none cursor-default shadow-xs flex-shrink-0 ${roleBadgeColors[user?.role || 'Admin']}`}>
+          {/* Static Logged-in Role Badge with live radar (Desktop/Tablet) */}
+          <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1 rounded-xl text-xs font-bold border select-none cursor-default shadow-xs flex-shrink-0 ${roleBadgeColors[user?.role || 'Admin']}`}>
             <span className="relative flex h-2 w-2">
               <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
-            <span className="hidden sm:inline">Role:</span>
+            <span>Role:</span>
             <span>{user?.role}</span>
           </div>
 

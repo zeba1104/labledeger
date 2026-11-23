@@ -80,7 +80,7 @@ router.get('/:id', authenticate, (req, res) => {
 
   // Related audit logs
   const auditLogs = getCollection('auditLogs')
-    .filter(a => a.entityId === sample.sampleId || a.entityId === sample._id)
+    .filter(a => a.entityId === sample.sampleId || a.entityId === sample._id || (a.details && a.details.includes(sample.sampleId)))
     .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
   res.json({

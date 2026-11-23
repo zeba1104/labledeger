@@ -84,6 +84,33 @@
   ],
   "samples": [
     {
+      "_id": "SMP-0042",
+      "sampleId": "LAB-2026-0042",
+      "name": "Blood Plasma Aliquot (Cohort C)",
+      "type": "Blood",
+      "quantity": 5,
+      "unit": "ml",
+      "concentration": "Standard Plasma (EDTA)",
+      "donorId": "DONOR-PLAS-42",
+      "temperatureReq": "-80°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-02",
+        "shelfId": "SHLF-01",
+        "rackId": "RCK-02",
+        "boxId": "BOX-03",
+        "position": "B3"
+      },
+      "storagePath": "Freezer 2, Box C > Position B3",
+      "status": "Stored",
+      "notes": "Longitudinal blood plasma aliquot. Registered by Anita, relocated by Ravi, utilized in protocol study by Meera.",
+      "registeredBy": "Anita Rao",
+      "registeredRole": "Researcher",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-11-03T09:00:00.000Z",
+      "updatedAt": "2026-11-09T16:45:00.000Z"
+    },
+    {
       "_id": "SMP-0001",
       "sampleId": "LAB-2026-0001",
       "name": "Whole Blood EDTA (Cohort A)",
@@ -408,6 +435,48 @@
   ],
   "transfers": [
     {
+      "_id": "TRF-0042-1",
+      "sampleId": "LAB-2026-0042",
+      "sampleName": "Blood Plasma Aliquot (Cohort C)",
+      "sourceLocation": "Freezer 1, Box A",
+      "targetLocation": "Freezer 2, Box C",
+      "movedBy": "Ravi Patel",
+      "movedRole": "Technician",
+      "custodian": "Ravi Patel",
+      "reason": "Cold-chain redistribution to secondary backup unit",
+      "date": "2026-11-05T14:30:00.000Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    },
+    {
+      "_id": "TRF-0042-2",
+      "sampleId": "LAB-2026-0042",
+      "sampleName": "Blood Plasma Aliquot (Cohort C)",
+      "sourceLocation": "Freezer 2, Box C",
+      "targetLocation": "Room 202 - PCR Benchtop Station",
+      "movedBy": "Meera Nair",
+      "movedRole": "Researcher",
+      "custodian": "Meera Nair",
+      "reason": "Checked out by Meera for an experiment (Targeted lipidomics assay)",
+      "date": "2026-11-09T08:30:00.000Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    },
+    {
+      "_id": "TRF-0042-3",
+      "sampleId": "LAB-2026-0042",
+      "sampleName": "Blood Plasma Aliquot (Cohort C)",
+      "sourceLocation": "Room 202 - PCR Benchtop Station",
+      "targetLocation": "Freezer 2, Box C",
+      "movedBy": "Meera Nair",
+      "movedRole": "Researcher",
+      "custodian": "Dr. Anita Rao",
+      "reason": "Returned to Freezer 2, Box C after experiment completion",
+      "date": "2026-11-09T16:45:00.000Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    },
+    {
       "_id": "TRF-MWT4JVZF",
       "sampleId": "LAB-2026-1007",
       "sampleName": "COVID-19 Saliva Specimen Aliquot",
@@ -538,6 +607,63 @@
     }
   ],
   "auditLogs": [
+    {
+      "_id": "AUD-0042-1",
+      "action": "CREATE_SAMPLE",
+      "performedBy": "Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-0042",
+      "details": "3 Nov: Registered by Anita (Researcher), stored in Freezer 1, Box A",
+      "changes": null,
+      "timestamp": "2026-11-03T09:00:00.000Z",
+      "ipAddress": "192.168.1.18"
+    },
+    {
+      "_id": "AUD-0042-2",
+      "action": "TRANSFER_SAMPLE",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "Transfer",
+      "entityId": "LAB-2026-0042",
+      "details": "5 Nov: Moved by Ravi (Technician) to Freezer 2, Box C",
+      "changes": {
+        "from": "Freezer 1, Box A",
+        "to": "Freezer 2, Box C"
+      },
+      "timestamp": "2026-11-05T14:30:00.000Z",
+      "ipAddress": "192.168.1.22"
+    },
+    {
+      "_id": "AUD-0042-3",
+      "action": "CHECKOUT_SAMPLE",
+      "performedBy": "Meera Nair",
+      "performedRole": "Researcher",
+      "entityType": "Transfer",
+      "entityId": "LAB-2026-0042",
+      "details": "9 Nov: Checked out by Meera for an experiment",
+      "changes": {
+        "from": "Freezer 2, Box C",
+        "to": "Room 202 - Benchtop"
+      },
+      "timestamp": "2026-11-09T08:30:00.000Z",
+      "ipAddress": "192.168.1.34"
+    },
+    {
+      "_id": "AUD-0042-4",
+      "action": "RETURN_SAMPLE",
+      "performedBy": "Meera Nair",
+      "performedRole": "Researcher",
+      "entityType": "Transfer",
+      "entityId": "LAB-2026-0042",
+      "details": "9 Nov: Returned to Freezer 2, Box C",
+      "changes": {
+        "from": "Room 202 - Benchtop",
+        "to": "Freezer 2, Box C"
+      },
+      "timestamp": "2026-11-09T16:45:00.000Z",
+      "ipAddress": "192.168.1.34"
+    },
     {
       "_id": "AUD-1795439187791-6j99s",
       "action": "REGISTER_USER",
