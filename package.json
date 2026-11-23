@@ -1,0 +1,11 @@
+{
+  "name": "labledger",
+  "version": "1.0.0",
+  "description": "LabLedger - Research Sample Tracking & Digital Logbook",
+  "scripts": {
+    "start": "npm --prefix client start",
+    "dev": "npm --prefix server run dev",
+    "client": "npm --prefix client start",
+    "server": "npm --prefix server run dev"
+  }
+}

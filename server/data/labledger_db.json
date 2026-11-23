@@ -1,0 +1,1110 @@
+{
+  "users": [
+    {
+      "_id": "USR-000",
+      "name": "Zeba Zaveri",
+      "email": "zebazaveri57@gmail.com",
+      "role": "Admin",
+      "department": "Principal Laboratory Director",
+      "createdAt": "2026-11-23T11:58:22.337Z",
+      "password": "$2a$10$rEnBgYnUCkiFVVDftbtbm.1U6iHF2sju1DZvrjuQs4HSO7MYDOlHa"
+    },
+    {
+      "_id": "USR-001",
+      "name": "Dr. Sarah Chen",
+      "email": "admin@labledger.com",
+      "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
+      "role": "Admin",
+      "department": "Principal Investigator & Lab Director",
+      "createdAt": "2026-01-10T08:00:00Z"
+    },
+    {
+      "_id": "USR-002",
+      "name": "Dr. Anita Rao",
+      "email": "researcher@labledger.com",
+      "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
+      "role": "Researcher",
+      "department": "Molecular Biology & Genetics",
+      "createdAt": "2026-01-12T09:30:00Z"
+    },
+    {
+      "_id": "USR-003",
+      "name": "Ravi Patel",
+      "email": "tech@labledger.com",
+      "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
+      "role": "Technician",
+      "department": "Specimen Processing & Biobank Ops",
+      "createdAt": "2026-01-15T11:00:00Z"
+    },
+    {
+      "_id": "USR-004",
+      "name": "Dr. Marcus Vance",
+      "email": "auditor@labledger.com",
+      "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
+      "role": "Viewer",
+      "department": "Quality Assurance & Regulatory Compliance",
+      "createdAt": "2026-01-18T14:15:00Z"
+    },
+    {
+      "_id": "USR-MWT62BVY",
+      "name": "Alex Mercer",
+      "email": "alex.mercer@biobank.org",
+      "password": "$2a$10$Ubz8udfLF44ZmulazpvVqO5c1SGGnHhHZIWjo3S3csOOwAZBFhhL6",
+      "role": "Technician",
+      "department": "Specimen Cryo Vault",
+      "createdAt": "2026-11-23T11:12:30.382Z"
+    },
+    {
+      "_id": "USR-MWT66KFX",
+      "name": "Dr. John Doe",
+      "email": "john.doe.1795432547862@biobank.org",
+      "password": "$2a$10$ZvfP3FMhCNflJgaMCA9Cye/cFWTZyZs79vLdD7IaqxUeKQ.uskbLW",
+      "role": "Technician",
+      "department": "Clinical Ops",
+      "createdAt": "2026-11-23T11:15:48.093Z"
+    },
+    {
+      "_id": "USR-MWT692V6",
+      "name": "Dr. Elena Rostova",
+      "email": "scientist.5318@biobank.org",
+      "password": "$2a$10$IMsopPM9M/6FpRObAtybuOOAu9FrhUxTZ6urMFNz76rD2c8sL/sfi",
+      "role": "Researcher",
+      "department": "Genomics Sequencing Unit",
+      "createdAt": "2026-11-23T11:17:45.282Z"
+    },
+    {
+      "_id": "USR-MWTA4S4U",
+      "name": "Bushra Abdullah Zaveri",
+      "email": "bush90@yopmail.com",
+      "password": "$2a$10$ypLdyQ0b/MNhzWrhGd3xUexD6HJPFO2DUPKj1AFComsmdN8AQXc2y",
+      "role": "Technician",
+      "department": "Specimen Biobank",
+      "createdAt": "2026-11-23T13:06:23.214Z"
+    }
+  ],
+  "samples": [
+    {
+      "_id": "SMP-0001",
+      "sampleId": "LAB-2026-0001",
+      "name": "Whole Blood EDTA (Cohort A)",
+      "type": "Blood",
+      "quantity": 10.5,
+      "unit": "ml",
+      "concentration": "Normal hematocrit (45%)",
+      "donorId": "DONOR-8891",
+      "temperatureReq": "-80°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-01",
+        "shelfId": "SHLF-01",
+        "rackId": "RCK-01",
+        "boxId": "BOX-01",
+        "position": "A1"
+      },
+      "storagePath": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A1",
+      "status": "Stored",
+      "notes": "Collected under IRB Protocol #2025-089. Fasting donor.",
+      "registeredBy": "Dr. Anita Rao",
+      "registeredRole": "Researcher",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-01T10:15:00Z",
+      "updatedAt": "2026-02-01T10:15:00Z"
+    },
+    {
+      "_id": "SMP-0002",
+      "sampleId": "LAB-2026-0002",
+      "name": "Purified Genomic DNA (Colorectal)",
+      "type": "DNA",
+      "quantity": 75,
+      "unit": "µl",
+      "concentration": "142.6 ng/µl (A260/280: 1.88)",
+      "donorId": "TISSUE-901",
+      "temperatureReq": "-20°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-01",
+        "shelfId": "SHLF-01",
+        "rackId": "RCK-01",
+        "boxId": "BOX-01",
+        "position": "A2"
+      },
+      "storagePath": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A2",
+      "status": "Stored",
+      "notes": "Extracted using silica-membrane spin columns. High purity.",
+      "registeredBy": "Dr. Anita Rao",
+      "registeredRole": "Researcher",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-03T11:45:00Z",
+      "updatedAt": "2026-02-03T11:45:00Z"
+    },
+    {
+      "_id": "SMP-0003",
+      "sampleId": "LAB-2026-0003",
+      "name": "Total Cellular RNA Isolate",
+      "type": "RNA",
+      "quantity": 40,
+      "unit": "µl",
+      "concentration": "88.2 ng/µl (RIN 9.4)",
+      "donorId": "CELL-441",
+      "temperatureReq": "-80°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-01",
+        "shelfId": "SHLF-01",
+        "rackId": "RCK-01",
+        "boxId": "BOX-01",
+        "position": "A3"
+      },
+      "storagePath": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A3",
+      "status": "Stored",
+      "notes": "RNase-free water solution. Keep on dry ice during processing.",
+      "registeredBy": "Dr. Anita Rao",
+      "registeredRole": "Researcher",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-05T09:10:00Z",
+      "updatedAt": "2026-02-05T09:10:00Z"
+    },
+    {
+      "_id": "SMP-0004",
+      "sampleId": "LAB-2026-0004",
+      "name": "Human Serum Albumin Reference",
+      "type": "Serum",
+      "quantity": 5,
+      "unit": "ml",
+      "concentration": "40 mg/ml",
+      "donorId": "POOL-SERUM-03",
+      "temperatureReq": "-80°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-01",
+        "shelfId": "SHLF-02",
+        "rackId": "RCK-02",
+        "boxId": "BOX-02",
+        "position": "B1"
+      },
+      "storagePath": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 > Rack Beta > CryoBox Blue #2 > Position B1",
+      "status": "Stored",
+      "notes": "Calibrated standard for ELISA microplate assays.",
+      "registeredBy": "Ravi Patel",
+      "registeredRole": "Technician",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-08T14:20:00Z",
+      "updatedAt": "2026-02-08T14:20:00Z"
+    },
+    {
+      "_id": "SMP-0005",
+      "sampleId": "LAB-2026-0005",
+      "name": "High-Fidelity Taq Polymerase 5U/µl",
+      "type": "Enzyme",
+      "quantity": 350,
+      "unit": "µl",
+      "concentration": "5.0 U/µl",
+      "donorId": "LOT-TAQ-8820",
+      "temperatureReq": "-20°C",
+      "storageLocation": {
+        "roomId": "ROOM-202",
+        "freezerId": "FRZ-03",
+        "shelfId": "SHLF-03",
+        "rackId": "RCK-03",
+        "boxId": "BOX-03",
+        "position": "A1"
+      },
+      "storagePath": "Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C) > Shelf 1 > Rack Gamma > PCR Reagents Box #3 > Position A1",
+      "status": "Stored",
+      "notes": "50% glycerol storage buffer. Do not freeze-thaw repeatedly.",
+      "registeredBy": "Ravi Patel",
+      "registeredRole": "Technician",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-09T16:00:00Z",
+      "updatedAt": "2026-02-10T11:22:00Z"
+    },
+    {
+      "_id": "SMP-0006",
+      "sampleId": "LAB-2026-0006",
+      "name": "Cryopreserved Hepatocyte Culture Vials",
+      "type": "Cell Culture",
+      "quantity": 4,
+      "unit": "vials",
+      "concentration": "2.5 x 10^6 viable cells/ml",
+      "donorId": "HEP-LINE-3B",
+      "temperatureReq": "-80°C",
+      "storageLocation": {
+        "roomId": "ROOM-104",
+        "freezerId": "FRZ-01",
+        "shelfId": "SHLF-02",
+        "rackId": "RCK-02",
+        "boxId": "BOX-02",
+        "position": "C4"
+      },
+      "storagePath": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 > Rack Beta > CryoBox Blue #2 > Position C4",
+      "status": "Stored",
+      "notes": "Passage 4. Thaw at 37°C water bath for exactly 90 seconds.",
+      "registeredBy": "Dr. Sarah Chen",
+      "registeredRole": "Admin",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-02-11T12:00:00Z",
+      "updatedAt": "2026-02-11T12:00:00Z"
+    },
+    {
+      "_id": "SMP-MWT4JVX2",
+      "sampleId": "LAB-2026-1007",
+      "name": "COVID-19 Saliva Specimen Aliquot",
+      "type": "Saliva",
+      "quantity": 1.8,
+      "unit": "ml",
+      "concentration": "Viral load: 1.2 x 10^5 copies/ml",
+      "donorId": "COV-PATIENT-108",
+      "temperatureReq": "-80�C",
+      "storageLocation": {
+        "position": "B2",
+        "boxId": "BOX-01"
+      },
+      "storagePath": "Ultra-Low Backup Freezer (-80�C #2) > Shelf 2 > Rack Beta > Box 2 > Pos D4",
+      "status": "Stored",
+      "notes": "Saliva collected in viral transport medium. Aliquot 2 of 4.",
+      "registeredBy": "Dr. Sarah Chen",
+      "registeredRole": "Admin",
+      "qrCodeData": "data:image/png;base64,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",
+      "createdAt": "2026-11-23T10:30:10.262Z",
+      "updatedAt": "2026-11-23T10:30:26.326Z"
+    }
+  ],
+  "storageNodes": [
+    {
+      "_id": "ROOM-104",
+      "name": "Main Bio-Repository 104",
+      "type": "room",
+      "parentId": null,
+      "temperature": "20°C",
+      "notes": "Central cryogenic sample banking facility",
+      "path": "Main Bio-Repository 104"
+    },
+    {
+      "_id": "ROOM-202",
+      "name": "Genomics Clean Suite 202",
+      "type": "room",
+      "parentId": null,
+      "temperature": "19°C",
+      "notes": "ISO Class 6 molecular biology cleanroom",
+      "path": "Genomics Clean Suite 202"
+    },
+    {
+      "_id": "FRZ-01",
+      "name": "Ultra-Low Cryo Freezer (-80°C #1)",
+      "type": "freezer",
+      "parentId": "ROOM-104",
+      "temperature": "-80°C",
+      "notes": "Thermo Scientific TSX Series, Primary Bio-specimens",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1)"
+    },
+    {
+      "_id": "FRZ-02",
+      "name": "Ultra-Low Backup Freezer (-80°C #2)",
+      "type": "freezer",
+      "parentId": "ROOM-104",
+      "temperature": "-80°C",
+      "notes": "Secondary backup biobank freezer",
+      "path": "Main Bio-Repository 104 > Ultra-Low Backup Freezer (-80°C #2)"
+    },
+    {
+      "_id": "FRZ-03",
+      "name": "Enzyme & Reagent Freezer (-20°C)",
+      "type": "freezer",
+      "parentId": "ROOM-202",
+      "temperature": "-20°C",
+      "notes": "Stores DNA extracts, primers, and enzymes",
+      "path": "Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C)"
+    },
+    {
+      "_id": "SHLF-01",
+      "name": "Shelf 1 (Upper)",
+      "type": "shelf",
+      "parentId": "FRZ-01",
+      "temperature": "-80°C",
+      "notes": "Designated for clinical trial blood and serum samples",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 (Upper)"
+    },
+    {
+      "_id": "SHLF-02",
+      "name": "Shelf 2 (Mid)",
+      "type": "shelf",
+      "parentId": "FRZ-01",
+      "temperature": "-80°C",
+      "notes": "Designated for RNA isolates and cell cultures",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 (Mid)"
+    },
+    {
+      "_id": "SHLF-03",
+      "name": "Shelf 1 (Enzymes)",
+      "type": "shelf",
+      "parentId": "FRZ-03",
+      "temperature": "-20°C",
+      "notes": "Polymerases and master mixes",
+      "path": "Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C) > Shelf 1 (Enzymes)"
+    },
+    {
+      "_id": "RCK-01",
+      "name": "Rack Alpha (Stainless 4x4)",
+      "type": "rack",
+      "parentId": "SHLF-01",
+      "temperature": "-80°C",
+      "notes": "Holds 16 cryo boxes",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 (Upper) > Rack Alpha"
+    },
+    {
+      "_id": "RCK-02",
+      "name": "Rack Beta (Stainless 4x4)",
+      "type": "rack",
+      "parentId": "SHLF-02",
+      "temperature": "-80°C",
+      "notes": "Holds 16 cryo boxes",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 (Mid) > Rack Beta"
+    },
+    {
+      "_id": "RCK-03",
+      "name": "Rack Gamma",
+      "type": "rack",
+      "parentId": "SHLF-03",
+      "temperature": "-20°C",
+      "notes": "Holds reagent microcentrifuge boxes",
+      "path": "Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C) > Shelf 1 (Enzymes) > Rack Gamma"
+    },
+    {
+      "_id": "BOX-01",
+      "name": "CryoBox Red #1 (9x9)",
+      "type": "box",
+      "parentId": "RCK-01",
+      "temperature": "-80°C",
+      "capacity": 81,
+      "gridRows": 9,
+      "gridCols": 9,
+      "notes": "Polycarbonate red cryobox for blood and nucleic acid extracts",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 (Upper) > Rack Alpha > CryoBox Red #1 (9x9)"
+    },
+    {
+      "_id": "BOX-02",
+      "name": "CryoBox Blue #2 (9x9)",
+      "type": "box",
+      "parentId": "RCK-02",
+      "temperature": "-80°C",
+      "capacity": 81,
+      "gridRows": 9,
+      "gridCols": 9,
+      "notes": "Cryopreserved cell lines and tissue biopsy cores",
+      "path": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 (Mid) > Rack Beta > CryoBox Blue #2 (9x9)"
+    },
+    {
+      "_id": "BOX-03",
+      "name": "PCR Reagents Box #3 (8x12)",
+      "type": "box",
+      "parentId": "RCK-03",
+      "temperature": "-20°C",
+      "capacity": 96,
+      "gridRows": 8,
+      "gridCols": 12,
+      "notes": "96-position tube rack for active enzymes and primers",
+      "path": "Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C) > Shelf 1 (Enzymes) > Rack Gamma > PCR Reagents Box #3 (8x12)"
+    }
+  ],
+  "transfers": [
+    {
+      "_id": "TRF-MWT4JVZF",
+      "sampleId": "LAB-2026-1007",
+      "sampleName": "COVID-19 Saliva Specimen Aliquot",
+      "sourceLocation": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80�C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position B2",
+      "targetLocation": "Ultra-Low Backup Freezer (-80�C #2) > Shelf 2 > Rack Beta > Box 2 > Pos D4",
+      "movedBy": "Dr. Sarah Chen",
+      "movedRole": "Admin",
+      "custodian": "Dr. Anita Rao",
+      "reason": "Cold-chain redistribution for longitudinal study",
+      "date": "2026-11-23T10:30:10.347Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    },
+    {
+      "_id": "TRF-001",
+      "sampleId": "LAB-2026-0001",
+      "sampleName": "Whole Blood EDTA (Cohort A)",
+      "sourceLocation": "Freezer 1 (Shelf 1 > Rack Alpha > Box 1)",
+      "targetLocation": "Freezer 2 (Backup Cryo > Shelf 3 > Rack Beta)",
+      "movedBy": "Dr. Anita Rao",
+      "movedRole": "Researcher",
+      "custodian": "Dr. Anita Rao",
+      "reason": "experiment - aliquot division and cold-chain backup",
+      "date": "2026-02-05T14:30:00Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    },
+    {
+      "_id": "TRF-002",
+      "sampleId": "LAB-2026-0004",
+      "sampleName": "Human Serum Albumin Reference",
+      "sourceLocation": "Freezer 1 (Shelf 2 > Rack Beta > Box 2)",
+      "targetLocation": "Room 202 Incubator Benchtop",
+      "movedBy": "Ravi Patel",
+      "movedRole": "Technician",
+      "custodian": "Ravi Patel",
+      "reason": "Annual calibration of ELISA spectrophotometer",
+      "date": "2026-02-08T15:10:00Z",
+      "status": "Completed",
+      "approvedBy": "Dr. Sarah Chen"
+    }
+  ],
+  "experiments": [
+    {
+      "_id": "EXP-MWT4JW04",
+      "title": "Real-Time RT-PCR Viral Load Quantification",
+      "protocolName": "CDC 2019-nCoV Real-Time RT-PCR Diagnostic Panel",
+      "author": "Dr. Sarah Chen",
+      "authorRole": "Admin",
+      "date": "2026-11-23",
+      "sampleIds": [
+        "LAB-2026-1007"
+      ],
+      "samplesUsed": [
+        {
+          "sampleId": "LAB-2026-1007",
+          "name": "COVID-19 Saliva Specimen Aliquot",
+          "amountUsed": "Standard aliquot"
+        }
+      ],
+      "notes": "TaqMan probe assay targeting N1 and N2 genes. 40 cycles.",
+      "results": "N1 Ct = 22.4, N2 Ct = 23.1. High positive viral amplification confirmed.",
+      "tags": [
+        "RT-qPCR",
+        "COVID",
+        "Virology"
+      ],
+      "status": "Completed",
+      "createdAt": "2026-11-23T10:30:10.372Z"
+    },
+    {
+      "_id": "EXP-001",
+      "title": "Targeted PCR Amplification for Exon 7 Variant",
+      "protocolName": "Standard High-Fidelity PCR Assay v3.2",
+      "author": "Dr. Anita Rao",
+      "authorRole": "Researcher",
+      "date": "2026-02-06",
+      "sampleIds": [
+        "LAB-2026-0001",
+        "LAB-2026-0002"
+      ],
+      "samplesUsed": [
+        {
+          "sampleId": "LAB-2026-0001",
+          "name": "Whole Blood EDTA",
+          "amountUsed": "1.0 ml"
+        },
+        {
+          "sampleId": "LAB-2026-0002",
+          "name": "Purified Genomic DNA",
+          "amountUsed": "5.0 µl"
+        }
+      ],
+      "notes": "Used samples 0001 and 0002 for PCR test, results attached. 35 cycles amplification at 60°C annealing temperature.",
+      "results": "Clear 450 bp band detected on 1.5% agarose gel electrophoresis. Positive confirmation of exon 7 integrity.",
+      "tags": [
+        "PCR",
+        "Genomics",
+        "Electrophoresis"
+      ],
+      "status": "Completed"
+    },
+    {
+      "_id": "EXP-002",
+      "title": "RNA Quality & Integrity Assessment (RIN)",
+      "protocolName": "Agilent 2100 Bioanalyzer RNA 6000 Nano Assay",
+      "author": "Dr. Anita Rao",
+      "authorRole": "Researcher",
+      "date": "2026-02-09",
+      "sampleIds": [
+        "LAB-2026-0003"
+      ],
+      "samplesUsed": [
+        {
+          "sampleId": "LAB-2026-0003",
+          "name": "Total Cellular RNA Isolate",
+          "amountUsed": "1.0 µl"
+        }
+      ],
+      "notes": "RNA sample denatured at 70°C for 2 min before microfluidic chip loading.",
+      "results": "RIN score calculated at 9.4. Sharp 18S and 28S ribosomal RNA peaks observed. Approved for RNA-seq library prep.",
+      "tags": [
+        "RNA-Seq",
+        "Bioanalyzer",
+        "Quality Control"
+      ],
+      "status": "Completed"
+    }
+  ],
+  "auditLogs": [
+    {
+      "_id": "AUD-1795439187791-6j99s",
+      "action": "REGISTER_USER",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-MWTA4S4U",
+      "details": "Admin Dr. Sarah Chen registered new Technician Bushra Abdullah Zaveri (bush90@yopmail.com) and dispatched onboarding credentials email",
+      "changes": null,
+      "timestamp": "2026-11-23T13:06:27.791Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795435050627-p475b",
+      "action": "UPDATE_ROLE",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen changed role for Dr. Sarah Chen from Admin to Researcher",
+      "changes": {
+        "old": {
+          "role": "Admin"
+        },
+        "new": {
+          "role": "Researcher"
+        }
+      },
+      "timestamp": "2026-11-23T11:57:30.628Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795435002357-ugyxy",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:56:42.358Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432869938-gcdqp",
+      "action": "LOGIN",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "User",
+      "entityId": "USR-002",
+      "details": "Quick Demo Login: Dr. Anita Rao logged in as Researcher",
+      "changes": null,
+      "timestamp": "2026-11-23T11:21:09.938Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432783421-wt4hy",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Quick Demo Login: Dr. Sarah Chen logged in as Admin",
+      "changes": null,
+      "timestamp": "2026-11-23T11:19:43.421Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432694491-qpesa",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:18:14.491Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432687867-ix5bf",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:18:07.867Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432679731-wgr4e",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:17:59.731Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432665311-kfcig",
+      "action": "REGISTER_USER",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-MWT692V6",
+      "details": "Admin Dr. Sarah Chen registered new Researcher Dr. Elena Rostova (scientist.5318@biobank.org) and dispatched onboarding credentials email",
+      "changes": null,
+      "timestamp": "2026-11-23T11:17:45.311Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432664830-hu6mu",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:17:44.830Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432597126-9njeq",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:16:37.126Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432547829-l9brj",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:15:47.829Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432541169-41qa6",
+      "action": "LOGIN",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "User",
+      "entityId": "USR-002",
+      "details": "Quick Demo Login: Dr. Anita Rao logged in as Researcher",
+      "changes": null,
+      "timestamp": "2026-11-23T11:15:41.169Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432536995-s5md9",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:15:36.995Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432472786-fg1po",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:14:32.786Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432438713-5h073",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:13:58.713Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432387498-pa4c6",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:13:07.498Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432375042-u5wdx",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:12:55.042Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795432347336-neirc",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:12:27.336Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431985965-hmysk",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Quick Demo Login: Dr. Sarah Chen logged in as Admin",
+      "changes": null,
+      "timestamp": "2026-11-23T11:06:25.965Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431966735-30261",
+      "action": "LOGIN",
+      "performedBy": "Dr. Marcus Vance",
+      "performedRole": "Viewer",
+      "entityType": "User",
+      "entityId": "USR-004",
+      "details": "Quick Demo Login: Dr. Marcus Vance logged in as Viewer",
+      "changes": null,
+      "timestamp": "2026-11-23T11:06:06.735Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431958122-1zjw7",
+      "action": "LOGIN",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "User",
+      "entityId": "USR-003",
+      "details": "Quick Demo Login: Ravi Patel logged in as Technician",
+      "changes": null,
+      "timestamp": "2026-11-23T11:05:58.122Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431954981-40fz6",
+      "action": "LOGIN",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "User",
+      "entityId": "USR-002",
+      "details": "Quick Demo Login: Dr. Anita Rao logged in as Researcher",
+      "changes": null,
+      "timestamp": "2026-11-23T11:05:54.981Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431951498-ilvoz",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Quick Demo Login: Dr. Sarah Chen logged in as Admin",
+      "changes": null,
+      "timestamp": "2026-11-23T11:05:51.498Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431946635-gp47b",
+      "action": "LOGIN",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "User",
+      "entityId": "USR-003",
+      "details": "Quick Demo Login: Ravi Patel logged in as Technician",
+      "changes": null,
+      "timestamp": "2026-11-23T11:05:46.635Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431939860-pifsa",
+      "action": "LOGIN",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "User",
+      "entityId": "USR-002",
+      "details": "Quick Demo Login: Dr. Anita Rao logged in as Researcher",
+      "changes": null,
+      "timestamp": "2026-11-23T11:05:39.860Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795431842642-irz1t",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T11:04:02.642Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429852025-eede4",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:52.025Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429839282-9p9eo",
+      "action": "LOGIN",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "User",
+      "entityId": "USR-003",
+      "details": "Ravi Patel (Technician) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:39.282Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429826327-7jpis",
+      "action": "UPDATE_SAMPLE",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-1007",
+      "details": "Ravi Patel edited the quantity of sample LAB-2026-1007 from 2.5 to 1.8 ml",
+      "changes": {
+        "old": {
+          "quantity": 2.5,
+          "status": "Stored"
+        },
+        "new": {
+          "quantity": 1.8,
+          "status": "Stored"
+        }
+      },
+      "timestamp": "2026-11-23T10:30:26.327Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429826231-s2wwg",
+      "action": "LOGIN",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "User",
+      "entityId": "USR-003",
+      "details": "Ravi Patel (Technician) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:26.231Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429818342-w4ic2",
+      "action": "LOGIN",
+      "performedBy": "Dr. Marcus Vance",
+      "performedRole": "Viewer",
+      "entityType": "User",
+      "entityId": "USR-004",
+      "details": "Dr. Marcus Vance (Viewer) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:18.342Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429810374-r7036",
+      "action": "CREATE_NOTE",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "Experiment",
+      "entityId": "EXP-MWT4JW04",
+      "details": "Dr. Sarah Chen recorded experiment note: \"Real-Time RT-PCR Viral Load Quantification\" linked to samples LAB-2026-1007",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:10.374Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429810351-x02v6",
+      "action": "TRANSFER_SAMPLE",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "Transfer",
+      "entityId": "TRF-MWT4JVZF",
+      "details": "Sample LAB-2026-1007 moved from Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80�C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position B2 to Ultra-Low Backup Freezer (-80�C #2) > Shelf 2 > Rack Beta > Box 2 > Pos D4 by Dr. Sarah Chen, reason: Cold-chain redistribution for longitudinal study",
+      "changes": {
+        "old": {
+          "location": "Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80�C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position B2"
+        },
+        "new": {
+          "location": "Ultra-Low Backup Freezer (-80�C #2) > Shelf 2 > Rack Beta > Box 2 > Pos D4",
+          "custodian": "Dr. Anita Rao"
+        }
+      },
+      "timestamp": "2026-11-23T10:30:10.351Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429810267-l2twi",
+      "action": "CREATE_SAMPLE",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-1007",
+      "details": "Dr. Sarah Chen registered sample LAB-2026-1007 (COVID-19 Saliva Specimen Aliquot) at Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80�C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position B2",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:10.267Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429809888-wahb8",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:30:09.888Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-1795429029674-x6t6n",
+      "action": "LOGIN",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "User",
+      "entityId": "USR-001",
+      "details": "Dr. Sarah Chen (Admin) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T10:17:09.674Z",
+      "ipAddress": "::1"
+    },
+    {
+      "_id": "AUD-001",
+      "action": "UPDATE_SAMPLE",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-0005",
+      "details": "Ravi edited the quantity of sample LAB-2026-0005 on 10 Nov (Adjusted from 500 µl to 350 µl after aliquot distribution)",
+      "changes": {
+        "old": {
+          "quantity": 500
+        },
+        "new": {
+          "quantity": 350
+        }
+      },
+      "timestamp": "2026-02-10T11:22:00Z",
+      "ipAddress": "192.168.1.42"
+    },
+    {
+      "_id": "AUD-002",
+      "action": "TRANSFER_SAMPLE",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "Transfer",
+      "entityId": "TRF-001",
+      "details": "Anita moved sample LAB-2026-0001 from Freezer 1 to Freezer 2 for experiment",
+      "changes": {
+        "from": "Freezer 1",
+        "to": "Freezer 2"
+      },
+      "timestamp": "2026-02-05T14:30:00Z",
+      "ipAddress": "192.168.1.18"
+    },
+    {
+      "_id": "AUD-003",
+      "action": "CREATE_NOTE",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "Experiment",
+      "entityId": "EXP-001",
+      "details": "Anita logged experiment note: \"Used samples 0001 and 0002 for PCR test, results attached\"",
+      "changes": null,
+      "timestamp": "2026-02-06T16:00:00Z",
+      "ipAddress": "192.168.1.18"
+    },
+    {
+      "_id": "AUD-004",
+      "action": "CREATE_SAMPLE",
+      "performedBy": "Dr. Sarah Chen",
+      "performedRole": "Admin",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-0006",
+      "details": "Dr. Sarah Chen registered new specimen LAB-2026-0006 (Cell Culture) in Box 02 (Pos C4)",
+      "changes": null,
+      "timestamp": "2026-02-11T12:00:00Z",
+      "ipAddress": "192.168.1.10"
+    },
+    {
+      "_id": "AUD-005",
+      "action": "CREATE_SAMPLE",
+      "performedBy": "Dr. Anita Rao",
+      "performedRole": "Researcher",
+      "entityType": "Sample",
+      "entityId": "LAB-2026-0001",
+      "details": "Dr. Anita Rao registered sample LAB-2026-0001 (Whole Blood EDTA)",
+      "changes": null,
+      "timestamp": "2026-02-01T10:15:00Z",
+      "ipAddress": "192.168.1.18"
+    }
+  ],
+  "settings": {
+    "idPrefix": "LAB-",
+    "idFormat": "LAB-YYYY-XXXX",
+    "currentSequence": 1008,
+    "labName": "BioLedger Genomics & Specimen Institute",
+    "piName": "Dr. Sarah Chen",
+    "sampleTypes": [
+      "Blood",
+      "Serum",
+      "Tissue",
+      "DNA",
+      "RNA",
+      "Cell Culture",
+      "Enzyme",
+      "Plasma",
+      "Saliva",
+      "Urine",
+      "Proteins",
+      "Biopsy Core"
+    ],
+    "units": [
+      "ml",
+      "µl",
+      "mg",
+      "µg",
+      "vials",
+      "aliquots",
+      "plates"
+    ]
+  }
+}

@@ -1,0 +1,241 @@
+import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
+import { 
+  X, 
+  Lock, 
+  Mail, 
+  AlertCircle, 
+  LogIn, 
+  UserCheck, 
+  Eye, 
+  EyeOff, 
+  ShieldCheck,
+  CheckCircle2
+} from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+
+export default function LoginModal({ isOpen, onClose }) {
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
+
+  // Field errors
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [formError, setFormError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  if (!isOpen) return null;
+
+  const validateEmail = (val) => {
+    const trimmed = val.trim();
+    if (!trimmed) {
+      return 'Laboratory email address is required.';
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmed)) {
+      return 'Please enter a valid email address (e.g., name@lab.org).';
+    }
+    return '';
+  };
+
+  const validatePassword = (val) => {
+    if (!val) {
+      return 'Password is required to authenticate.';
+    }
+    if (val.length < 6) {
+      return 'Password must be at least 6 characters.';
+    }
+    return '';
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormError('');
+
+    const emailErr = validateEmail(email);
+    const passwordErr = validatePassword(password);
+
+    setEmailError(emailErr);
+    setPasswordError(passwordErr);
+
+    if (emailErr || passwordErr) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await login(email.trim().toLowerCase(), password);
+      onClose();
+    } catch (err) {
+      setFormError(err.message || 'Authentication failed. Please verify your email and password.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-md w-full overflow-hidden animate-scale-in my-auto max-h-[92vh] flex flex-col">
+        {/* Header Ribbon */}
+        <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 p-6 text-white relative">
+          <button
+            onClick={onClose}
+            className="absolute top-5 right-5 p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-white/90 hover:text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+          <div className="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-rose-200 mb-1">
+            <ShieldCheck className="w-4 h-4 text-rose-300" />
+            <span>Authorized Personnel Access</span>
+          </div>
+          <h2 className="text-2xl font-extrabold tracking-tight">Sign in to LabLedger</h2>
+          <p className="text-xs text-rose-100 mt-1">
+            Access specimen registries, cryogenic storage, and audit logs
+          </p>
+        </div>
+
+        {/* Form Body */}
+        <div className="p-6 sm:p-7">
+          {formError && (
+            <div className="mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start space-x-2.5 animate-fade-in shadow-xs">
+              <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <span className="font-bold block mb-0.5">Authentication Failed</span>
+                <span>{formError}</span>
+              </div>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email Field */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Laboratory Email
+                </label>
+                {email && !emailError && (
+                  <span className="text-[11px] text-emerald-600 flex items-center font-semibold">
+                    <CheckCircle2 className="w-3 h-3 mr-1" /> Valid
+                  </span>
+                )}
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError(validateEmail(e.target.value));
+                  }}
+                  onBlur={() => setEmailError(validateEmail(email))}
+                  placeholder="name@lab.org"
+                  autoComplete="email"
+                  className={`w-full pl-10 pr-3 py-2.5 bg-slate-50 border rounded-xl text-sm transition-all focus:outline-none focus:bg-white ${
+                    emailError 
+                      ? 'border-red-400 focus:ring-2 focus:ring-red-500/20 focus:border-red-600' 
+                      : 'border-slate-200 focus:ring-2 focus:ring-red-500/20 focus:border-red-600'
+                  }`}
+                  required
+                />
+              </div>
+              {emailError && (
+                <p className="mt-1.5 text-[11px] text-red-600 font-medium animate-fade-in flex items-center">
+                  <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                  <span>{emailError}</span>
+                </p>
+              )}
+            </div>
+
+            {/* Password Field */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Password
+                </label>
+              </div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Lock className="w-4 h-4" />
+                </div>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (passwordError) setPasswordError(validatePassword(e.target.value));
+                  }}
+                  onBlur={() => setPasswordError(validatePassword(password))}
+                  placeholder="Enter your account password"
+                  autoComplete="current-password"
+                  className={`w-full pl-10 pr-10 py-2.5 bg-slate-50 border rounded-xl text-sm transition-all focus:outline-none focus:bg-white ${
+                    passwordError 
+                      ? 'border-red-400 focus:ring-2 focus:ring-red-500/20 focus:border-red-600' 
+                      : 'border-slate-200 focus:ring-2 focus:ring-red-500/20 focus:border-red-600'
+                  }`}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+              {passwordError && (
+                <p className="mt-1.5 text-[11px] text-red-600 font-medium animate-fade-in flex items-center">
+                  <AlertCircle className="w-3 h-3 mr-1 flex-shrink-0" />
+                  <span>{passwordError}</span>
+                </p>
+              )}
+            </div>
+
+            {/* Remember Me Checkbox */}
+            <div className="flex items-center justify-between pt-1 text-xs">
+              <label className="flex items-center space-x-2 text-slate-600 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="rounded border-slate-300 text-red-600 focus:ring-red-500"
+                />
+                <span>Keep me signed in on this workstation</span>
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-500/25 hover:shadow-red-500/35 transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+            >
+              {loading ? (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <LogIn className="w-4 h-4" />
+                  <span>Authenticate to Logbook</span>
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Security & Provisioning Note */}
+          <div className="mt-6 pt-4 border-t border-slate-100 text-center">
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              🔒 <b>Security Notice:</b> Personnel accounts are strictly provisioned by the <b>Laboratory Director / PI (Admin)</b>. Login credentials and role privileges are delivered directly to your official email.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
