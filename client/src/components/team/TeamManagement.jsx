@@ -27,7 +27,6 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function TeamManagement() {
   const { user: currentUser, permissions } = useAuth();
@@ -236,11 +235,10 @@ export default function TeamManagement() {
         </div>
 
         {loading && users.length === 0 ? (
-          <ChemicalMixingLoader 
-            size="sm"
-            text="Querying Authorized Personnel Directory..."
-            subtext="Loading verified laboratory staff, roles, and cryptographic permissions"
-          />
+          <div className="p-12 text-center text-slate-500 text-xs">
+            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
+            <p className="font-medium text-slate-600">Loading authorized personnel directory...</p>
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">

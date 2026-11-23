@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import ChemicalMixingLoader from '../common/ChemicalMixingLoader';
 
 export default function ExperimentNotesView({ onOpenSampleDetails }) {
   const { user, permissions } = useAuth();
@@ -167,12 +166,9 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
       {/* Experiments Grid */}
       <div className="space-y-4">
         {loading ? (
-          <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs">
-            <ChemicalMixingLoader 
-              size="sm"
-              text="Synthesizing Experiment Assays..."
-              subtext="Parsing assay metrics, PCR amplifications, and reagent reactions"
-            />
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
+            <p>Loading experiment logs...</p>
           </div>
         ) : experiments.length === 0 ? (
           <div className="bg-white rounded-2xl p-12 text-center text-slate-500 border border-slate-200 text-xs">
