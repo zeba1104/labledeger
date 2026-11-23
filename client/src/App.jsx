@@ -121,8 +121,8 @@ function MainApp() {
       />
 
       {/* Main Body */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar */}
+      <div className="flex-1 flex">
+        {/* Sidebar (Fixed on the left) */}
         <Sidebar
           activeView={activeView}
           setActiveView={(view) => {
@@ -136,8 +136,8 @@ function MainApp() {
           setMobileOpen={setMobileOpen}
         />
 
-        {/* Viewport Content */}
-        <main className="flex-1 overflow-y-auto">
+        {/* Viewport Content - offset by lg:ml-64 so the fixed sidebar never overlaps */}
+        <main className="flex-1 lg:ml-64 min-w-0">
           {activeView === 'dashboard' && (
             <Dashboard
               key={refreshKey}

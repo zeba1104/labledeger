@@ -52,16 +52,16 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
         />
       )}
 
-      {/* Sidebar Container */}
+      {/* Sidebar Container - FIXED on screen */}
       <aside className={`
-        fixed lg:static top-16 bottom-0 left-0 z-30
+        fixed top-16 bottom-0 left-0 z-20
         w-64 bg-white border-r border-slate-200/90
         flex flex-col justify-between
         transition-transform duration-300 ease-in-out
         ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         {/* Navigation list */}
-        <div className="p-3.5 space-y-1 overflow-y-auto">
+        <div className="p-3.5 space-y-1 overflow-y-auto flex-1">
           <div className="px-3 pt-2 pb-1.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
             Digital Logbook Navigation
           </div>
@@ -102,7 +102,7 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
         </div>
 
         {/* Bottom Role Info Card */}
-        <div className="p-3.5 m-3 rounded-2xl bg-gradient-to-br from-rose-50 to-red-50 border border-red-100/90">
+        <div className="p-3.5 m-3 rounded-2xl bg-gradient-to-br from-rose-50 to-red-50 border border-red-100/90 flex-shrink-0">
           <div className="flex items-center space-x-2 mb-1.5">
             <ShieldCheck className="w-4 h-4 text-red-600" />
             <span className="text-xs font-bold text-slate-800">Role Status</span>
