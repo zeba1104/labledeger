@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { connectDB } from './config/db.js';
-import { loadDatabase, getDbData, updateCollection } from './models/dbAdapter.js';
+import { loadDatabase, getDbData, updateCollection, loadFromAtlas } from './models/dbAdapter.js';
 import { getInitialSeedData } from './data/seedData.js';
 
 import authRoutes from './routes/authRoutes.js';
@@ -40,27 +40,45 @@ app.use((req, res, next) => {
 });
 
 // Seed function to populate rich laboratory data on first run
-async function initDatabase() {
-  await connectDB();
-  loadDatabase();
+let initPromise = null;
+export async function initDatabase() {
+  if (!initPromise) {
+    initPromise = (async () => {
+      await connectDB();
+      loadDatabase();
+      await loadFromAtlas();
 
-  const data = getDbData();
-  if (!data.users || data.users.length === 0) {
-    console.log('🧪 Seeding initial LabLedger research data...');
-    const seed = await getInitialSeedData();
-    data.users = seed.users;
-    data.storageNodes = seed.storageNodes;
-    data.samples = seed.samples;
-    data.transfers = seed.transfers;
-    data.experiments = seed.experiments;
-    data.auditLogs = seed.auditLogs;
-    data.settings = seed.settings;
-    updateCollection('users', data.users);
-    console.log('✅ Seed completed: 4 roles, storage hierarchy, specimens, transfer chain & immutable audit logs ready!');
-  } else {
-    console.log(`📦 Loaded existing registry: ${data.samples?.length || 0} samples, ${data.storageNodes?.length || 0} storage nodes.`);
+      const data = getDbData();
+      if (!data.users || data.users.length === 0) {
+        console.log('🧪 Seeding initial LabLedger research data...');
+        const seed = await getInitialSeedData();
+        data.users = seed.users;
+        data.storageNodes = seed.storageNodes;
+        data.samples = seed.samples;
+        data.transfers = seed.transfers;
+        data.experiments = seed.experiments;
+        data.auditLogs = seed.auditLogs;
+        data.settings = seed.settings;
+        updateCollection('users', data.users);
+        console.log('✅ Seed completed: 4 roles, storage hierarchy, specimens, transfer chain & immutable audit logs ready!');
+      } else {
+        console.log(`📦 Loaded existing registry: ${data.samples?.length || 0} samples, ${data.storageNodes?.length || 0} storage nodes.`);
+      }
+    })();
   }
+  return initPromise;
 }
+
+// Middleware to ensure DB connection is ready for any incoming request
+app.use(async (req, res, next) => {
+  try {
+    await initDatabase();
+    next();
+  } catch (err) {
+    console.error('Database initialization error:', err);
+    res.status(500).json({ message: 'Database initialization failed' });
+  }
+});
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -89,10 +107,11 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server
-initDatabase().then(() => {
-  app.listen(PORT, () => {
-    console.log(`
+// Start Server locally or under standard Node host (Railway / local)
+if (!process.env.VERCEL) {
+  initDatabase().then(() => {
+    app.listen(PORT, () => {
+      console.log(`
 ╔═══════════════════════════════════════════════════════════════╗
 ║                   🔬 LABLEDGER BACKEND 🔬                     ║
 ║           Digital Logbook & Research Sample Tracker           ║
@@ -105,8 +124,11 @@ initDatabase().then(() => {
 ║    - Technician: tech@labledger.com       / password123       ║
 ║    - Auditor:    auditor@labledger.com    / password123       ║
 ╚═══════════════════════════════════════════════════════════════╝
-    `);
+      `);
+    });
+  }).catch(err => {
+    console.error('Fatal initialization error:', err);
   });
-}).catch(err => {
-  console.error('Fatal initialization error:', err);
-});
+}
+
+export default app;

@@ -45,7 +45,30 @@ export function saveDatabase() {
     }
     fs.writeFileSync(DATA_FILE, JSON.stringify(inMemoryData, null, 2), 'utf-8');
   } catch (err) {
-    console.error('Error saving database file:', err.message);
+    // In serverless environments disk may be read-only; Atlas keeps cloud persistence
+    console.warn('Local disk save notice (Atlas will handle persistence):', err.message);
+  }
+}
+
+export async function loadFromAtlas() {
+  try {
+    if (isConnectedToAtlas && mongoose.connection.readyState === 1) {
+      const db = mongoose.connection.db;
+      const collections = ['users', 'samples', 'storageNodes', 'transfers', 'experiments', 'auditLogs'];
+      for (const col of collections) {
+        const docs = await db.collection(col).find({}).toArray();
+        if (docs && docs.length > 0) {
+          inMemoryData[col] = docs;
+        }
+      }
+      const settingsDoc = await db.collection('settings').findOne({});
+      if (settingsDoc) {
+        inMemoryData.settings = settingsDoc;
+      }
+      console.log('✅ Loaded latest datasets directly from MongoDB Atlas Cloud!');
+    }
+  } catch (err) {
+    console.warn('Atlas fetch notice:', err.message);
   }
 }
 
