@@ -36,7 +36,7 @@ export default function LoginModal({ isOpen, onClose }) {
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(trimmed)) {
-      return 'Please enter a valid email address (e.g., name@lab.org).';
+      return 'Please enter a valid email address (e.g., name@yopmail.com).';
     }
     return '';
   };
@@ -138,7 +138,7 @@ export default function LoginModal({ isOpen, onClose }) {
                     if (emailError) setEmailError(validateEmail(e.target.value));
                   }}
                   onBlur={() => setEmailError(validateEmail(email))}
-                  placeholder="name@lab.org"
+                  placeholder="name@yopmail.com"
                   autoComplete="email"
                   className={`w-full pl-10 pr-3 py-2.5 bg-slate-50 border rounded-xl text-sm transition-all focus:outline-none focus:bg-white ${
                     emailError 

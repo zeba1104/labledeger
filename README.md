@@ -22,17 +22,21 @@ A modern, responsive, clinical digital logbook designed for small research teams
 
 You can sign in with any of these pre-seeded lab accounts (password for all: `password123`) or click any **1-Click Demo** button:
 
-1. **Admin (PI / Lab Director)**:
-   - Email: `admin@labledger.com`
+1. **Primary PI Director**:
+   - Email: `zeba.zaveri57@gmail.com`
+   - Password: `password123` (or `12345`)
    - Permissions: Unrestricted authority. Storage builder, user role management, transfer approvals, registry.
-2. **Researcher (Senior Molecular Biologist)**:
-   - Email: `researcher@labledger.com`
+2. **Admin (Lab Director)**:
+   - Email: `admin@yopmail.com`
+   - Permissions: Full administrative laboratory authority.
+3. **Researcher (Senior Molecular Biologist)**:
+   - Email: `researcher@yopmail.com`
    - Permissions: Specimen registration, transfer creation, experiment notes & assay logs, QR label printing.
-3. **Technician (Specimen Technician)**:
-   - Email: `tech@labledger.com`
-   - Permissions: QR scanning, receiving specimens, updating quantities/aliquots & status, recording moves. (Cannot delete specimens or manage users).
-4. **Viewer / Auditor (Compliance Auditor)**:
-   - Email: `auditor@labledger.com`
+4. **Technician (Specimen Technician)**:
+   - Email: `tech@yopmail.com`
+   - Permissions: QR scanning, receiving specimens, updating quantities/aliquots & status, recording moves.
+5. **Viewer / Auditor (Compliance Auditor)**:
+   - Email: `auditor@yopmail.com`
    - Permissions: Strictly read-only inspection of specimens, storage maps, transfer chains, and exportable regulatory audit logs.
 
 ---

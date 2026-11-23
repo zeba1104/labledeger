@@ -3,7 +3,7 @@
     {
       "_id": "USR-000",
       "name": "Zeba Zaveri",
-      "email": "zebazaveri57@gmail.com",
+      "email": "zeba.zaveri57@gmail.com",
       "role": "Admin",
       "department": "Principal Laboratory Director",
       "createdAt": "2026-11-23T11:58:22.337Z",
@@ -12,7 +12,7 @@
     {
       "_id": "USR-001",
       "name": "Dr. Sarah Chen",
-      "email": "admin@labledger.com",
+      "email": "admin@yopmail.com",
       "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
       "role": "Admin",
       "department": "Principal Investigator & Lab Director",
@@ -21,7 +21,7 @@
     {
       "_id": "USR-002",
       "name": "Dr. Anita Rao",
-      "email": "researcher@labledger.com",
+      "email": "researcher@yopmail.com",
       "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
       "role": "Researcher",
       "department": "Molecular Biology & Genetics",
@@ -30,7 +30,7 @@
     {
       "_id": "USR-003",
       "name": "Ravi Patel",
-      "email": "tech@labledger.com",
+      "email": "tech@yopmail.com",
       "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
       "role": "Technician",
       "department": "Specimen Processing & Biobank Ops",
@@ -39,7 +39,7 @@
     {
       "_id": "USR-004",
       "name": "Dr. Marcus Vance",
-      "email": "auditor@labledger.com",
+      "email": "auditor@yopmail.com",
       "password": "$2a$10$xuNbZe79R2i7e6TRcP90ee33hZTMJNRhtWRSoSD0YEGJJhrVpAs02",
       "role": "Viewer",
       "department": "Quality Assurance & Regulatory Compliance",
@@ -48,7 +48,7 @@
     {
       "_id": "USR-MWT62BVY",
       "name": "Alex Mercer",
-      "email": "alex.mercer@biobank.org",
+      "email": "alex.mercer@yopmail.com",
       "password": "$2a$10$Ubz8udfLF44ZmulazpvVqO5c1SGGnHhHZIWjo3S3csOOwAZBFhhL6",
       "role": "Technician",
       "department": "Specimen Cryo Vault",
@@ -57,7 +57,7 @@
     {
       "_id": "USR-MWT66KFX",
       "name": "Dr. John Doe",
-      "email": "john.doe.1795432547862@biobank.org",
+      "email": "john.doe.1795432547862@yopmail.com",
       "password": "$2a$10$ZvfP3FMhCNflJgaMCA9Cye/cFWTZyZs79vLdD7IaqxUeKQ.uskbLW",
       "role": "Technician",
       "department": "Clinical Ops",
@@ -66,7 +66,7 @@
     {
       "_id": "USR-MWT692V6",
       "name": "Dr. Elena Rostova",
-      "email": "scientist.5318@biobank.org",
+      "email": "scientist.5318@yopmail.com",
       "password": "$2a$10$IMsopPM9M/6FpRObAtybuOOAu9FrhUxTZ6urMFNz76rD2c8sL/sfi",
       "role": "Researcher",
       "department": "Genomics Sequencing Unit",
@@ -616,6 +616,30 @@
   ],
   "auditLogs": [
     {
+      "_id": "AUD-1795456790324-18rpf",
+      "action": "EXPIRY_ALERT_SURVEILLANCE",
+      "performedBy": "System (node-cron)",
+      "performedRole": "Surveillance Daemon",
+      "entityType": "Sample",
+      "entityId": "BATCH-MWTKM5V5",
+      "details": "Automated scan identified 3 specimen(s) expiring within 7 days. Dispatched email notices to 2 owner(s).",
+      "changes": null,
+      "timestamp": "2026-11-23T17:59:50.324Z",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "_id": "AUD-1795456226198-adk1d",
+      "action": "LOGIN",
+      "performedBy": "Ravi Patel",
+      "performedRole": "Technician",
+      "entityType": "User",
+      "entityId": "USR-003",
+      "details": "Ravi Patel (Technician) logged into LabLedger",
+      "changes": null,
+      "timestamp": "2026-11-23T17:50:26.198Z",
+      "ipAddress": "::1"
+    },
+    {
       "_id": "AUD-1795455200179-cuaxb",
       "action": "EXPIRY_ALERT_SURVEILLANCE",
       "performedBy": "System (node-cron)",
@@ -794,7 +818,7 @@
       "performedRole": "Admin",
       "entityType": "User",
       "entityId": "USR-MWT692V6",
-      "details": "Admin Dr. Sarah Chen registered new Researcher Dr. Elena Rostova (scientist.5318@biobank.org) and dispatched onboarding credentials email",
+      "details": "Admin Dr. Sarah Chen registered new Researcher Dr. Elena Rostova (scientist.5318@yopmail.com) and dispatched onboarding credentials email",
       "changes": null,
       "timestamp": "2026-11-23T11:17:45.311Z",
       "ipAddress": "::1"

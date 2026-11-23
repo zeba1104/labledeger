@@ -7,9 +7,18 @@ export async function getInitialSeedData() {
 
   const users = [
     {
+      _id: 'USR-000',
+      name: 'Zeba Zaveri',
+      email: 'zeba.zaveri57@gmail.com',
+      password: hashedPassword,
+      role: 'Admin',
+      department: 'Principal Laboratory Director',
+      createdAt: '2026-01-01T08:00:00Z'
+    },
+    {
       _id: 'USR-001',
       name: 'Dr. Sarah Chen',
-      email: 'admin@labledger.com',
+      email: 'admin@yopmail.com',
       password: hashedPassword,
       role: 'Admin', // Lab owner / PI
       department: 'Principal Investigator & Lab Director',
@@ -18,7 +27,7 @@ export async function getInitialSeedData() {
     {
       _id: 'USR-002',
       name: 'Dr. Anita Rao',
-      email: 'researcher@labledger.com',
+      email: 'researcher@yopmail.com',
       password: hashedPassword,
       role: 'Researcher', // Scientist running studies
       department: 'Molecular Biology & Genetics',
@@ -27,7 +36,7 @@ export async function getInitialSeedData() {
     {
       _id: 'USR-003',
       name: 'Ravi Patel',
-      email: 'tech@labledger.com',
+      email: 'tech@yopmail.com',
       password: hashedPassword,
       role: 'Technician', // Lab staff handling day-to-day work
       department: 'Specimen Processing & Biobank Ops',
@@ -36,7 +45,7 @@ export async function getInitialSeedData() {
     {
       _id: 'USR-004',
       name: 'Dr. Marcus Vance',
-      email: 'auditor@labledger.com',
+      email: 'auditor@yopmail.com',
       password: hashedPassword,
       role: 'Viewer', // Supervisor, reviewer, external auditor
       department: 'Quality Assurance & Regulatory Compliance',

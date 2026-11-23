@@ -67,7 +67,7 @@ export async function checkAndNotifyExpiringSamples(daysThreshold = 7, sendEmail
           (u.email && sample.registeredBy && u.email.trim().toLowerCase() === sample.registeredBy.trim().toLowerCase())
         );
 
-        const email = matchedUser?.email || (sample.registeredBy?.includes('@') ? sample.registeredBy : 'admin@labledger.com');
+        const email = matchedUser?.email || (sample.registeredBy?.includes('@') ? sample.registeredBy : 'admin@yopmail.com');
         const ownerName = matchedUser?.name || sample.registeredBy || 'Laboratory Researcher';
 
         if (!groupedByRecipient[email]) {

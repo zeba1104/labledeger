@@ -18,7 +18,16 @@ router.post('/login', async (req, res) => {
   }
 
   const users = getCollection('users');
-  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  const targetEmail = email.trim().toLowerCase();
+  const user = users.find(u => {
+    const userEmail = u.email.toLowerCase();
+    if (userEmail === targetEmail) return true;
+    // Support dot-insensitive matching for Gmail addresses (e.g. zeba.zaveri57@gmail.com and zebazaveri57@gmail.com)
+    if (targetEmail.includes('@gmail.com') && userEmail.includes('@gmail.com')) {
+      return targetEmail.replace(/\./g, '') === userEmail.replace(/\./g, '');
+    }
+    return false;
+  });
 
   if (!user) {
     return res.status(401).json({ message: 'Invalid credentials. User not found.' });

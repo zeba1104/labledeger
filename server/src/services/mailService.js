@@ -43,7 +43,7 @@ function getTransporter() {
 
 export async function sendWelcomeCredentialsMail({ to, name, role, department, password, registeredBy }) {
   const portalUrl = process.env.CLIENT_URL || 'http://localhost:3000';
-  const fromAddress = process.env.SMTP_FROM || '"LabLedger Biobank Systems" <noreply@labledger.org>';
+  const fromAddress = process.env.SMTP_FROM || '"LabLedger Biobank Systems" <noreply@yopmail.com>';
 
   const roleDescriptions = {
     Researcher: 'Scientist privileges: Register & edit specimens, manage transfers, record experiment notes & assay findings, and print QR cryo-labels.',
@@ -158,7 +158,7 @@ export async function sendWelcomeCredentialsMail({ to, name, role, department, p
 
 export async function sendExpiryAlertMail({ to, ownerName, expiringSamples, daysThreshold = 7 }) {
   const portalUrl = process.env.CLIENT_URL || 'http://localhost:3000';
-  const fromAddress = process.env.SMTP_FROM || '"LabLedger Biobank Systems" <alerts@labledger.org>';
+  const fromAddress = process.env.SMTP_FROM || '"LabLedger Biobank Systems" <alerts@yopmail.com>';
 
   const samplesListRows = expiringSamples.map(s => `
     <tr style="border-bottom: 1px solid #f1f5f9;">

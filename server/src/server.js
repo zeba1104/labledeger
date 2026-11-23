@@ -123,10 +123,11 @@ if (!process.env.VERCEL) {
 ║  • Server running on: http://localhost:${PORT}                  ║
 ║  • Health check:      http://localhost:${PORT}/api/health       ║
 ║  • Default Role Credentials:                                  ║
-║    - Admin:      admin@labledger.com      / password123       ║
-║    - Researcher: researcher@labledger.com / password123       ║
-║    - Technician: tech@labledger.com       / password123       ║
-║    - Auditor:    auditor@labledger.com    / password123       ║
+║    - PI Admin:   zeba.zaveri57@gmail.com  / 12345             ║
+║    - Admin:      admin@yopmail.com        / password123       ║
+║    - Researcher: researcher@yopmail.com   / password123       ║
+║    - Technician: tech@yopmail.com         / password123       ║
+║    - Auditor:    auditor@yopmail.com      / password123       ║
 ╚═══════════════════════════════════════════════════════════════╝
       `);
     });

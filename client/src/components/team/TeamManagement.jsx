@@ -417,7 +417,7 @@ export default function TeamManagement() {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="alex.morgan@lab.org"
+                        placeholder="alex.morgan@yopmail.com"
                         className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs transition-colors"
                         required
                       />
