@@ -94,6 +94,35 @@ export default function SamplesList({
     Quarantined: 'bg-red-50 text-red-800 border-red-300'
   };
 
+  const getExpiryBadge = (expiryDate) => {
+    if (!expiryDate) return null;
+    const expiry = new Date(expiryDate);
+    const now = new Date();
+    const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const expiryDay = new Date(Date.UTC(expiry.getUTCFullYear(), expiry.getUTCMonth(), expiry.getUTCDate()));
+    const days = Math.round((expiryDay.getTime() - startOfToday.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (days < 0) {
+      return (
+        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-800 border border-red-200">
+          ⛔ Expired
+        </span>
+      );
+    }
+    if (days <= 7) {
+      return (
+        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+          ⚠️ Exp in {days}d
+        </span>
+      );
+    }
+    return (
+      <span className="text-[10px] text-slate-400">
+        Exp: {expiry.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
+      </span>
+    );
+  };
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6">
       {/* Top Header Bar */}
@@ -253,9 +282,12 @@ export default function SamplesList({
                         <div className="font-bold text-slate-800 text-sm leading-tight">{sample.name}</div>
                       </div>
                     </div>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border flex-shrink-0 ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
-                      {sample.status}
-                    </span>
+                    <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
+                        {sample.status}
+                      </span>
+                      {getExpiryBadge(sample.expiryDate)}
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
@@ -388,11 +420,16 @@ export default function SamplesList({
                       )}
                     </td>
 
-                    {/* Status */}
+                    {/* Status & Expiry */}
                     <td className="py-3.5 px-4 whitespace-nowrap">
-                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
-                        {sample.status}
-                      </span>
+                      <div className="space-y-1">
+                        <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
+                          {sample.status}
+                        </span>
+                        <div>
+                          {getExpiryBadge(sample.expiryDate)}
+                        </div>
+                      </div>
                     </td>
 
                     {/* Registered By */}

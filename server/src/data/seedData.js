@@ -223,6 +223,7 @@ export async function getInitialSeedData() {
       storagePath: 'Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A1',
       status: 'Stored',
       notes: 'Collected under IRB Protocol #2025-089. Fasting donor.',
+      expiryDate: '2026-11-15T09:00:00.000Z', // Expired
       registeredBy: 'Dr. Anita Rao',
       registeredRole: 'Researcher',
       qrCodeData: await genQr('LAB-2026-0001: Whole Blood EDTA (Position A1)'),
@@ -250,6 +251,7 @@ export async function getInitialSeedData() {
       storagePath: 'Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A2',
       status: 'Stored',
       notes: 'Extracted using silica-membrane spin columns. High purity.',
+      expiryDate: '2027-04-15T00:00:00.000Z',
       registeredBy: 'Dr. Anita Rao',
       registeredRole: 'Researcher',
       qrCodeData: await genQr('LAB-2026-0002: Purified Genomic DNA (Position A2)'),
@@ -277,6 +279,7 @@ export async function getInitialSeedData() {
       storagePath: 'Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 1 > Rack Alpha > CryoBox Red #1 > Position A3',
       status: 'Stored',
       notes: 'RNase-free water solution. Keep on dry ice during processing.',
+      expiryDate: '2026-11-25T11:00:00.000Z', // 2 days left
       registeredBy: 'Dr. Anita Rao',
       registeredRole: 'Researcher',
       qrCodeData: await genQr('LAB-2026-0003: Total Cellular RNA Isolate (Position A3)'),
@@ -304,6 +307,7 @@ export async function getInitialSeedData() {
       storagePath: 'Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 > Rack Beta > CryoBox Blue #2 > Position B1',
       status: 'Stored',
       notes: 'Calibrated standard for ELISA microplate assays.',
+      expiryDate: '2026-11-27T14:00:00.000Z', // 4 days left
       registeredBy: 'Ravi Patel',
       registeredRole: 'Technician',
       qrCodeData: await genQr('LAB-2026-0004: Human Serum Albumin Reference (Position B1)'),
@@ -331,6 +335,7 @@ export async function getInitialSeedData() {
       storagePath: 'Genomics Clean Suite 202 > Enzyme & Reagent Freezer (-20°C) > Shelf 1 > Rack Gamma > PCR Reagents Box #3 > Position A1',
       status: 'Stored',
       notes: '50% glycerol storage buffer. Do not freeze-thaw repeatedly.',
+      expiryDate: '2026-11-30T18:00:00.000Z', // 7 days left (expires on 30 Nov)
       registeredBy: 'Ravi Patel',
       registeredRole: 'Technician',
       qrCodeData: await genQr('LAB-2026-0005: High-Fidelity Taq Polymerase (Position A1)'),
@@ -358,6 +363,7 @@ export async function getInitialSeedData() {
       storagePath: 'Main Bio-Repository 104 > Ultra-Low Cryo Freezer (-80°C #1) > Shelf 2 > Rack Beta > CryoBox Blue #2 > Position C4',
       status: 'Stored',
       notes: 'Passage 4. Thaw at 37°C water bath for exactly 90 seconds.',
+      expiryDate: '2027-08-01T00:00:00.000Z',
       registeredBy: 'Dr. Sarah Chen',
       registeredRole: 'Admin',
       qrCodeData: await genQr('LAB-2026-0006: Cryopreserved Hepatocyte Culture (Position C4)'),

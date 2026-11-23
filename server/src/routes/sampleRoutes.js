@@ -4,6 +4,7 @@ import { getCollection, updateCollection } from '../models/dbAdapter.js';
 import { authenticate, authorizeRoles, forbidViewer } from '../middleware/auth.js';
 import { generateSampleId } from '../services/sampleIdService.js';
 import { logAudit } from '../services/auditService.js';
+import { checkAndNotifyExpiringSamples } from '../services/expiryAlertService.js';
 
 const router = express.Router();
 
@@ -43,6 +44,37 @@ router.get('/', authenticate, (req, res) => {
   }
 
   res.json(samples);
+});
+
+// GET /api/samples/alerts/expiring
+// Surveillance query: Returns samples expiring within the threshold (default 7 days) and expired samples
+router.get('/alerts/expiring', authenticate, async (req, res) => {
+  try {
+    const days = parseInt(req.query.days || '7', 10);
+    const result = await checkAndNotifyExpiringSamples(days, false);
+    res.json(result);
+  } catch (err) {
+    console.error('Error querying expiring samples:', err);
+    res.status(500).json({ message: 'Error checking expiring samples: ' + err.message });
+  }
+});
+
+// POST /api/samples/alerts/trigger-cron
+// Manual/Vercel cron trigger: Scans and immediately dispatches nodemailer alert emails to sample owners
+router.post('/alerts/trigger-cron', authenticate, forbidViewer, async (req, res) => {
+  try {
+    const days = parseInt(req.body?.days || req.query?.days || '7', 10);
+    console.log(`🚀 [Manual Trigger] Initiating expiry check & email alerts for threshold: ${days} days...`);
+    const result = await checkAndNotifyExpiringSamples(days, true);
+
+    res.json({
+      message: `Surveillance complete: ${result.expiringCount} sample(s) expiring in ${days} days. Dispatched notifications.`,
+      result
+    });
+  } catch (err) {
+    console.error('Error triggering expiry surveillance:', err);
+    res.status(500).json({ message: 'Error triggering expiry surveillance: ' + err.message });
+  }
 });
 
 // GET sample by sampleId (for QR code scanner quick lookup: e.g. /api/samples/by-id/LAB-2026-0001)
@@ -105,7 +137,8 @@ router.post('/', authenticate, forbidViewer, authorizeRoles('Admin', 'Researcher
       storageLocation, // { roomId, freezerId, shelfId, rackId, boxId, position }
       storagePath,
       notes,
-      customSampleId
+      customSampleId,
+      expiryDate
     } = req.body;
 
     // Validations
@@ -178,6 +211,7 @@ router.post('/', authenticate, forbidViewer, authorizeRoles('Admin', 'Researcher
       storagePath: storagePath || 'Unassigned',
       status: 'Stored',
       notes: notes || '',
+      expiryDate: expiryDate ? new Date(expiryDate).toISOString() : null,
       registeredBy: req.user.name,
       registeredRole: req.user.role,
       qrCodeData,
@@ -222,13 +256,14 @@ router.put('/:id', authenticate, forbidViewer, authorizeRoles('Admin', 'Research
 
   const existing = samples[index];
   const oldData = { ...existing };
-  const { name, type, quantity, unit, concentration, donorId, temperatureReq, status, notes, storageLocation, storagePath } = req.body;
+  const { name, type, quantity, unit, concentration, donorId, temperatureReq, status, notes, storageLocation, storagePath, expiryDate } = req.body;
 
   // Technician restrictions: Can update quantity, status, notes, but not change name or type if not allowed
   if (req.user.role === 'Technician') {
     if (quantity !== undefined) existing.quantity = Number(quantity);
     if (status !== undefined) existing.status = status;
     if (notes !== undefined) existing.notes = notes;
+    if (expiryDate !== undefined) existing.expiryDate = expiryDate ? new Date(expiryDate).toISOString() : null;
   } else {
     // Admin & Researcher
     if (name) existing.name = name;
@@ -242,6 +277,7 @@ router.put('/:id', authenticate, forbidViewer, authorizeRoles('Admin', 'Research
     if (notes !== undefined) existing.notes = notes;
     if (storageLocation) existing.storageLocation = storageLocation;
     if (storagePath) existing.storagePath = storagePath;
+    if (expiryDate !== undefined) existing.expiryDate = expiryDate ? new Date(expiryDate).toISOString() : null;
   }
 
   existing.updatedAt = new Date().toISOString();

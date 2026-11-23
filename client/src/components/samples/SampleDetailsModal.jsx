@@ -57,6 +57,23 @@ export default function SampleDetailsModal({
   const experiments = data?.experiments || [];
   const auditLogs = data?.auditLogs || [];
 
+  // Calculate expiry status
+  let expiryInfo = null;
+  if (sample.expiryDate) {
+    const expiry = new Date(sample.expiryDate);
+    const now = new Date();
+    const startOfToday = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const expiryDay = new Date(Date.UTC(expiry.getUTCFullYear(), expiry.getUTCMonth(), expiry.getUTCDate()));
+    const daysLeft = Math.round((expiryDay.getTime() - startOfToday.getTime()) / (1000 * 60 * 60 * 24));
+
+    expiryInfo = {
+      daysLeft,
+      formattedDate: expiry.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+      isExpired: daysLeft < 0,
+      isExpiringSoon: daysLeft >= 0 && daysLeft <= 7
+    };
+  }
+
   return createPortal(
     <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5">
       <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-4xl w-full overflow-hidden animate-scale-in my-auto max-h-[92vh] flex flex-col">
@@ -79,6 +96,17 @@ export default function SampleDetailsModal({
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-rose-100">
               Temp: {sample.temperatureReq || '-80°C'}
             </span>
+            {expiryInfo && (
+              <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                expiryInfo.isExpired 
+                  ? 'bg-red-950/80 text-rose-200 border border-red-400' 
+                  : expiryInfo.isExpiringSoon 
+                  ? 'bg-amber-300 text-amber-950 font-extrabold animate-pulse' 
+                  : 'bg-emerald-400/30 text-emerald-100 border border-emerald-300/40'
+              }`}>
+                {expiryInfo.isExpired ? `⛔ Expired (${Math.abs(expiryInfo.daysLeft)}d ago)` : expiryInfo.isExpiringSoon ? `⚠️ Expires in ${expiryInfo.daysLeft}d` : `Exp: ${expiryInfo.formattedDate}`}
+              </span>
+            )}
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -212,7 +240,38 @@ export default function SampleDetailsModal({
                       <span className="text-[10px] text-slate-400 uppercase">Registration Date</span>
                       <p className="text-xs font-bold text-slate-800">{new Date(sample.createdAt).toLocaleString()}</p>
                     </div>
+                    <div>
+                      <span className="text-[10px] text-slate-400 uppercase">Storage Expiry Date</span>
+                      {expiryInfo ? (
+                        <p className={`text-xs font-extrabold ${
+                          expiryInfo.isExpired 
+                            ? 'text-red-700' 
+                            : expiryInfo.isExpiringSoon 
+                            ? 'text-amber-700' 
+                            : 'text-emerald-700'
+                        }`}>
+                          {expiryInfo.formattedDate} ({expiryInfo.isExpired ? `Expired ${Math.abs(expiryInfo.daysLeft)}d ago` : `${expiryInfo.daysLeft}d remaining`})
+                        </p>
+                      ) : (
+                        <p className="text-xs text-slate-500 font-medium">No limit assigned</p>
+                      )}
+                    </div>
                   </div>
+
+                  {expiryInfo && (expiryInfo.isExpired || expiryInfo.isExpiringSoon) && (
+                    <div className={`p-2.5 rounded-xl border flex items-center space-x-2 text-[11px] font-semibold ${
+                      expiryInfo.isExpired 
+                        ? 'bg-red-50 text-red-800 border-red-200' 
+                        : 'bg-amber-50 text-amber-800 border-amber-200'
+                    }`}>
+                      <span className="text-sm">{expiryInfo.isExpired ? '⛔' : '⚠️'}</span>
+                      <span>
+                        {expiryInfo.isExpired 
+                          ? `This specimen has passed its maximum storage duration (${expiryInfo.formattedDate}). Quarantine and log disposal.`
+                          : `Cold-chain alert: Specimen expires in ${expiryInfo.daysLeft} day(s) on ${expiryInfo.formattedDate}. Replenish stock or schedule assay.`}
+                      </span>
+                    </div>
+                  )}
 
                   {sample.notes && (
                     <div className="pt-2 border-t border-slate-200">

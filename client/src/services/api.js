@@ -60,6 +60,8 @@ export const api = {
   createSample: (data) => apiRequest('/samples', { method: 'POST', body: JSON.stringify(data) }),
   updateSample: (id, data) => apiRequest(`/samples/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
   deleteSample: (id) => apiRequest(`/samples/${id}`, { method: 'DELETE' }),
+  getExpiringAlerts: (days = 7) => apiRequest(`/samples/alerts/expiring?days=${days}`),
+  triggerExpiryCron: (days = 7) => apiRequest('/samples/alerts/trigger-cron', { method: 'POST', body: JSON.stringify({ days }) }),
 
   // Storage
   getStorageTree: () => apiRequest('/storage/tree'),

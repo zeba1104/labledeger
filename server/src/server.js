@@ -15,6 +15,7 @@ import transferRoutes from './routes/transferRoutes.js';
 import experimentRoutes from './routes/experimentRoutes.js';
 import auditRoutes from './routes/auditRoutes.js';
 import statsRoutes from './routes/statsRoutes.js';
+import { initExpiryCron } from './services/expiryAlertService.js';
 
 dotenv.config();
 
@@ -64,6 +65,9 @@ export async function initDatabase() {
       } else {
         console.log(`📦 Loaded existing registry: ${data.samples?.length || 0} samples, ${data.storageNodes?.length || 0} storage nodes.`);
       }
+
+      // Initialize daily node-cron background alert service
+      initExpiryCron();
     })();
   }
   return initPromise;

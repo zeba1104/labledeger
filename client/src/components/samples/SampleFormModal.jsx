@@ -31,6 +31,7 @@ export default function SampleFormModal({
   const [concentration, setConcentration] = useState('');
   const [donorId, setDonorId] = useState('');
   const [temperatureReq, setTemperatureReq] = useState('-80°C');
+  const [expiryDate, setExpiryDate] = useState('');
   const [notes, setNotes] = useState('');
   const [status, setStatus] = useState('Stored');
 
@@ -55,6 +56,7 @@ export default function SampleFormModal({
         setConcentration(sampleToEdit.concentration || '');
         setDonorId(sampleToEdit.donorId || '');
         setTemperatureReq(sampleToEdit.temperatureReq || '-80°C');
+        setExpiryDate(sampleToEdit.expiryDate ? sampleToEdit.expiryDate.split('T')[0] : '');
         setNotes(sampleToEdit.notes || '');
         setStatus(sampleToEdit.status || 'Stored');
         if (sampleToEdit.storageLocation) {
@@ -70,6 +72,7 @@ export default function SampleFormModal({
         setConcentration('');
         setDonorId('');
         setTemperatureReq('-80°C');
+        setExpiryDate('');
         setNotes('');
         setStatus('Stored');
         if (prefilledLocation) {
@@ -158,6 +161,7 @@ export default function SampleFormModal({
           concentration,
           donorId,
           temperatureReq,
+          expiryDate: expiryDate ? new Date(expiryDate).toISOString() : null,
           status,
           notes,
           storageLocation,
@@ -172,6 +176,7 @@ export default function SampleFormModal({
           concentration,
           donorId,
           temperatureReq,
+          expiryDate: expiryDate ? new Date(expiryDate).toISOString() : null,
           status,
           notes,
           storageLocation,
@@ -350,6 +355,39 @@ export default function SampleFormModal({
                   <option value="4°C">Cold Room / Fridge (4°C)</option>
                   <option value="20°C">Room Temperature (20°C)</option>
                   <option value="-196°C">Liquid Nitrogen Vapor (-196°C)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Row 4: Expiry Date & Specimen Status */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1 flex items-center justify-between">
+                  <span>Storage Expiry Date</span>
+                  <span className="text-[10px] text-amber-600 font-semibold normal-case">Alerts via node-cron</span>
+                </label>
+                <input
+                  type="date"
+                  value={expiryDate}
+                  onChange={(e) => setExpiryDate(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+                />
+              </div>
+
+              <div>
+                <label className="block font-bold uppercase tracking-wider text-slate-700 mb-1">
+                  Specimen Status
+                </label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+                >
+                  <option value="Stored">Stored (In Cryo Storage)</option>
+                  <option value="In Transit">In Transit (Benchtop / Transfer)</option>
+                  <option value="In Use">In Use (Active Assay / Experiment)</option>
+                  <option value="Disposed">Disposed / Archived</option>
+                  <option value="Quarantined">Quarantined (Quality Hold)</option>
                 </select>
               </div>
             </div>

@@ -15,7 +15,12 @@ import {
   Layers,
   ArrowRight,
   TrendingUp,
-  Activity
+  Activity,
+  Calendar,
+  Mail,
+  Send,
+  AlertCircle,
+  Bell
 } from 'lucide-react';
 import { api } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
@@ -28,7 +33,10 @@ export default function Dashboard({
 }) {
   const { user, permissions } = useAuth();
   const [stats, setStats] = useState(null);
+  const [expiryAlerts, setExpiryAlerts] = useState({ expiringSoon: [], expired: [], expiringCount: 0, expiredCount: 0 });
   const [loading, setLoading] = useState(true);
+  const [dispatchingEmails, setDispatchingEmails] = useState(false);
+  const [emailAlertSuccess, setEmailAlertSuccess] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -38,12 +46,31 @@ export default function Dashboard({
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const data = await api.getStats();
-      setStats(data);
+      const [statsRes, alertsRes] = await Promise.all([
+        api.getStats(),
+        api.getExpiringAlerts(7).catch(() => ({ expiringSoon: [], expired: [], expiringCount: 0, expiredCount: 0 }))
+      ]);
+      setStats(statsRes);
+      setExpiryAlerts(alertsRes || { expiringSoon: [], expired: [], expiringCount: 0, expiredCount: 0 });
     } catch (err) {
       setError(err.message || 'Failed to load dashboard metrics.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleTriggerEmailAlerts = async () => {
+    try {
+      setDispatchingEmails(true);
+      setEmailAlertSuccess('');
+      const res = await api.triggerExpiryCron(7);
+      const count = res?.result?.dispatchResults?.length || 0;
+      setEmailAlertSuccess(`✅ Surveillance scan finished: Nodemailer alert email dispatched to ${count} specimen owner(s)!`);
+      setTimeout(() => setEmailAlertSuccess(''), 7000);
+    } catch (err) {
+      alert('Failed to dispatch alert emails: ' + err.message);
+    } finally {
+      setDispatchingEmails(false);
     }
   };
 
@@ -127,6 +154,135 @@ export default function Dashboard({
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Cold-Chain Expiry & Storage Alerts Ribbon */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-rose-500/10 to-red-500/10 border border-amber-300/60 rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-start sm:items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-700 border border-amber-400/40 flex items-center justify-center flex-shrink-0 shadow-xs">
+              <AlertTriangle className="w-5 h-5 text-amber-600 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
+                  Expiry & Storage Alerts
+                </h3>
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-800 border border-amber-300">
+                  ⚠️ {expiryAlerts.expiringCount || 0} samples expiring in 7 days
+                </span>
+                {expiryAlerts.expiredCount > 0 && (
+                  <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-red-100 text-red-800 border border-red-300">
+                    ⛔ {expiryAlerts.expiredCount} expired
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Automated daily surveillance (<code className="text-red-700 font-bold bg-white/80 px-1 py-0.5 rounded">node-cron</code> @ 08:00 AM) monitors viability limits and notifies sample owners via <code className="text-red-700 font-bold bg-white/80 px-1 py-0.5 rounded">nodemailer</code>.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleTriggerEmailAlerts}
+              disabled={dispatchingEmails}
+              className="btn-shimmer inline-flex items-center px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md shadow-red-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 flex-shrink-0"
+            >
+              {dispatchingEmails ? (
+                <>
+                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin mr-1.5" />
+                  <span>Dispatching Mails...</span>
+                </>
+              ) : (
+                <>
+                  <Mail className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Send Email Alert Now</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Success Confirmation Toast */}
+        {emailAlertSuccess && (
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold rounded-xl flex items-center space-x-2 animate-fade-in">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <span>{emailAlertSuccess}</span>
+          </div>
+        )}
+
+        {/* Expiring Specimens Card Grid */}
+        {expiryAlerts.expiringSoon && expiryAlerts.expiringSoon.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
+            {expiryAlerts.expiringSoon.map((sample) => (
+              <div
+                key={sample.sampleId || sample._id}
+                onClick={() => onOpenSampleDetails && onOpenSampleDetails(sample)}
+                className="bg-white/90 hover:bg-white rounded-2xl p-4 border border-amber-200/90 hover:border-amber-400 shadow-xs hover:shadow-md transition-all cursor-pointer group space-y-2.5 relative overflow-hidden"
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 to-rose-500" />
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <span className="font-mono text-xs font-extrabold text-red-600 group-hover:underline">
+                      {sample.sampleId}
+                    </span>
+                    <h4 className="font-bold text-sm text-slate-900 group-hover:text-red-700 transition-colors line-clamp-1">
+                      {sample.name}
+                    </h4>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 whitespace-nowrap flex-shrink-0">
+                    {sample.daysRemaining <= 0 ? 'Expires Today' : `${sample.daysRemaining}d left`}
+                  </span>
+                </div>
+
+                <div className="text-[11px] text-slate-600 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400 font-medium">Type:</span>
+                    <span className="font-semibold text-slate-700">{sample.type}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400 font-medium">Expiry Date:</span>
+                    <span className="font-bold font-mono text-slate-800">
+                      {sample.expiryDate ? new Date(sample.expiryDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-400 font-medium">Assigned Custodian:</span>
+                    <span className="font-medium text-slate-800 truncate max-w-[130px]">{sample.registeredBy}</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                  <span className="text-slate-400 truncate max-w-[180px]">{sample.storagePath || 'Unassigned'}</span>
+                  <span className="font-bold text-red-600 group-hover:translate-x-0.5 transition-transform flex items-center">
+                    Inspect &rarr;
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Expired Samples Notification Strip */}
+        {expiryAlerts.expired && expiryAlerts.expired.length > 0 && (
+          <div className="p-3 bg-red-50/80 border border-red-200 rounded-xl flex items-center justify-between text-xs">
+            <div className="flex items-center space-x-2">
+              <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
+              <span className="font-bold text-red-800">Quarantine Action Required:</span>
+              <span className="text-red-700">
+                {expiryAlerts.expired.map(s => `${s.sampleId} (${s.name})`).join(', ')} passed maximum storage viability.
+              </span>
+            </div>
+            <button
+              onClick={() => setActiveView('samples')}
+              className="text-red-800 font-bold hover:underline flex items-center ml-2 flex-shrink-0"
+            >
+              <span>View in Registry</span>
+              <ArrowRight className="w-3 h-3 ml-1" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Primary KPI Stats Grid */}

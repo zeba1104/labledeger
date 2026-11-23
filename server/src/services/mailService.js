@@ -155,3 +155,126 @@ export async function sendWelcomeCredentialsMail({ to, name, role, department, p
     };
   }
 }
+
+export async function sendExpiryAlertMail({ to, ownerName, expiringSamples, daysThreshold = 7 }) {
+  const portalUrl = process.env.CLIENT_URL || 'http://localhost:3000';
+  const fromAddress = process.env.SMTP_FROM || '"LabLedger Biobank Systems" <alerts@labledger.org>';
+
+  const samplesListRows = expiringSamples.map(s => `
+    <tr style="border-bottom: 1px solid #f1f5f9;">
+      <td style="padding: 12px 8px; font-weight: 700; color: #be123c; font-family: monospace;">${s.sampleId}</td>
+      <td style="padding: 12px 8px; font-weight: 600; color: #1e293b;">
+        ${s.name}
+        <div style="font-size: 11px; color: #64748b; font-weight: normal;">${s.type} &bull; ${s.quantity || ''} ${s.unit || ''}</div>
+      </td>
+      <td style="padding: 12px 8px; font-size: 12px; color: #475569;">${s.storagePath || 'Unassigned'}</td>
+      <td style="padding: 12px 8px; font-size: 12px; font-family: monospace; white-space: nowrap;">
+        ${s.expiryDate ? new Date(s.expiryDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A'}
+      </td>
+      <td style="padding: 12px 8px; text-align: center;">
+        <span style="display: inline-block; padding: 4px 8px; border-radius: 9999px; font-size: 11px; font-weight: 700; ${
+          s.daysRemaining <= 0
+            ? 'background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca;'
+            : s.daysRemaining <= 3
+            ? 'background: #fff1f2; color: #be123c; border: 1px solid #fecdd3;'
+            : 'background: #fffbeb; color: #b45309; border: 1px solid #fde68a;'
+        }">
+          ${s.daysRemaining <= 0 ? 'EXPIRED' : `${s.daysRemaining}d left`}
+        </span>
+      </td>
+    </tr>
+  `).join('');
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; color: #1e293b; }
+    .container { max-width: 650px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(190, 18, 60, 0.08); }
+    .header { background: linear-gradient(135deg, #b91c1c, #dc2626, #991b1b); padding: 30px 24px; text-align: center; color: #ffffff; }
+    .header h1 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .header p { margin: 6px 0 0; font-size: 13px; color: #fee2e2; }
+    .content { padding: 28px 24px; }
+    .alert-banner { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; font-size: 13px; color: #9f1239; line-height: 1.5; }
+    .specimen-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 24px; }
+    .specimen-table th { background: #f8fafc; padding: 10px 8px; text-align: left; font-weight: 700; color: #64748b; border-bottom: 2px solid #e2e8f0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .button { display: inline-block; background: #dc2626; color: #ffffff !important; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; font-size: 13px; text-align: center; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.25); }
+    .footer { background: #f8fafc; padding: 16px 20px; text-align: center; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⚠️ LabLedger Storage & Expiry Warning</h1>
+      <p>Automated Cold-Chain & Reagent Viability Surveillance</p>
+    </div>
+    <div class="content">
+      <div class="alert-banner">
+        <strong>Action Recommended:</strong> You have <strong>${expiringSamples.length} specimen(s)</strong> approaching their maximum storage duration or expiration date within the next <strong>${daysThreshold} days</strong>.
+      </div>
+      <p style="font-size: 14px; margin: 0 0 16px; color: #334155;">
+        Dear <b>${ownerName || 'Laboratory Scientist'}</b>,
+      </p>
+      <p style="font-size: 13px; line-height: 1.6; color: #475569; margin: 0 0 20px;">
+        In accordance with laboratory Good Laboratory Practice (GLP) and ISO cold-chain quality controls, please review the following biological specimens or reagents registered under your oversight:
+      </p>
+
+      <table class="specimen-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Specimen</th>
+            <th>Storage Coordinate</th>
+            <th>Expiry</th>
+            <th style="text-align: center;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${samplesListRows}
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin: 24px 0 12px;">
+        <a href="${portalUrl}" class="button">Open LabLedger Biobank Dashboard &rarr;</a>
+      </div>
+    </div>
+    <div class="footer">
+      LabLedger Automated Node-Cron Surveillance System &bull; Specimen Viability Tracker<br>
+      Notification automatically generated based on configured storage protocol thresholds.
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const mailClient = getTransporter();
+    const mailOptions = {
+      from: fromAddress,
+      to,
+      subject: `⚠️ [LabLedger Alert] ${expiringSamples.length} sample(s) expiring within ${daysThreshold} days`,
+      text: `LabLedger Expiry Alert\n\nYou have ${expiringSamples.length} specimen(s) expiring in ${daysThreshold} days:\n${expiringSamples.map(s => `- ${s.sampleId}: ${s.name} (Exp: ${s.expiryDate})`).join('\n')}\n\nPlease visit ${portalUrl} to review.`,
+      html: htmlContent,
+    };
+
+    const info = await mailClient.sendMail(mailOptions);
+    console.log(`✉️ Expiry alert email successfully dispatched to ${to} for ${expiringSamples.length} specimens`);
+
+    return {
+      success: true,
+      messageId: info.messageId || 'SIMULATED-' + Date.now(),
+      recipient: to,
+      count: expiringSamples.length
+    };
+  } catch (err) {
+    console.warn(`⚠️ Warning: Could not deliver expiry email to ${to}:`, err.message);
+    return {
+      success: false,
+      error: err.message,
+      recipient: to,
+      count: expiringSamples.length
+    };
+  }
+}
