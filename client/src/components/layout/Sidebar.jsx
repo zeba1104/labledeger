@@ -48,22 +48,29 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
       {mobileOpen && (
         <div 
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-30 lg:hidden"
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 lg:hidden"
         />
       )}
 
-      {/* Sidebar Container - FIXED on screen */}
+      {/* Sidebar Container - FIXED on screen with proper mobile z-index */}
       <aside className={`
-        fixed top-16 bottom-0 left-0 z-20
-        w-64 bg-white border-r border-slate-200/90
+        fixed top-16 bottom-0 left-0 z-50 lg:z-20
+        w-64 bg-white border-r border-slate-200/90 shadow-2xl lg:shadow-none
         flex flex-col justify-between
         transition-transform duration-300 ease-in-out
         ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         {/* Navigation list */}
         <div className="p-3.5 space-y-1 overflow-y-auto flex-1">
-          <div className="px-3 pt-2 pb-1.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-            Digital Logbook Navigation
+          <div className="px-3 pt-2 pb-1.5 flex items-center justify-between text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
+            <span>Digital Logbook Navigation</span>
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="lg:hidden p-1 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+              title="Close menu"
+            >
+              ✕
+            </button>
           </div>
 
           {navItems.map((item) => {

@@ -114,9 +114,9 @@ export default function OnboardingScreen({ onOpenLogin }) {
             <FlaskConical className="w-5 h-5 animate-pulse-subtle" />
           </div>
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900">Lab<span className="text-red-600">Ledger</span></span>
-              <span className="px-2 py-0.5 text-xs font-semibold uppercase tracking-wider bg-red-100 text-red-700 rounded-full border border-red-200">
+            <div className="flex items-center space-x-1.5 sm:space-x-2">
+              <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900">Lab<span className="text-red-600">Ledger</span></span>
+              <span className="hidden sm:inline-flex px-2 py-0.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-red-100 text-red-700 rounded-full border border-red-200">
                 v2.0 Clinical
               </span>
             </div>
@@ -124,22 +124,22 @@ export default function OnboardingScreen({ onOpenLogin }) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           {user ? (
             <button
               onClick={() => setShowOnboarding(false)}
-              className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md shadow-red-500/20 transition-all duration-200"
+              className="inline-flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md shadow-red-500/20 transition-all duration-200"
             >
-              Enter Workspace
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <span>Enter Workspace</span>
+              <ArrowRight className="w-4 h-4 ml-1.5 sm:ml-2" />
             </button>
           ) : (
             <button
               onClick={onOpenLogin}
-              className="inline-flex items-center px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-md shadow-red-500/20 transition-all duration-200"
+              className="inline-flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-md shadow-red-500/20 transition-all duration-200"
             >
-              <LogIn className="w-4 h-4 mr-1.5" />
-              Sign In to Portal
+              <LogIn className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5" />
+              <span>Sign In to Portal</span>
             </button>
           )}
         </div>
@@ -262,7 +262,7 @@ export default function OnboardingScreen({ onOpenLogin }) {
             <p className="text-xs sm:text-sm text-slate-500 mt-1">Opening one sample page unveils its complete forensic life cycle:</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 relative">
             {[
               { num: '1', title: 'Register Sample', desc: 'Auto-generates unique ID & printable QR label.' },
               { num: '2', title: 'Storage Map', desc: 'Placed into Room → Freezer → Shelf → Rack → Box position.' },

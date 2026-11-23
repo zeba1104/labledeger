@@ -91,8 +91,8 @@ export default function AuditHistoryView() {
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
-        <div className="flex-1 max-w-sm relative">
+      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="w-full sm:flex-1 sm:max-w-sm relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
           </div>
@@ -101,15 +101,15 @@ export default function AuditHistoryView() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search audit details (e.g. Ravi, 0005, quantity)..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
           />
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start space-x-2">
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+            className="flex-1 sm:flex-initial px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
           >
             <option value="">All Action Types</option>
             <option value="CREATE_SAMPLE">CREATE_SAMPLE</option>
@@ -122,7 +122,7 @@ export default function AuditHistoryView() {
 
           <button
             onClick={fetchAuditLogs}
-            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors"
+            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors text-xs flex-shrink-0"
           >
             Refresh
           </button>

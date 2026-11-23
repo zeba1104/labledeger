@@ -141,8 +141,8 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
       </div>
 
       {/* Search Toolbar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex items-center justify-between gap-3 text-xs">
-        <div className="flex-1 max-w-md relative">
+      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="w-full sm:flex-1 sm:max-w-md relative">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
           </div>
@@ -151,13 +151,13 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search experiments by title, protocol, author, or results..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
           />
         </div>
 
         <button
           onClick={fetchExperiments}
-          className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors"
+          className="w-full sm:w-auto px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors text-xs"
         >
           Refresh
         </button>

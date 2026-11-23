@@ -230,8 +230,88 @@ export default function SamplesList({
             )}
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
+          <>
+            {/* Mobile Specimen Card List (< md) */}
+            <div className="block md:hidden divide-y divide-slate-100">
+              {samples.map((sample) => (
+                <div 
+                  key={sample._id}
+                  onClick={() => onOpenSampleDetails(sample)}
+                  className="p-4 hover:bg-rose-50/40 transition-colors cursor-pointer space-y-2.5"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center space-x-2.5">
+                      <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 p-0.5 flex-shrink-0 shadow-xs">
+                        {sample.qrCodeData ? (
+                          <img src={sample.qrCodeData} alt="QR" className="w-full h-full object-contain" />
+                        ) : (
+                          <QrCode className="w-full h-full text-slate-300" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-extrabold text-slate-900 font-mono text-xs">{sample.sampleId}</div>
+                        <div className="font-bold text-slate-800 text-sm leading-tight">{sample.name}</div>
+                      </div>
+                    </div>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border flex-shrink-0 ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
+                      {sample.status}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-600">
+                    <span className="px-1.5 py-0.5 bg-red-50 text-red-700 rounded font-semibold text-[10px] border border-red-100">
+                      {sample.type}
+                    </span>
+                    <span className="font-semibold text-slate-800">
+                      {sample.quantity} {sample.unit}
+                    </span>
+                    <span className="text-slate-300">&bull;</span>
+                    <span className="text-slate-500 font-mono text-[10px]">
+                      {sample.storageLocation?.position ? `Slot ${sample.storageLocation.position}` : 'Unassigned'}
+                    </span>
+                    <span className="text-slate-300">&bull;</span>
+                    <span className="text-slate-400 text-[10px]">
+                      {sample.temperatureReq || '-80°C'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-1.5 border-t border-slate-100 text-[11px]" onClick={(e) => e.stopPropagation()}>
+                    <span className="text-slate-400 text-[10px]">By {sample.registeredBy}</span>
+                    <div className="flex items-center space-x-1.5">
+                      {permissions.canCreateTransfer && (
+                        <button
+                          onClick={() => onOpenTransferModal(sample)}
+                          className="px-2 py-1 rounded-lg text-amber-700 bg-amber-50 hover:bg-amber-100 text-[11px] font-semibold flex items-center space-x-1"
+                        >
+                          <ArrowRightLeft className="w-3 h-3 mr-0.5" />
+                          <span>Move</span>
+                        </button>
+                      )}
+                      {permissions.canEditSample && (
+                        <button
+                          onClick={() => onOpenEditSample(sample)}
+                          className="px-2 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold flex items-center space-x-1"
+                        >
+                          <Edit3 className="w-3 h-3 mr-0.5" />
+                          <span>Edit</span>
+                        </button>
+                      )}
+                      <button
+                        onClick={() => onOpenSampleDetails(sample)}
+                        className="px-2 py-1 rounded-lg text-red-700 bg-red-50 hover:bg-red-100 text-[11px] font-semibold flex items-center space-x-1"
+                      >
+                        <Eye className="w-3 h-3 mr-0.5" />
+                        <span>View</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop / Tablet Wide Table (>= md) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-slate-50/80 border-b border-slate-200/80 text-[11px] font-bold uppercase tracking-wider text-slate-500">
                   <th className="py-3.5 px-4">Sample ID & QR</th>
@@ -374,7 +454,8 @@ export default function SamplesList({
               </tbody>
             </table>
           </div>
-        )}
+        </>
+      )}
       </div>
     </div>
   );
