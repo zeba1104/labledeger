@@ -102,7 +102,7 @@ export default function LoginModal({ isOpen, onClose }) {
         </div>
 
         {/* Form Body */}
-        <div className="p-6 sm:p-7">
+        <div className="p-6 sm:p-7 overflow-y-auto flex-1">
           {formError && (
             <div className="mb-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start space-x-2.5 animate-fade-in shadow-xs">
               <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
@@ -112,6 +112,57 @@ export default function LoginModal({ isOpen, onClose }) {
               </div>
             </div>
           )}
+
+          {/* Quick Demo Autofill Pills */}
+          <div className="mb-4 p-3 bg-slate-50 border border-slate-200/80 rounded-2xl">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2">Quick 1-Click Role Login:</span>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('admin@yopmail.com');
+                  setPassword('password123');
+                }}
+                className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-red-50 text-slate-800 hover:text-red-700 border border-slate-200 text-left text-[11px] font-semibold transition-all shadow-xs flex items-center justify-between"
+              >
+                <span className="truncate">Dr. Sarah Chen</span>
+                <span className="text-[9px] font-bold bg-red-100 text-red-800 px-1.5 py-0.2 rounded ml-1">Admin</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('researcher@yopmail.com');
+                  setPassword('password123');
+                }}
+                className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-slate-800 hover:text-rose-700 border border-slate-200 text-left text-[11px] font-semibold transition-all shadow-xs flex items-center justify-between"
+              >
+                <span className="truncate">Dr. Anita Rao</span>
+                <span className="text-[9px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.2 rounded ml-1">Scientist</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('tech@yopmail.com');
+                  setPassword('password123');
+                }}
+                className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-amber-50 text-slate-800 hover:text-amber-700 border border-slate-200 text-left text-[11px] font-semibold transition-all shadow-xs flex items-center justify-between"
+              >
+                <span className="truncate">Ravi Patel</span>
+                <span className="text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded ml-1">Tech</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail('auditor@yopmail.com');
+                  setPassword('password123');
+                }}
+                className="px-2.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 hover:text-slate-900 border border-slate-200 text-left text-[11px] font-semibold transition-all shadow-xs flex items-center justify-between"
+              >
+                <span className="truncate">Dr. Marcus Vance</span>
+                <span className="text-[9px] font-bold bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded ml-1">Auditor</span>
+              </button>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Email Field */}

@@ -141,15 +141,15 @@ export default function Navbar({
         </div>
 
         {/* Right: Actions, Role Pill & User */}
-        <div className="flex items-center space-x-1.5 sm:space-x-2.5">
+        <div className="flex items-center space-x-1.5 sm:space-x-2.5 flex-shrink-0">
           {/* QR Code Scanner Trigger */}
           <button
             onClick={onOpenQRScanner}
             title="Scan Tube or Box QR Code"
-            className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100/80 border border-red-200/80 shadow-xs hover:scale-105 active:scale-95 transition-all duration-200"
+            className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100/80 border border-red-200/80 shadow-xs hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap flex-shrink-0"
           >
             <QrCode className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1.5 text-red-600 flex-shrink-0" />
-            <span className="hidden sm:inline">Scan QR</span>
+            <span className="hidden sm:inline whitespace-nowrap">Scan QR</span>
           </button>
 
           {/* New Sample Button */}
@@ -157,16 +157,17 @@ export default function Navbar({
             <button
               onClick={onOpenNewSample}
               title="Register New Research Specimen"
-              className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-sm shadow-red-500/25 hover:shadow-md hover:shadow-red-500/30 hover:scale-105 active:scale-95 transition-all duration-200 flex-shrink-0"
+              className="btn-shimmer inline-flex items-center justify-center p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-sm shadow-red-500/25 hover:shadow-md hover:shadow-red-500/30 hover:scale-105 active:scale-95 transition-all duration-200 whitespace-nowrap flex-shrink-0"
             >
-              <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1" />
-              <span className="hidden sm:inline">Register Specimen</span>
+              <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5 sm:mr-1 flex-shrink-0" />
+              <span className="hidden md:inline whitespace-nowrap">Register Specimen</span>
+              <span className="hidden sm:inline md:hidden whitespace-nowrap">Register</span>
             </button>
           )}
 
           {/* Role Status Pill (Desktop/Tablet) */}
-          <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border select-none cursor-default shadow-xs flex-shrink-0 ${roleBadgeColors[user?.role || 'Admin']}`}>
-            <span className="relative flex h-2 w-2">
+          <div className={`hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border select-none cursor-default shadow-xs flex-shrink-0 whitespace-nowrap ${roleBadgeColors[user?.role || 'Admin']}`}>
+            <span className="relative flex h-2 w-2 flex-shrink-0">
               <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
