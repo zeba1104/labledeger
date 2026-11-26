@@ -116,12 +116,12 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               Experiment Notes & Assays
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-rose-100 text-rose-800 border border-rose-200">
-              {experiments.length} Protocols
+            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-rose-50 text-rose-700 border border-rose-200/80 shadow-xs">
+              {experiments.length} Protocol{experiments.length === 1 ? '' : 's'}
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-1">
@@ -132,7 +132,7 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
         {permissions.canWriteExperiments && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-sm shadow-red-500/20 transition-all self-start sm:self-auto"
+            className="btn-shimmer inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md shadow-red-500/20 hover:shadow-red-500/30 transition-all hover:scale-105 active:scale-95 self-start sm:self-auto"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             <span>Record Experiment Note</span>
@@ -141,9 +141,9 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
       </div>
 
       {/* Search Toolbar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div className="saas-card rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="w-full sm:flex-1 sm:max-w-md relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -151,13 +151,13 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search experiments by title, protocol, author, or results..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white text-xs shadow-xs"
           />
         </div>
 
         <button
           onClick={fetchExperiments}
-          className="w-full sm:w-auto px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors text-xs"
+          className="w-full sm:w-auto px-4 py-2 bg-slate-100 hover:bg-slate-200/80 rounded-xl font-bold text-slate-700 border border-slate-200/60 shadow-xs transition-all active:scale-95 text-xs"
         >
           Refresh
         </button>
@@ -166,35 +166,38 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
       {/* Experiments Grid */}
       <div className="space-y-4">
         {loading ? (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-            <p>Loading experiment logs...</p>
+          <div className="p-12 text-center text-slate-400 text-xs">
+            <div className="inline-block w-7 h-7 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
+            <p className="font-semibold text-slate-700">Loading experiment protocols...</p>
           </div>
         ) : experiments.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 text-center text-slate-500 border border-slate-200 text-xs">
-            <FileText className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h4 className="font-bold text-slate-700">No Experiment Notes Found</h4>
-            <p className="text-slate-400 mt-1">Record PCR tests, assay runs, or sequencing protocols linked to specimens.</p>
+          <div className="saas-card rounded-2xl p-12 text-center text-slate-500 text-xs">
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 mx-auto mb-2 shadow-xs">
+              <FileText className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-slate-800 text-sm">No Experiment Notes Found</h4>
+            <p className="text-slate-400 mt-1 max-w-sm mx-auto">Record PCR tests, assay runs, or sequencing protocols linked to specimens.</p>
           </div>
         ) : (
           experiments.map((exp) => (
             <div 
               key={exp._id}
-              className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/90 shadow-xs hover:border-red-300 transition-all space-y-3"
+              className="saas-card rounded-2xl p-5 sm:p-6 space-y-3 relative group overflow-hidden"
             >
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                 <div>
-                  <h3 className="text-base font-extrabold text-slate-900">{exp.title}</h3>
+                  <h3 className="text-base font-extrabold text-slate-900 group-hover:text-red-700 transition-colors">{exp.title}</h3>
                   <div className="flex flex-wrap items-center gap-2 mt-1 text-xs">
-                    <span className="font-semibold text-red-700">{exp.protocolName}</span>
+                    <span className="font-bold text-red-700 bg-red-50 px-2 py-0.5 rounded border border-red-100 shadow-xs">{exp.protocolName}</span>
                     <span className="text-slate-300">&bull;</span>
-                    <span className="text-slate-500">Author: <b>{exp.author}</b> ({exp.authorRole})</span>
+                    <span className="text-slate-500">Author: <b className="text-slate-800">{exp.author}</b> ({exp.authorRole})</span>
                     <span className="text-slate-300">&bull;</span>
-                    <span className="text-slate-400">{exp.date}</span>
+                    <span className="text-slate-400 font-mono">{exp.date}</span>
                   </div>
                 </div>
 
-                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start">
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-xs self-start">
                   {exp.status}
                 </span>
               </div>
@@ -209,7 +212,8 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
                   {exp.sampleIds.map(id => (
                     <span 
                       key={id}
-                      className="px-2 py-0.5 rounded-lg bg-red-50 text-red-800 font-mono font-bold text-[11px] border border-red-200"
+                      onClick={() => onOpenSampleDetails && onOpenSampleDetails({ sampleId: id })}
+                      className="px-2 py-0.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-800 font-mono font-bold text-[11px] border border-red-200/80 shadow-xs cursor-pointer transition-colors"
                     >
                       {id}
                     </span>
@@ -218,13 +222,13 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
               )}
 
               {/* Protocol Notes */}
-              <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed">
+              <div className="p-3.5 bg-slate-50/90 rounded-xl border border-slate-200/80 text-xs text-slate-700 leading-relaxed shadow-inner">
                 {exp.notes}
               </div>
 
               {/* Results & Findings */}
               {exp.results && (
-                <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/80 text-xs text-slate-800">
+                <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/80 text-xs text-slate-800 shadow-xs">
                   <span className="font-bold text-emerald-800 uppercase text-[10px] block mb-0.5">
                     Assay Results & Conclusions:
                   </span>
@@ -236,7 +240,7 @@ export default function ExperimentNotesView({ onOpenSampleDetails }) {
               {exp.tags && exp.tags.length > 0 && (
                 <div className="flex flex-wrap items-center gap-1.5 pt-1">
                   {exp.tags.map(tag => (
-                    <span key={tag} className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-medium">
+                    <span key={tag} className="px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-semibold border border-slate-200/60 shadow-xs">
                       #{tag}
                     </span>
                   ))}

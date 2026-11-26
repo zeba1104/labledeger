@@ -64,11 +64,11 @@ export default function AuditHistoryView() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               Immutable Audit Trail
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-slate-100 text-slate-800 border border-slate-200 flex items-center">
+            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-slate-100 text-slate-800 border border-slate-200/80 flex items-center shadow-xs">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 mr-1" />
               <span>{logs.length} Cryptographic Entries</span>
             </span>
@@ -82,7 +82,7 @@ export default function AuditHistoryView() {
         {permissions.canExportReports && (
           <button
             onClick={handleExportCSV}
-            className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs transition-colors self-start sm:self-auto"
+            className="btn-shimmer inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200/90 shadow-xs hover:border-slate-300 transition-all hover:scale-105 active:scale-95 self-start sm:self-auto"
           >
             <Download className="w-3.5 h-3.5 mr-1.5 text-red-600" />
             <span>Export Audit Report (CSV)</span>
@@ -91,9 +91,9 @@ export default function AuditHistoryView() {
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div className="saas-card rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="w-full sm:flex-1 sm:max-w-sm relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -101,7 +101,7 @@ export default function AuditHistoryView() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search audit details (e.g. Ravi, 0005, quantity)..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white text-xs shadow-xs"
           />
         </div>
 
@@ -109,7 +109,7 @@ export default function AuditHistoryView() {
           <select
             value={actionFilter}
             onChange={(e) => setActionFilter(e.target.value)}
-            className="flex-1 sm:flex-initial px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs"
+            className="flex-1 sm:flex-initial px-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 text-xs shadow-xs"
           >
             <option value="">All Action Types</option>
             <option value="CREATE_SAMPLE">CREATE_SAMPLE</option>
@@ -122,7 +122,7 @@ export default function AuditHistoryView() {
 
           <button
             onClick={fetchAuditLogs}
-            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors text-xs flex-shrink-0"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200/80 rounded-xl font-bold text-slate-700 border border-slate-200/60 shadow-xs transition-all active:scale-95 text-xs flex-shrink-0"
           >
             Refresh
           </button>
@@ -130,49 +130,51 @@ export default function AuditHistoryView() {
       </div>
 
       {/* Audit Log Stream */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+      <div className="saas-card rounded-2xl overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-            <p>Verifying audit ledger signatures...</p>
+          <div className="p-12 text-center text-slate-400 text-xs">
+            <div className="inline-block w-7 h-7 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
+            <p className="font-semibold text-slate-700">Verifying audit ledger signatures...</p>
           </div>
         ) : logs.length === 0 ? (
           <div className="p-12 text-center text-slate-500 text-xs">
-            <History className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h4 className="font-bold text-slate-700">No Audit Events Logged</h4>
-            <p className="text-slate-400 mt-1">Actions performed across the system are permanently recorded here.</p>
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 mx-auto mb-2 shadow-xs">
+              <History className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-slate-800 text-sm">No Audit Events Logged</h4>
+            <p className="text-slate-400 mt-1 max-w-sm mx-auto">Actions performed across the system are permanently recorded here.</p>
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
             {logs.map((log) => (
-              <div key={log._id} className="p-4 sm:p-5 hover:bg-rose-50/20 transition-colors text-xs">
+              <div key={log._id} className="p-4 sm:p-5 hover:bg-rose-50/30 transition-all duration-150 text-xs relative group">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1.5">
                   <div className="flex items-center space-x-2">
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${actionBadgeColors[log.action] || 'bg-slate-100 text-slate-700'}`}>
+                    <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold border shadow-xs ${actionBadgeColors[log.action] || 'bg-slate-100 text-slate-700'}`}>
                       {log.action}
                     </span>
                     <span className="font-bold text-slate-900">{log.performedBy}</span>
                     <span className="text-slate-400">({log.performedRole})</span>
                     {log.entityId && (
-                      <span className="font-mono text-slate-500 bg-slate-100 px-1.5 py-0.2 rounded text-[10px]">
+                      <span className="font-mono text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md text-[10px] border border-slate-200/60 shadow-xs">
                         Ref: {log.entityId}
                       </span>
                     )}
                   </div>
 
-                  <span className="text-slate-400 font-medium text-[11px]">
+                  <span className="text-slate-400 font-mono text-[11px]">
                     {new Date(log.timestamp).toLocaleString()}
                   </span>
                 </div>
 
                 {/* PDF style explicit audit description */}
-                <p className="text-slate-700 font-medium text-sm leading-relaxed">
+                <p className="text-slate-700 font-medium text-sm leading-relaxed mt-1">
                   {log.details}
                 </p>
 
                 {/* Diff inspection */}
                 {log.changes && (
-                  <div className="mt-2 p-2 bg-slate-50 rounded-xl border border-slate-200 font-mono text-[10px] text-slate-600 overflow-x-auto">
+                  <div className="mt-2.5 p-2.5 bg-slate-50/90 rounded-xl border border-slate-200/80 font-mono text-[10px] text-slate-600 overflow-x-auto shadow-inner">
                     <span className="text-slate-400 uppercase font-bold block mb-0.5">Value Delta:</span>
                     {JSON.stringify(log.changes, null, 2)}
                   </div>

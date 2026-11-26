@@ -66,11 +66,11 @@ export default function LabSettings() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-6 max-w-4xl">
       <div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2.5">
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
             Laboratory Architecture & ID Rules
           </h1>
-          <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-red-100 text-red-800 border border-red-200">
+          <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-red-50 text-red-700 border border-red-200/80 shadow-xs">
             Admin Only
           </span>
         </div>
@@ -80,30 +80,32 @@ export default function LabSettings() {
       </div>
 
       {message && (
-        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 flex items-center space-x-2 animate-fade-in">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-          <span>{message}</span>
+        <div className="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 flex items-center space-x-2 animate-fade-in shadow-xs">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+          <span className="font-semibold">{message}</span>
         </div>
       )}
 
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-800 flex items-center space-x-2">
-          <AlertCircle className="w-4 h-4 text-red-600" />
-          <span>{error}</span>
+        <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-800 flex items-center space-x-2 shadow-xs">
+          <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
+          <span className="font-semibold">{error}</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="bg-white rounded-2xl p-6 border border-slate-200/90 shadow-xs space-y-5 text-xs">
+      <form onSubmit={handleSave} className="saas-card rounded-2xl p-6 sm:p-7 space-y-6 text-xs">
         {/* ID Generation Rule */}
-        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+        <div className="p-4 sm:p-5 rounded-2xl bg-slate-50/90 border border-slate-200/80 space-y-3 shadow-inner">
           <div className="flex items-center space-x-2">
-            <Hash className="w-4 h-4 text-red-600" />
+            <div className="w-7 h-7 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center text-red-600">
+              <Hash className="w-4 h-4" />
+            </div>
             <h3 className="font-bold uppercase tracking-wider text-slate-800">
-              Sample ID Format Rules (PDF Standard)
+              Sample ID Format Rules (Standard)
             </h3>
           </div>
-          <p className="text-slate-500">
-            Unique sequential format generated for every specimen registration: <b>{idPrefix}{new Date().getFullYear()}-0001</b>
+          <p className="text-slate-500 text-xs">
+            Unique sequential format generated for every specimen registration: <b className="text-slate-700 font-mono">{idPrefix}{new Date().getFullYear()}-0001</b>
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
@@ -116,14 +118,14 @@ export default function LabSettings() {
                 value={idPrefix}
                 onChange={(e) => setIdPrefix(e.target.value)}
                 placeholder="LAB-"
-                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl font-mono font-bold uppercase text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+                className="w-full px-3 py-2 bg-white border border-slate-200/90 rounded-xl font-mono font-bold uppercase text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 shadow-xs"
               />
             </div>
             <div>
               <label className="block font-bold text-slate-700 mb-1">
                 Generated Preview Example
               </label>
-              <div className="p-2 bg-white rounded-xl border border-slate-200 font-mono font-extrabold text-sm text-slate-800 flex items-center h-9">
+              <div className="p-2 bg-white rounded-xl border border-slate-200/90 font-mono font-extrabold text-sm text-red-700 flex items-center h-9 shadow-xs">
                 {idPrefix}{new Date().getFullYear()}-0042
               </div>
             </div>
@@ -140,7 +142,7 @@ export default function LabSettings() {
             rows={3}
             value={sampleTypesInput}
             onChange={(e) => setSampleTypesInput(e.target.value)}
-            className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 font-medium text-slate-800"
+            className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200/90 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white font-medium text-slate-800 text-xs shadow-xs"
           />
         </div>
 
@@ -154,7 +156,7 @@ export default function LabSettings() {
               type="text"
               value={labName}
               onChange={(e) => setLabName(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white text-xs shadow-xs font-semibold text-slate-800"
             />
           </div>
 
@@ -166,16 +168,16 @@ export default function LabSettings() {
               type="text"
               value={piName}
               onChange={(e) => setPiName(e.target.value)}
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+              className="w-full px-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white text-xs shadow-xs font-semibold text-slate-800"
             />
           </div>
         </div>
 
-        <div className="pt-3 border-t border-slate-100 flex items-center justify-end">
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
           <button
             type="submit"
             disabled={saving}
-            className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-sm shadow-red-500/20 transition-all flex items-center space-x-1.5"
+            className="btn-shimmer px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md shadow-red-500/20 hover:shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center space-x-2"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? 'Saving...' : 'Save Lab Configuration'}</span>

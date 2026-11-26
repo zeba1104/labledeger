@@ -134,23 +134,23 @@ export default function TransferLogView({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               Transfer Log & Chain of Custody
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-100 text-amber-800 border border-amber-200">
-              {transfers.length} Movements
+            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-amber-50 text-amber-800 border border-amber-200/80 shadow-xs">
+              {transfers.length} Movement{transfers.length === 1 ? '' : 's'}
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Unbroken record of every time a sample moves between freezers, racks, or researchers
+            Unbroken forensic record of every specimen relocation between cryogenic freezers, racks, and researchers
           </p>
         </div>
 
         {permissions.canCreateTransfer && (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-sm shadow-red-500/20 transition-all self-start sm:self-auto"
+            className="btn-shimmer inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md shadow-red-500/20 hover:shadow-red-500/30 transition-all hover:scale-105 active:scale-95 self-start sm:self-auto"
           >
             <Plus className="w-4 h-4 mr-1.5" />
             <span>Initiate Transfer</span>
@@ -159,9 +159,9 @@ export default function TransferLogView({
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="saas-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex-1 max-w-sm relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -169,7 +169,7 @@ export default function TransferLogView({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by Sample ID (e.g. LAB-2026-0001)..."
-            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+            className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 focus:bg-white shadow-xs"
           />
         </div>
 
@@ -177,7 +177,7 @@ export default function TransferLogView({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600"
+            className="px-3 py-2 bg-slate-50 border border-slate-200/90 rounded-xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-600 shadow-xs"
           >
             <option value="">All Transfer Statuses</option>
             <option value="Completed">Completed</option>
@@ -186,7 +186,7 @@ export default function TransferLogView({
 
           <button
             onClick={fetchTransfers}
-            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl font-semibold text-slate-700 transition-colors"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200/80 rounded-xl text-xs font-bold text-slate-700 border border-slate-200/60 shadow-xs transition-all active:scale-95"
           >
             Refresh
           </button>
@@ -194,58 +194,60 @@ export default function TransferLogView({
       </div>
 
       {/* Transfers Timeline / Table */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+      <div className="saas-card rounded-2xl overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-slate-400 text-xs">
-            <div className="inline-block w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
-            <p>Loading chain of custody ledger...</p>
+          <div className="p-12 text-center text-slate-400 text-xs">
+            <div className="inline-block w-7 h-7 border-2 border-red-600 border-t-transparent rounded-full animate-spin mb-2" />
+            <p className="font-semibold text-slate-700">Loading chain of custody ledger...</p>
           </div>
         ) : transfers.length === 0 ? (
           <div className="p-12 text-center text-slate-500 text-xs">
-            <ArrowRightLeft className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h4 className="font-bold text-slate-700">No Transfers Logged</h4>
-            <p className="text-slate-400 mt-1">Every sample relocation between freezers will be documented here.</p>
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 mx-auto mb-2 shadow-xs">
+              <ArrowRightLeft className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-slate-800 text-sm">No Transfers Logged</h4>
+            <p className="text-slate-400 mt-1 max-w-sm mx-auto">Every specimen relocation between freezers and researchers will be cryptographically documented here.</p>
           </div>
         ) : (
           <div className="divide-y divide-slate-100">
             {transfers.map((t) => (
-              <div key={t._id} className="p-4 sm:p-5 hover:bg-rose-50/20 transition-colors">
+              <div key={t._id} className="p-4 sm:p-5 hover:bg-rose-50/30 transition-all duration-150 relative group">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="font-mono font-extrabold text-xs text-red-800 bg-red-50 px-2 py-0.5 rounded border border-red-200">
+                  <div className="flex items-center space-x-2.5">
+                    <span className="font-mono font-extrabold text-xs text-red-700 bg-red-50 px-2.5 py-0.5 rounded-lg border border-red-200/70 shadow-xs">
                       {t.sampleId}
                     </span>
                     <span className="font-bold text-slate-900 text-sm">{t.sampleName}</span>
                   </div>
 
                   <div className="flex items-center space-x-2 text-xs">
-                    <span className="text-slate-400 font-medium">
+                    <span className="text-slate-400 font-mono text-[11px]">
                       {new Date(t.date).toLocaleString()}
                     </span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/70 shadow-xs">
                       {t.status}
                     </span>
                   </div>
                 </div>
 
                 {/* Location movement banner (PDF style) */}
-                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="p-3 bg-slate-50/90 rounded-xl border border-slate-200/80 text-xs text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-inner">
                   <div>
                     <span className="text-slate-400 uppercase text-[10px] font-bold block sm:inline mr-1">Path:</span>
                     <span className="line-through text-slate-400 mr-2">{t.sourceLocation}</span>
                     <span className="font-bold text-red-700">&rarr; {t.targetLocation}</span>
                   </div>
                   <div className="text-[11px] text-slate-600">
-                    Moved by: <b>{t.movedBy}</b> &bull; Custodian: <b>{t.custodian}</b>
+                    Moved by: <b className="text-slate-800">{t.movedBy}</b> &bull; Custodian: <b className="text-slate-800">{t.custodian}</b>
                   </div>
                 </div>
 
-                <div className="mt-2 flex items-center justify-between text-xs">
-                  <p className="text-slate-500 italic">
+                <div className="mt-2.5 flex items-center justify-between text-xs">
+                  <p className="text-slate-500 italic text-[11px]">
                     Reason: "{t.reason}"
                   </p>
                   {t.approvedBy && (
-                    <span className="text-[10px] text-slate-400 flex items-center">
+                    <span className="text-[10px] text-slate-500 font-semibold flex items-center bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200/60 shadow-xs">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 mr-1" />
                       Approved by {t.approvedBy}
                     </span>

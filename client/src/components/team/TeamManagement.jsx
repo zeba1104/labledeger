@@ -180,11 +180,11 @@ export default function TeamManagement() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
             <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               Team & Role Governance
             </h1>
-            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-red-100 text-red-800 border border-red-200">
+            <span className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-red-50 text-red-700 border border-red-200/80 shadow-xs">
               {users.length} Personnel
             </span>
           </div>
@@ -197,7 +197,7 @@ export default function TeamManagement() {
         {permissions.canManageTeam && (
           <button
             onClick={handleOpenAddModal}
-            className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-red-600 hover:bg-red-700 shadow-sm shadow-red-500/20 transition-all self-start sm:self-auto"
+            className="btn-shimmer inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 shadow-md shadow-red-500/20 hover:shadow-red-500/30 transition-all hover:scale-105 active:scale-95 self-start sm:self-auto"
           >
             <UserPlus className="w-4 h-4 mr-1.5" />
             <span>Enroll Team Member</span>
@@ -223,7 +223,7 @@ export default function TeamManagement() {
       )}
 
       {/* Users Table */}
-      <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs overflow-hidden">
+      <div className="saas-card rounded-2xl overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
           <div>
             <h3 className="text-sm font-bold text-slate-900">Enrolled Laboratory Staff</h3>
