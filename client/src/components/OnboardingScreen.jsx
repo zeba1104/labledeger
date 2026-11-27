@@ -411,13 +411,15 @@ export default function OnboardingScreen({ onOpenLogin }) {
         {/* Hero Section: Staggered Entrance Composition */}
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20 relative z-10">
           {/* Eyebrow / Kicker Label (Stagger Step 1: 0ms) */}
-          <div className="animate-hero-eyebrow inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/80 shadow-xs mb-6 hover:scale-105 transition-transform duration-300 select-none">
+          <div className="animate-hero-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-red-50 text-red-700 border border-red-200/80 shadow-xs mb-6 hover:scale-105 transition-transform duration-300 select-none">
             <span className="relative flex h-2 w-2 mr-2">
               <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
-            <Sparkles className="w-3.5 h-3.5 mr-1 text-red-600" />
-            Designed Exclusively for Medical, Biotech & Academic Research Labs
+            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-red-600 flex-shrink-0" />
+            <span className="text-[11px] font-bold uppercase tracking-wider">
+              Designed Exclusively for Medical, Biotech & Academic Research Labs
+            </span>
           </div>
 
           {/* Clamped Oversized Headline (Stagger Step 2: 80ms) */}
@@ -436,14 +438,24 @@ export default function OnboardingScreen({ onOpenLogin }) {
 
           {/* Focal CTA Button with Arrow Nudge & Glow (Stagger Step 4: 240ms) */}
           <div className="animate-hero-cta flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              onClick={onOpenLogin}
-              className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
-            >
-              <LogIn className="w-4 h-4 mr-2.5 flex-shrink-0" />
-              <span>Sign In with Email & Password</span>
-              <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
-            </button>
+            {user ? (
+              <button
+                onClick={() => setShowOnboarding(false)}
+                className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
+              >
+                <span>Enter Workspace</span>
+                <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
+              </button>
+            ) : (
+              <button
+                onClick={onOpenLogin}
+                className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
+              >
+                <LogIn className="w-4 h-4 mr-2.5 flex-shrink-0" />
+                <span>Sign In with Email & Password</span>
+                <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
+              </button>
+            )}
           </div>
         </div>
 
