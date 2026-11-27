@@ -26,6 +26,23 @@ function MainApp() {
   const [activeView, setActiveView] = useState('dashboard');
   const [mobileOpen, setMobileOpen] = useState(false);
   const [globalSearch, setGlobalSearch] = useState('');
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem('labledger_sidebar_collapsed') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const handleToggleSidebar = () => {
+    setIsSidebarCollapsed(prev => {
+      const next = !prev;
+      try {
+        localStorage.setItem('labledger_sidebar_collapsed', String(next));
+      } catch {}
+      return next;
+    });
+  };
 
   // Modals state
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -133,10 +150,12 @@ function MainApp() {
           }}
           mobileOpen={mobileOpen}
           setMobileOpen={setMobileOpen}
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={handleToggleSidebar}
         />
 
-        {/* Viewport Content - offset by lg:ml-64 so the fixed sidebar never overlaps */}
-        <main className="flex-1 lg:ml-64 min-w-0">
+        {/* Viewport Content - offset dynamically so the fixed sidebar never overlaps */}
+        <main className={`flex-1 transition-all duration-[var(--dur-base)] ease-[var(--ease-standard)] ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'} min-w-0`}>
           {activeView === 'dashboard' && (
             <Dashboard
               key={refreshKey}
