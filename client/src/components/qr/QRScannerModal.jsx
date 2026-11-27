@@ -209,7 +209,7 @@ export default function QRScannerModal({ isOpen, onClose, onSampleFound }) {
                       <Zap className="w-3.5 h-3.5 mr-1 text-red-600" />
                       Instant 1-Click Simulator:
                     </span>
-                    <span className="text-[10px] text-red-600 font-semibold bg-red-50 px-2 py-0.5 rounded-full border border-red-100">Evaluator Tool</span>
+                    <span className="text-[10px] text-red-600 font-semibold bg-red-50 px-2 py-0.5 rounded-full border border-red-100 whitespace-nowrap flex-shrink-0">Evaluator Tool</span>
                   </div>
 
                   <select

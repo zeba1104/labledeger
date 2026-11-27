@@ -39,7 +39,19 @@ export async function apiRequest(endpoint, options = {}) {
     throw error;
   }
 
-  return data;
+  // Deep sanitize replacement characters (e.g. \uFFFD from historical degree symbols)
+  const sanitize = (val) => {
+    if (typeof val === 'string') return val.replace(/\uFFFD/g, '°');
+    if (Array.isArray(val)) return val.map(sanitize);
+    if (val !== null && typeof val === 'object') {
+      const copy = {};
+      for (const k in val) copy[k] = sanitize(val[k]);
+      return copy;
+    }
+    return val;
+  };
+
+  return sanitize(data);
 }
 
 export const api = {

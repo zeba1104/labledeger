@@ -91,7 +91,7 @@ export default function SampleDetailsModal({
               {sample.type}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/20 text-white">
-              Status: {sample.status}
+              Status: {sample.status || 'Stored'}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white/10 text-rose-100">
               Temp: {sample.temperatureReq || '-80°C'}
@@ -234,7 +234,7 @@ export default function SampleDetailsModal({
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase">Registered By</span>
-                      <p className="text-xs font-bold text-slate-800">{sample.registeredBy} ({sample.registeredRole})</p>
+                      <p className="text-xs font-bold text-slate-800">{sample.registeredBy}{sample.registeredRole ? ` (${sample.registeredRole})` : ''}</p>
                     </div>
                     <div>
                       <span className="text-[10px] text-slate-400 uppercase">Registration Date</span>

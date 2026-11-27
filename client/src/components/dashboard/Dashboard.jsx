@@ -408,7 +408,7 @@ export default function Dashboard({
                         <span className="font-semibold text-slate-800">{type}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-slate-500 font-medium">{count} specimens</span>
+                        <span className="text-slate-500 font-medium">{count} {count === 1 ? 'specimen' : 'specimens'}</span>
                         <span className="font-mono font-bold text-slate-700 text-[11px] bg-slate-100 px-1.5 py-0.5 rounded">{percent}%</span>
                       </div>
                     </div>
