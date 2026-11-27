@@ -12,10 +12,10 @@ export default function PrintLabelSheetModal({ isOpen, onClose, samples = [] }) 
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5">
-      <div className="relative bg-white rounded-3xl shadow-2xl border border-red-100 max-w-3xl w-full overflow-hidden animate-scale-in my-auto max-h-[92vh] flex flex-col">
+    <div className="modal-backdrop overflow-y-auto p-3 sm:p-5">
+      <div className="relative modal-shell max-w-3xl w-full animate-scale-in my-auto">
         {/* Header */}
-        <div className="bg-gradient-to-r from-red-600 via-rose-600 to-red-700 p-6 text-white relative flex-shrink-0 no-print">
+        <div className="modal-header-ribbon p-6 relative no-print">
           <button
             onClick={onClose}
             className="absolute top-5 right-5 p-1.5 rounded-full bg-black/10 hover:bg-black/20 text-white transition-colors"

@@ -1,0 +1,199 @@
+/**
+ * LabLedger Design Tokens Foundation
+ * Part-1: Central token substrate for typography, spacing, colors, elevation, and motion.
+ * All subsequent parts and components pull from these custom properties.
+ */
+
+:root {
+  /* --------------------------------------------------
+   * Brand / Crimson-Red Ramp (preserving existing identity)
+   * Derived from primary #dc2626 / #e11d48 family
+   * -------------------------------------------------- */
+  --brand-50: #fff1f2;
+  --brand-100: #ffe4e6;
+  --brand-200: #fecdd3;
+  --brand-300: #fda4af;
+  --brand-400: #fb7185;
+  --brand-500: #f43f5e;
+  --brand-600: #dc2626;
+  --brand-700: #be123c;
+  --brand-800: #9f1239;
+  --brand-900: #881337;
+  --brand-950: #4c0519;
+
+  /* Brand semantic aliases */
+  --brand: var(--brand-600);
+  --brand-strong: var(--brand-700);
+  --brand-accent: #e11d48;
+  --brand-glow: rgba(225, 29, 72, 0.25);
+
+  /* --------------------------------------------------
+   * Surface & Neutral Tokens (Light default)
+   * -------------------------------------------------- */
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-raised: #ffffff;
+  --surface-subtle: #f1f5f9;
+  --border: rgba(226, 232, 240, 0.85);
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-subtle: #94a3b8;
+  --text-inverse: #ffffff;
+
+  /* --------------------------------------------------
+   * Semantic Status Colors & Muted Backgrounds
+   * Used for Stored, Expired, Expiring, Quarantined chips
+   * -------------------------------------------------- */
+  --success: #059669;
+  --success-muted: #ecfdf5;
+  --success-border: #a7f3d0;
+  --success-text: #065f46;
+
+  --warning: #d97706;
+  --warning-muted: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-text: #92400e;
+
+  --danger: #dc2626;
+  --danger-muted: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-text: #991b1b;
+
+  --info: #0284c7;
+  --info-muted: #f0f9ff;
+  --info-border: #bae6fd;
+  --info-text: #075985;
+
+  /* --------------------------------------------------
+   * Typography Scale (1.250 Major-Third modular ramp)
+   * -------------------------------------------------- */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.563rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+  --step-5: 3.052rem;
+
+  /* Font Families */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Font Weights */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Line Heights */
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-normal: 1.6;
+
+  /* --------------------------------------------------
+   * Spacing Scale (4px base grid)
+   * -------------------------------------------------- */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-7: 2rem;     /* 32px */
+  --space-8: 2.5rem;   /* 40px */
+  --space-9: 3rem;     /* 48px */
+  --space-10: 4rem;    /* 64px */
+  --space-11: 5rem;    /* 80px */
+  --space-12: 6rem;    /* 96px */
+
+  /* --------------------------------------------------
+   * Border Radii
+   * -------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------
+   * Layered Soft Shadows & Ambient Glows
+   * -------------------------------------------------- */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-glow: 0 0 16px -2px rgba(225, 29, 72, 0.25);
+
+  /* --------------------------------------------------
+   * Motion Tokens
+   * -------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+
+  /* --------------------------------------------------
+   * Z-Index Scale
+   * -------------------------------------------------- */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-modal: 1300;
+  --z-toast: 1400;
+}
+
+/* --------------------------------------------------
+ * Dark Variant Overrides [data-theme="dark"]
+ * Pre-configured for dark modal surfaces and future toggle
+ * -------------------------------------------------- */
+[data-theme="dark"],
+:root[data-theme="dark"] {
+  --surface: #0b1120;
+  --surface-2: #0f172a;
+  --surface-raised: #1e293b;
+  --surface-subtle: #1e293b;
+  --border: rgba(51, 65, 85, 0.7);
+  --border-strong: #475569;
+  --text: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-subtle: #94a3b8;
+  --text-inverse: #0f172a;
+
+  --success-muted: rgba(5, 150, 105, 0.15);
+  --success-border: rgba(16, 185, 129, 0.3);
+  --success-text: #6ee7b7;
+
+  --warning-muted: rgba(217, 119, 6, 0.15);
+  --warning-border: rgba(245, 158, 11, 0.3);
+  --warning-text: #fcd34d;
+
+  --danger-muted: rgba(220, 38, 38, 0.15);
+  --danger-border: rgba(239, 68, 68, 0.3);
+  --danger-text: #fca5a5;
+
+  --info-muted: rgba(2, 132, 199, 0.15);
+  --info-border: rgba(14, 165, 233, 0.3);
+  --info-text: #7dd3fc;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px -2px rgba(244, 63, 94, 0.35);
+}
+
+/* --------------------------------------------------
+ * Accessibility: Respect user's motion preference
+ * -------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur-base: 0.01ms;
+    --dur-slow: 0.01ms;
+  }
+}

@@ -60,9 +60,9 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
               onClick={() => handleNav(item.id)}
               className={`
                 w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold
-                transition-all duration-200 group relative
+                transition-all duration-200 group relative sidebar-nav-item
                 ${isActive 
-                  ? 'bg-red-50 text-red-700 font-bold border border-red-200/80 shadow-xs' 
+                  ? 'active bg-red-50 text-red-700 font-bold border border-red-200/80 shadow-xs' 
                   : 'text-slate-600 hover:text-red-700 hover:bg-slate-50/80'
                 }
               `}
@@ -104,7 +104,7 @@ export default function Sidebar({ activeView, setActiveView, mobileOpen, setMobi
       {/* Sidebar Container - FIXED on screen with proper mobile z-index */}
       <aside className={`
         fixed top-16 bottom-0 left-0 z-50 lg:z-20
-        w-64 bg-white border-r border-slate-200/80 shadow-xl lg:shadow-none
+        w-64 sidebar-container shadow-xl lg:shadow-none
         flex flex-col justify-between
         transition-transform duration-300 ease-in-out
         ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
