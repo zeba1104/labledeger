@@ -126,6 +126,12 @@
   opacity: 0;
   animation: heroFadeUp 0.5s var(--ease-out) 0ms forwards;
 }
+.hero-eyebrow-text {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  font-weight: var(--fw-bold);
+}
 .animate-hero-headline {
   opacity: 0;
   animation: heroFadeUp 0.5s var(--ease-out) 80ms forwards;

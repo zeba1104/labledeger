@@ -417,7 +417,7 @@ export default function OnboardingScreen({ onOpenLogin }) {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
             <Sparkles className="w-3.5 h-3.5 mr-1.5 text-red-600 flex-shrink-0" />
-            <span className="text-[11px] font-bold uppercase tracking-wider">
+            <span className="hero-eyebrow-text text-[11px] font-bold uppercase tracking-wider">
               Designed Exclusively for Medical, Biotech & Academic Research Labs
             </span>
           </div>
