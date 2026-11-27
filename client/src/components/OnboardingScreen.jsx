@@ -88,6 +88,14 @@ export default function OnboardingScreen({ onOpenLogin }) {
     hamburgerRef.current?.focus();
   };
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mx', `${x}px`);
+    e.currentTarget.style.setProperty('--my', `${y}px`);
+  };
+
   const features = [
     {
       icon: QrCode,
@@ -411,15 +419,13 @@ export default function OnboardingScreen({ onOpenLogin }) {
         {/* Hero Section: Staggered Entrance Composition */}
         <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20 relative z-10">
           {/* Eyebrow / Kicker Label (Stagger Step 1: 0ms) */}
-          <div className="animate-hero-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-red-50 text-red-700 border border-red-200/80 shadow-xs mb-6 hover:scale-105 transition-transform duration-300 select-none">
+          <div className="animate-hero-eyebrow inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/80 shadow-xs mb-6 hover:scale-105 transition-transform duration-300 select-none">
             <span className="relative flex h-2 w-2 mr-2">
               <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
-            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-red-600 flex-shrink-0" />
-            <span className="hero-eyebrow-text text-[11px] font-bold uppercase tracking-wider">
-              Designed Exclusively for Medical, Biotech & Academic Research Labs
-            </span>
+            <Sparkles className="w-3.5 h-3.5 mr-1 text-red-600" />
+            Designed Exclusively for Medical, Biotech & Academic Research Labs
           </div>
 
           {/* Clamped Oversized Headline (Stagger Step 2: 80ms) */}
@@ -438,35 +444,28 @@ export default function OnboardingScreen({ onOpenLogin }) {
 
           {/* Focal CTA Button with Arrow Nudge & Glow (Stagger Step 4: 240ms) */}
           <div className="animate-hero-cta flex flex-col sm:flex-row items-center justify-center gap-3">
-            {user ? (
-              <button
-                onClick={() => setShowOnboarding(false)}
-                className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
-              >
-                <span>Enter Workspace</span>
-                <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
-              </button>
-            ) : (
-              <button
-                onClick={onOpenLogin}
-                className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
-              >
-                <LogIn className="w-4 h-4 mr-2.5 flex-shrink-0" />
-                <span>Sign In with Email & Password</span>
-                <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
-              </button>
-            )}
+            <button
+              onClick={onOpenLogin}
+              className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
+            >
+              <LogIn className="w-4 h-4 mr-2.5 flex-shrink-0" />
+              <span>Sign In with Email & Password</span>
+              <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
+            </button>
           </div>
         </div>
 
-        {/* Feature Cards Grid */}
-        <div className="mb-14">
-          <div className="flex items-center justify-between mb-6">
+        {/* Core Laboratory Capabilities — Bento Asymmetric Layout */}
+        <div className="mb-16">
+          <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Core Laboratory Capabilities</h2>
-              <p className="text-sm text-slate-500">Every feature defined in the scientific protocol specifications</p>
+              <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200/80">
+                Scientific Protocols
+              </span>
+              <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">Core Laboratory Capabilities</h2>
+              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">Every feature defined in the scientific protocol specifications</p>
             </div>
-            <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-slate-600 bg-white/80 px-3 py-1.5 rounded-full border border-slate-200/80 shadow-sm">
+            <div className="hidden sm:flex items-center space-x-2 text-xs font-semibold text-slate-600 bg-white/90 px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-xs">
               <span className="relative flex h-2 w-2">
                 <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -478,37 +477,40 @@ export default function OnboardingScreen({ onOpenLogin }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f, idx) => {
               const Icon = f.icon;
+              const isFeatured = idx === 0 || idx === 5;
+              const gridSpan = idx === 0 
+                ? 'md:col-span-2 lg:col-span-2' 
+                : idx === 5 
+                ? 'md:col-span-2 lg:col-span-3' 
+                : 'md:col-span-1 lg:col-span-1';
+
               return (
                 <div 
                   key={idx}
-                  className="card-interactive relative group bg-white rounded-2xl p-6 border border-slate-200/90 hover:border-red-400/80 shadow-xs hover:shadow-xl hover:shadow-red-500/10 flex flex-col justify-between overflow-hidden transition-all duration-300"
+                  tabIndex={0}
+                  onMouseMove={handleCardMouseMove}
+                  className={`card-base card-interactive card-spotlight ${isFeatured ? 'bento-card-featured bg-gradient-to-br from-white via-rose-50/20 to-white' : 'bg-white'} p-6 sm:p-7 flex flex-col justify-between overflow-hidden cursor-default focus:ring-2 focus:ring-red-500/30 ${gridSpan}`}
                   style={{ animationDelay: `${idx * 80}ms` }}
                 >
-                  {/* Clean, perfectly clipped top accent bar that smoothly fades in on hover */}
-                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-600 via-rose-500 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-                  {/* Ambient subtle warm glow in corner */}
-                  <div className="absolute -top-12 -right-12 w-28 h-28 bg-red-500/0 group-hover:bg-red-500/5 rounded-full blur-xl transition-all duration-500 pointer-events-none" />
-
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-red-500/25 transition-all duration-300 shadow-xs">
+                      <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 border border-red-100 flex items-center justify-center group-hover:scale-105 group-hover:bg-red-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-red-500/25 transition-all duration-300 shadow-xs flex-shrink-0">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="text-[11px] font-bold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100 group-hover:border-red-200 group-hover:bg-red-100 transition-colors">
+                      <span className="text-[11px] font-bold text-red-700 bg-red-50 px-2.5 py-1 rounded-full border border-red-100/90 group-hover:border-red-200 group-hover:bg-red-100 transition-colors">
                         {f.badge}
                       </span>
                     </div>
 
-                    <h3 className="text-base font-bold text-slate-900 group-hover:text-red-700 transition-colors duration-200 mb-2">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-red-700 transition-colors duration-200 mb-2">
                       {f.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+                    <p className={`text-xs sm:text-sm text-slate-600 leading-relaxed ${isFeatured ? 'max-w-2xl' : ''} mb-4`}>
                       {f.description}
                     </p>
                   </div>
 
-                  <div className="relative z-10 pt-3 border-t border-slate-100 group-hover:border-red-100/60 flex items-center text-xs font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
+                  <div className="relative z-10 pt-3 border-t border-slate-100 group-hover:border-red-100 flex items-center text-xs font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
                     <CheckCircle2 className="w-3.5 h-3.5 mr-1.5 text-emerald-600 group-hover:scale-110 transition-transform duration-200" />
                     <span>Laboratory Verified</span>
                   </div>
@@ -518,17 +520,49 @@ export default function OnboardingScreen({ onOpenLogin }) {
           </div>
         </div>
 
-        {/* The Sample Life Cycle Chain (Matching PDF Page 2) */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-red-100 shadow-md shadow-red-500/5 mb-14">
-          <div className="text-center max-w-xl mx-auto mb-8">
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200">
+        {/* The Sample Life Cycle Chain — Connected Stepper (Desktop Horizontal / Mobile Vertical) */}
+        <div className="card-base bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-sm mb-16 relative overflow-hidden">
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200/80">
               Chain of Custody
             </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mt-2">How the System Connects</h2>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">How the System Connects</h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">Opening one sample page unveils its complete forensic life cycle:</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 relative">
+          {/* Desktop & Tablet Connected Stepper (Horizontal) */}
+          <div className="hidden sm:block relative">
+            {/* Horizontal Connecting Guide Line */}
+            <div className="stepper-track-horizontal" />
+
+            <div className="grid grid-cols-5 gap-3 relative z-10">
+              {[
+                { num: '1', title: 'Register Sample', desc: 'Auto-generates unique ID & printable QR label.' },
+                { num: '2', title: 'Storage Map', desc: 'Placed into Room → Freezer → Shelf → Rack → Box position.' },
+                { num: '3', title: 'Transfer Log', desc: 'Records moves between freezers or researchers.' },
+                { num: '4', title: 'Experiment Notes', desc: 'Assay results & protocols linked to used sample IDs.' },
+                { num: '5', title: 'Audit History', desc: 'Unchangeable record of every edit for accountability.' },
+              ].map((step, i) => (
+                <div 
+                  key={i} 
+                  tabIndex={0}
+                  className="card-base card-interactive group flex flex-col items-center text-center p-4 rounded-2xl bg-white border border-slate-200/80 hover:border-red-400/90 shadow-xs hover:shadow-lg transition-all"
+                >
+                  <div className="stepper-node bg-gradient-to-tr from-red-600 to-rose-600 text-white font-bold text-xs mb-3 shadow-md shadow-red-500/25">
+                    {step.num}
+                  </div>
+                  <h4 className="text-xs font-bold text-slate-900 mb-1 group-hover:text-red-600 transition-colors">{step.title}</h4>
+                  <p className="text-[11px] text-slate-500 leading-normal">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Connected Stepper (Vertical) */}
+          <div className="block sm:hidden relative pl-8 space-y-4">
+            {/* Vertical Connecting Guide Line */}
+            <div className="stepper-track-vertical" />
+
             {[
               { num: '1', title: 'Register Sample', desc: 'Auto-generates unique ID & printable QR label.' },
               { num: '2', title: 'Storage Map', desc: 'Placed into Room → Freezer → Shelf → Rack → Box position.' },
@@ -536,42 +570,52 @@ export default function OnboardingScreen({ onOpenLogin }) {
               { num: '4', title: 'Experiment Notes', desc: 'Assay results & protocols linked to used sample IDs.' },
               { num: '5', title: 'Audit History', desc: 'Unchangeable record of every edit for accountability.' },
             ].map((step, i) => (
-              <div key={i} className="card-interactive group flex flex-col items-center text-center p-4 rounded-xl bg-slate-50 border border-slate-200/80 hover:bg-white hover:border-red-400 shadow-xs hover:shadow-lg hover:shadow-red-500/10 transition-all overflow-hidden">
-                <div className="w-8 h-8 rounded-full bg-red-600 text-white font-bold text-xs flex items-center justify-center mb-2 shadow-sm group-hover:scale-110 group-hover:shadow-md group-hover:shadow-red-500/30 transition-transform">
+              <div key={i} className="relative card-base card-interactive p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs">
+                <div className="absolute -left-9 top-4 stepper-node w-7 h-7 text-[11px] bg-gradient-to-tr from-red-600 to-rose-600 text-white font-bold shadow-sm shadow-red-500/25">
                   {step.num}
                 </div>
-                <h4 className="text-xs font-bold text-slate-900 mb-1 group-hover:text-red-600 transition-colors">{step.title}</h4>
-                <p className="text-[11px] text-slate-500 leading-normal">{step.desc}</p>
+                <h4 className="text-xs font-bold text-slate-900 mb-0.5">{step.title}</h4>
+                <p className="text-[11px] text-slate-500 leading-snug">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Role Permissions Comparison Matrix (Matching PDF Page 3) */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/90 shadow-sm mb-12">
-          <div className="mb-6">
-            <h3 className="text-lg sm:text-xl font-bold text-slate-900">Four Dedicated User Roles</h3>
-            <p className="text-xs text-slate-500">Each role requires verified login credentials assigned by the Lab Director</p>
+        {/* Role Permissions Comparison Matrix */}
+        <div className="card-base bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-sm mb-14">
+          <div className="mb-8">
+            <span className="text-xs font-bold uppercase tracking-wider text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-200/80">
+              Access Governance
+            </span>
+            <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">Four Dedicated User Roles</h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-1">Each role requires verified login credentials assigned by the Lab Director</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {roles.map(r => (
-              <div key={r.role} className="card-interactive group border border-slate-200 rounded-xl p-4 flex flex-col justify-between hover:border-red-400 transition-all bg-white hover:shadow-lg hover:shadow-red-500/10 overflow-hidden">
+              <div 
+                key={r.role} 
+                tabIndex={0}
+                onMouseMove={handleCardMouseMove}
+                className="card-base card-interactive card-spotlight group border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between hover:border-red-400/90 bg-white shadow-xs hover:shadow-lg transition-all focus:ring-2 focus:ring-red-500/30"
+              >
                 <div>
-                  <div className="flex items-center space-x-2.5 mb-3">
-                    <div className={`w-8 h-8 rounded-lg ${r.avatarColor} flex items-center justify-center text-xs font-bold shadow-sm group-hover:scale-105 transition-transform`}>
+                  <div className="flex items-center space-x-3 mb-3.5">
+                    <div className={`w-9 h-9 rounded-xl ${r.avatarColor} flex items-center justify-center text-xs font-bold shadow-xs group-hover:scale-105 transition-transform flex-shrink-0`}>
                       {r.role[0]}
                     </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-red-700 transition-colors">{r.role}</h4>
-                      <p className="text-[11px] text-slate-500">{r.title}</p>
+                    <div className="min-w-0">
+                      <h4 className="text-sm font-bold text-slate-900 group-hover:text-red-700 transition-colors truncate">{r.role}</h4>
+                      <p className="text-[11px] text-slate-500 truncate">{r.title}</p>
                     </div>
                   </div>
-                  <p className="text-xs text-slate-600 mb-3">{r.desc}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed mb-4">{r.desc}</p>
                 </div>
-                <div className="mt-2 py-1 px-2.5 bg-slate-50 text-slate-500 border border-slate-200 rounded-lg text-[10px] font-semibold text-center flex items-center justify-center space-x-1 group-hover:border-red-200 group-hover:bg-red-50/60 group-hover:text-red-700 transition-colors">
-                  <Lock className="w-3 h-3 text-slate-400 group-hover:text-red-600 transition-colors" />
-                  <span>Requires Authorized Sign In</span>
+                <div className="pt-2">
+                  <div className="py-1.5 px-2.5 bg-slate-50/80 text-slate-600 border border-slate-200/80 rounded-xl text-[10px] font-semibold text-center flex items-center justify-center space-x-1.5 group-hover:border-red-200 group-hover:bg-red-50/70 group-hover:text-red-700 transition-colors">
+                    <Lock className="w-3.5 h-3.5 text-slate-400 group-hover:text-red-600 transition-colors flex-shrink-0" />
+                    <span>Requires Authorized Sign In</span>
+                  </div>
                 </div>
               </div>
             ))}

@@ -74,6 +74,14 @@ export default function Dashboard({
     }
   };
 
+  const handleCardMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mx', `${x}px`);
+    e.currentTarget.style.setProperty('--my', `${y}px`);
+  };
+
   if (loading) {
     return (
       <div className="p-4 sm:p-6 lg:p-8 space-y-6 animate-pulse">
@@ -220,10 +228,11 @@ export default function Dashboard({
             {expiryAlerts.expiringSoon.map((sample) => (
               <div
                 key={sample.sampleId || sample._id}
+                tabIndex={0}
                 onClick={() => onOpenSampleDetails && onOpenSampleDetails(sample)}
-                className="bg-white/90 hover:bg-white rounded-2xl p-4 border border-amber-200/90 hover:border-amber-400 shadow-xs hover:shadow-md transition-all cursor-pointer group space-y-2.5 relative overflow-hidden"
+                className="card-base card-interactive p-4 bg-white border border-amber-200/90 hover:border-amber-400 shadow-xs hover:shadow-md transition-all cursor-pointer group space-y-2.5 relative overflow-hidden"
               >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 to-rose-500" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-rose-400 to-red-500" />
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <span className="font-mono text-xs font-extrabold text-red-600 group-hover:underline">
@@ -233,7 +242,7 @@ export default function Dashboard({
                       {sample.name}
                     </h4>
                   </div>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200 whitespace-nowrap flex-shrink-0">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 whitespace-nowrap flex-shrink-0">
                     {sample.daysRemaining <= 0 ? 'Expires Today' : `${sample.daysRemaining}d left`}
                   </span>
                 </div>
@@ -268,10 +277,10 @@ export default function Dashboard({
 
         {/* Expired Samples Notification Strip */}
         {expiryAlerts.expired && expiryAlerts.expired.length > 0 && (
-          <div className="p-3 bg-red-50/80 border border-red-200 rounded-xl flex items-center justify-between text-xs">
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
-              <span className="font-bold text-red-800">Quarantine Action Required:</span>
+          <div className="p-3.5 bg-red-50/90 border border-red-200/90 rounded-2xl flex items-center justify-between text-xs">
+            <div className="flex items-center space-x-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping flex-shrink-0" />
+              <span className="font-bold text-red-900">Quarantine Action Required:</span>
               <span className="text-red-700">
                 {expiryAlerts.expired.map(s => `${s.sampleId} (${s.name})`).join(', ')} passed maximum storage viability.
               </span>
@@ -281,32 +290,34 @@ export default function Dashboard({
               className="text-red-800 font-bold hover:underline flex items-center ml-2 flex-shrink-0"
             >
               <span>View in Registry</span>
-              <ArrowRight className="w-3 h-3 ml-1" />
+              <ArrowRight className="w-3.5 h-3.5 ml-1" />
             </button>
           </div>
         )}
       </div>
 
-      {/* Primary KPI Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Primary KPI Stats Grid (Unified Token Card Base) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Total Samples */}
         <div 
+          tabIndex={0}
+          onMouseMove={handleCardMouseMove}
           onClick={() => setActiveView('samples')}
-          className="saas-card rounded-2xl p-5 cursor-pointer group relative overflow-hidden"
+          className="card-base card-interactive card-spotlight rounded-2xl p-5 sm:p-6 cursor-pointer group relative overflow-hidden focus:ring-2 focus:ring-red-500/30"
         >
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-red-500 to-rose-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Registered Specimens</span>
-            <div className="w-10 h-10 rounded-xl bg-red-50/80 border border-red-100 flex items-center justify-center text-red-600 group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-xs">
+            <span className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-500">Registered Specimens</span>
+            <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 border border-red-100 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-xs">
               <FlaskConical className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">{metrics.totalSamples}</span>
+          <div className="mt-3.5 flex items-baseline space-x-2">
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">{metrics.totalSamples}</span>
             <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/70">{metrics.activeStoredSamples} Stored</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1.5 flex items-center">
-            <span className="font-mono text-slate-500">LAB-2026-XXXX</span>
+          <p className="text-[11px] text-slate-400 mt-2 flex items-center">
+            <span className="font-mono text-slate-500 font-medium">LAB-2026-XXXX</span>
             <span className="mx-1.5 text-slate-300">&bull;</span>
             <span>IRB Protocol Compliant</span>
           </p>
@@ -314,22 +325,24 @@ export default function Dashboard({
 
         {/* Storage Occupancy */}
         <div 
+          tabIndex={0}
+          onMouseMove={handleCardMouseMove}
           onClick={() => setActiveView('storage')}
-          className="saas-card rounded-2xl p-5 cursor-pointer group relative overflow-hidden"
+          className="card-base card-interactive card-spotlight rounded-2xl p-5 sm:p-6 cursor-pointer group relative overflow-hidden focus:ring-2 focus:ring-red-500/30"
         >
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-rose-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Cryo Occupancy</span>
-            <div className="w-10 h-10 rounded-xl bg-rose-50/80 border border-rose-100 flex items-center justify-center text-rose-600 group-hover:scale-110 group-hover:bg-rose-600 group-hover:text-white transition-all duration-300 shadow-xs">
+            <span className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-500">Cryo Occupancy</span>
+            <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 border border-rose-100 flex items-center justify-center group-hover:scale-110 group-hover:bg-rose-600 group-hover:text-white transition-all duration-300 shadow-xs">
               <Box className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors tracking-tight">{metrics.occupancyRate}%</span>
+          <div className="mt-3.5 flex items-baseline space-x-2">
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors tracking-tight">{metrics.occupancyRate}%</span>
             <span className="text-xs text-slate-500 font-semibold">{metrics.totalStorageSlots} Total Slots</span>
           </div>
           {/* Progress Bar */}
-          <div className="w-full bg-slate-100 h-2 rounded-full mt-2.5 overflow-hidden">
+          <div className="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
             <div 
               className="bg-gradient-to-r from-red-500 to-rose-600 h-full rounded-full transition-all duration-1000 ease-out"
               style={{ width: `${Math.min(metrics.occupancyRate, 100)}%` }}
@@ -339,40 +352,44 @@ export default function Dashboard({
 
         {/* Transfers Logged */}
         <div 
+          tabIndex={0}
+          onMouseMove={handleCardMouseMove}
           onClick={() => setActiveView('transfers')}
-          className="saas-card rounded-2xl p-5 cursor-pointer group relative overflow-hidden"
+          className="card-base card-interactive card-spotlight rounded-2xl p-5 sm:p-6 cursor-pointer group relative overflow-hidden focus:ring-2 focus:ring-red-500/30"
         >
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-amber-500 to-rose-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Chain Transfers</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-50/80 border border-amber-100 flex items-center justify-center text-amber-600 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300 shadow-xs">
+            <span className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-500">Chain Transfers</span>
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all duration-300 shadow-xs">
               <ArrowRightLeft className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalTransfers}</span>
+          <div className="mt-3.5 flex items-baseline space-x-2">
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalTransfers}</span>
             <span className="text-xs text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/70">Verified Custody</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1.5">Freezer & custodian relocations</p>
+          <p className="text-[11px] text-slate-400 mt-2">Freezer & custodian relocations</p>
         </div>
 
         {/* Audit Log Entries */}
         <div 
+          tabIndex={0}
+          onMouseMove={handleCardMouseMove}
           onClick={() => setActiveView('audit')}
-          className="saas-card rounded-2xl p-5 cursor-pointer group relative overflow-hidden"
+          className="card-base card-interactive card-spotlight rounded-2xl p-5 sm:p-6 cursor-pointer group relative overflow-hidden focus:ring-2 focus:ring-red-500/30"
         >
           <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-slate-700 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Immutable Audit</span>
+            <span className="text-[0.8rem] font-bold uppercase tracking-wider text-slate-500">Immutable Audit</span>
             <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-700 group-hover:scale-110 group-hover:bg-slate-900 group-hover:text-white transition-all duration-300 shadow-xs">
               <History className="w-5 h-5" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline space-x-2">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalAuditEntries}</span>
+          <div className="mt-3.5 flex items-baseline space-x-2">
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalAuditEntries}</span>
             <span className="text-xs text-slate-700 font-bold bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200/80">Tamper-Proof</span>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1.5">Full GLP & FDA accountability</p>
+          <p className="text-[11px] text-slate-400 mt-2">Full GLP & FDA accountability</p>
         </div>
       </div>
 

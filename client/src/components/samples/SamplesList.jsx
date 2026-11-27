@@ -87,11 +87,11 @@ export default function SamplesList({
   };
 
   const statusColors = {
-    Stored: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    'In Transit': 'bg-amber-50 text-amber-700 border-amber-200',
+    Stored: 'status-chip-stored',
+    'In Transit': 'status-chip-transit',
     Depleted: 'bg-slate-100 text-slate-700 border-slate-200',
     Disposed: 'bg-rose-50 text-rose-700 border-rose-200',
-    Quarantined: 'bg-red-50 text-red-800 border-red-300'
+    Quarantined: 'status-chip-expired'
   };
 
   const getExpiryBadge = (expiryDate) => {
@@ -104,20 +104,20 @@ export default function SamplesList({
 
     if (days < 0) {
       return (
-        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-800 border border-red-200">
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold status-chip-expired shadow-xs">
           ⛔ Expired
         </span>
       );
     }
     if (days <= 7) {
       return (
-        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold status-chip-transit shadow-xs">
           ⚠️ Exp in {days}d
         </span>
       );
     }
     return (
-      <span className="text-[10px] text-slate-400">
+      <span className="text-[10px] text-slate-400 font-medium">
         Exp: {expiry.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}
       </span>
     );
@@ -371,12 +371,12 @@ export default function SamplesList({
                     <tr 
                       key={sample._id}
                       onClick={() => onOpenSampleDetails(sample)}
-                      className="hover:bg-rose-50/40 transition-all duration-150 cursor-pointer group"
+                      className="sample-table-row hover:bg-slate-50/90 transition-colors duration-150 cursor-pointer group"
                     >
                       {/* ID & QR Column */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200 p-0.5 flex-shrink-0 shadow-xs group-hover:border-red-400 group-hover:scale-105 transition-all duration-200">
+                          <div className="w-10 h-10 qr-thumb-frame p-1 flex-shrink-0">
                             {sample.qrCodeData ? (
                               <img src={sample.qrCodeData} alt="QR" className="w-full h-full object-contain" />
                             ) : (
@@ -395,20 +395,20 @@ export default function SamplesList({
                       </td>
 
                       {/* Specimen Details */}
-                      <td className="py-3.5 px-4">
+                      <td className="py-4 px-4">
                         <div className="font-bold text-slate-900 group-hover:text-red-900 transition-colors">{sample.name}</div>
                         <div className="flex items-center space-x-1.5 mt-1">
                           <span className="px-2 py-0.5 bg-red-50 text-red-700 rounded-md font-bold text-[10px] border border-red-100 shadow-xs">
                             {sample.type}
                           </span>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-400 font-medium">
                             {sample.temperatureReq || '-80°C'}
                           </span>
                         </div>
                       </td>
 
                       {/* Quantity & Concentration */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="font-bold text-slate-800">
                           {sample.quantity} <span className="text-slate-500 font-normal">{sample.unit}</span>
                         </div>
@@ -418,7 +418,7 @@ export default function SamplesList({
                       </td>
 
                       {/* Storage Coordinates */}
-                      <td className="py-3.5 px-4">
+                      <td className="py-4 px-4">
                         <div className="font-semibold text-slate-700 truncate max-w-[220px]">
                           {sample.storagePath || 'Unassigned'}
                         </div>
@@ -432,7 +432,7 @@ export default function SamplesList({
                       </td>
 
                       {/* Status & Expiry */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="space-y-1">
                           <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold border shadow-xs ${statusColors[sample.status] || 'bg-slate-100 text-slate-700'}`}>
                             {sample.status}
@@ -444,7 +444,7 @@ export default function SamplesList({
                       </td>
 
                       {/* Registered By */}
-                      <td className="py-3.5 px-4 whitespace-nowrap">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="font-semibold text-slate-800">{sample.registeredBy}</div>
                         <div className="text-[10px] text-slate-400 font-mono">
                           {new Date(sample.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
@@ -452,7 +452,7 @@ export default function SamplesList({
                       </td>
 
                       {/* Actions */}
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                      <td className="py-4 px-4 text-right whitespace-nowrap">
                         <div className="inline-flex items-center space-x-1" onClick={(e) => e.stopPropagation()}>
                           {/* Quick Transfer */}
                           {permissions.canCreateTransfer && (

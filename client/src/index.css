@@ -126,12 +126,6 @@
   opacity: 0;
   animation: heroFadeUp 0.5s var(--ease-out) 0ms forwards;
 }
-.hero-eyebrow-text {
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.72rem;
-  font-weight: var(--fw-bold);
-}
 .animate-hero-headline {
   opacity: 0;
   animation: heroFadeUp 0.5s var(--ease-out) 80ms forwards;
@@ -421,9 +415,159 @@
 .card-interactive {
   transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-fast) ease;
 }
-.card-interactive:hover {
+.card-interactive:hover,
+.card-interactive:focus-visible {
   transform: translateY(-4px);
   box-shadow: 0 16px 32px -8px rgba(225, 29, 72, 0.12), var(--shadow-sm);
+  outline: none;
+}
+
+/* ========================================================
+   PART 4 — CONTENT SECTIONS DESIGN SYSTEM
+   Bento grids, Stepper system, Spotlight hover micro-interactions,
+   Unified card base, and Table row rhythm.
+   ======================================================== */
+
+/* Unified Card Base Token System */
+.card-base {
+  background-color: var(--surface-raised);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-base {
+    will-change: transform;
+  }
+}
+
+.card-base:hover,
+.card-base:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  border-color: rgba(220, 38, 38, 0.4);
+  outline: none;
+}
+
+/* Pointer-Tracking Spotlight Micro-Interaction */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+  --mx: 50%;
+  --my: 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-spotlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      600px circle at var(--mx) var(--my),
+      rgba(225, 29, 72, 0.08),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .card-spotlight:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Bento Featured Card Accent */
+.bento-card-featured {
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card-featured::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand-600) 0%, var(--brand-accent) 50%, #f59e0b 100%);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+/* Connected Stepper Component */
+.stepper-track-horizontal {
+  position: absolute;
+  top: 24px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, #fecaca 0%, #fda4af 50%, #fecaca 100%);
+  z-index: 0;
+}
+
+.stepper-track-vertical {
+  position: absolute;
+  top: 24px;
+  bottom: 24px;
+  left: 20px;
+  width: 2px;
+  background: linear-gradient(180deg, #fecaca 0%, #fda4af 50%, #fecaca 100%);
+  z-index: 0;
+}
+
+.stepper-node {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--fw-bold);
+  font-size: var(--step--1);
+  transition: transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
+  z-index: 1;
+}
+
+.stepper-node:hover {
+  transform: scale(1.12);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
+
+/* Table Row Rhythm & Framing */
+.sample-table-row {
+  transition: background-color var(--dur-fast) ease;
+}
+.sample-table-row:hover {
+  background-color: var(--surface-2);
+}
+
+.qr-thumb-frame {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--dur-fast) ease, transform var(--dur-fast) var(--ease-spring);
+}
+.qr-thumb-frame:hover {
+  border-color: var(--brand-accent);
+  transform: scale(1.06);
+}
+
+/* Accessibility: Disable transforms on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card-base:hover,
+  .card-base:focus-visible,
+  .card-interactive:hover,
+  .card-interactive:focus-visible,
+  .stepper-node:hover,
+  .qr-thumb-frame:hover {
+    transform: none !important;
+  }
 }
 
 /* Button Shimmer Sweep Effect */
