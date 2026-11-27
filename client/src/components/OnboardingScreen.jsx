@@ -354,21 +354,64 @@ export default function OnboardingScreen({ onOpenLogin }) {
       )}
 
       {/* Main Hero & Onboarding Content */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 relative">
-        {/* Floating Ambient Biological Elements */}
-        <div className="absolute top-12 left-10 text-rose-300/40 pointer-events-none animate-float-slow hidden md:block">
-          <Dna className="w-16 h-16" />
-        </div>
-        <div className="absolute top-28 right-16 text-red-300/35 pointer-events-none animate-float-reverse hidden md:block">
-          <FlaskConical className="w-14 h-14" />
-        </div>
-        <div className="absolute bottom-20 left-20 text-slate-300/40 pointer-events-none animate-float hidden lg:block">
-          <Microscope className="w-16 h-16" />
+      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative overflow-hidden">
+        {/* Layered Backdrop (GPU-friendly, pointer-events-none, behind content) */}
+        {/* (a) Soft radial brand glow top-right */}
+        <div 
+          className="absolute -top-16 -right-16 w-[500px] h-[500px] sm:w-[650px] sm:h-[650px] bg-[radial-gradient(circle,rgba(244,63,94,0.12)_0%,rgba(220,38,38,0.04)_45%,transparent_70%)] pointer-events-none rounded-full blur-3xl z-0" 
+          aria-hidden="true" 
+        />
+        <div 
+          className="absolute top-1/2 -left-20 w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(225,29,72,0.06)_0%,transparent_70%)] pointer-events-none rounded-full blur-2xl z-0" 
+          aria-hidden="true" 
+        />
+
+        {/* (b) Faint grid texture at low opacity */}
+        <div 
+          className="absolute inset-0 bg-clinical-grid opacity-35 pointer-events-none z-0" 
+          aria-hidden="true" 
+        />
+
+        {/* (c) Floating orbs (drifting slowly: GPU transform/opacity only, hidden on mobile for performance) */}
+        <div 
+          className="absolute top-16 left-12 w-64 h-64 rounded-full bg-rose-400/10 blur-3xl pointer-events-none animate-orb-1 hidden md:block z-0" 
+          aria-hidden="true" 
+        />
+        <div 
+          className="absolute bottom-24 right-16 w-72 h-72 rounded-full bg-red-500/8 blur-3xl pointer-events-none animate-orb-2 hidden md:block z-0" 
+          aria-hidden="true" 
+        />
+
+        {/* (d) Enlarged biological flask/DNA motif, positioned as an off-center accent with slow float */}
+        <div 
+          className="animate-hero-motif absolute top-12 right-6 sm:right-16 lg:right-24 pointer-events-none z-0 hidden sm:block" 
+          aria-hidden="true"
+        >
+          <div className="animate-motif-float relative">
+            <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-3xl bg-gradient-to-tr from-rose-500/10 via-red-500/10 to-amber-500/10 border border-red-200/50 backdrop-blur-xs flex items-center justify-center text-red-500/70 shadow-lg shadow-red-500/5">
+              <FlaskConical className="w-12 h-12 lg:w-16 lg:h-16" />
+            </div>
+            <div className="absolute -bottom-3 -left-5 w-11 h-11 lg:w-12 lg:h-12 rounded-2xl bg-white/90 border border-rose-200/70 shadow-sm flex items-center justify-center text-rose-500/80">
+              <Dna className="w-5 h-5 lg:w-6 lg:h-6 animate-pulse-subtle" />
+            </div>
+          </div>
         </div>
 
-        {/* Hero Section */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 relative z-10 animate-fade-up">
-          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/70 shadow-sm mb-5 hover:scale-105 transition-transform duration-300">
+        {/* Left off-center accent motif */}
+        <div 
+          className="animate-hero-motif absolute bottom-12 left-6 lg:left-14 pointer-events-none z-0 hidden lg:block" 
+          style={{ animationDelay: '350ms' }} 
+          aria-hidden="true"
+        >
+          <div className="animate-bio-float text-slate-300/50">
+            <Microscope className="w-14 h-14" />
+          </div>
+        </div>
+
+        {/* Hero Section: Staggered Entrance Composition */}
+        <div className="text-center max-w-4xl mx-auto mb-16 sm:mb-20 relative z-10">
+          {/* Eyebrow / Kicker Label (Stagger Step 1: 0ms) */}
+          <div className="animate-hero-eyebrow inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200/80 shadow-xs mb-6 hover:scale-105 transition-transform duration-300 select-none">
             <span className="relative flex h-2 w-2 mr-2">
               <span className="animate-radar absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
@@ -377,26 +420,29 @@ export default function OnboardingScreen({ onOpenLogin }) {
             Designed Exclusively for Medical, Biotech & Academic Research Labs
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4">
+          {/* Clamped Oversized Headline (Stagger Step 2: 80ms) */}
+          <h1 className="animate-hero-headline hero-headline text-slate-900 tracking-tight mb-5">
             Total Traceability for Every <br />
             <span className="bg-gradient-to-r from-red-600 via-rose-600 to-red-800 bg-clip-text text-transparent hover:brightness-110 transition-all duration-300">
               Laboratory Specimen
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+          {/* Clamped Readable Subhead (Stagger Step 3: 160ms) */}
+          <p className="animate-hero-subhead hero-subhead text-base sm:text-lg text-slate-600 leading-relaxed mb-8 mx-auto">
             Replace spreadsheets and paper binders with an interactive digital logbook.
             Track what each sample is, exactly where it is stored in cryogenic racks, who moved it, and its linked experiment results.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+          {/* Focal CTA Button with Arrow Nudge & Glow (Stagger Step 4: 240ms) */}
+          <div className="animate-hero-cta flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={onOpenLogin}
-              className="btn-shimmer w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-2xl shadow-xl shadow-red-500/25 hover:shadow-red-500/40 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200"
+              className="hero-cta-btn btn-shimmer group w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-red-600 hover:bg-red-700 active:scale-[0.98]"
             >
-              <LogIn className="w-4 h-4 mr-2" />
+              <LogIn className="w-4 h-4 mr-2.5 flex-shrink-0" />
               <span>Sign In with Email & Password</span>
-              <ChevronRight className="w-4 h-4 ml-1.5 opacity-70 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="cta-arrow-icon w-4 h-4 ml-2 opacity-80" />
             </button>
           </div>
         </div>

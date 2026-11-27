@@ -86,10 +86,146 @@
   .popover-menu,
   .sidebar-container,
   .sidebar-nav-item,
-  .modal-shell {
+  .modal-shell,
+  .animate-hero-eyebrow,
+  .animate-hero-headline,
+  .animate-hero-subhead,
+  .animate-hero-cta,
+  .animate-hero-motif,
+  .animate-orb-1,
+  .animate-orb-2,
+  .animate-motif-float,
+  .hero-cta-btn,
+  .hero-cta-btn .cta-arrow-icon {
     transition: none !important;
     animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
+}
+
+/* ========================================================
+   PART 3 — HERO SECTION DESIGN SYSTEM
+   Staggered entrance, GPU-composited floating orbs,
+   radial glow backdrops, typography scale & focal CTA.
+   ======================================================== */
+
+/* Staggered Entrance Animations */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-eyebrow {
+  opacity: 0;
+  animation: heroFadeUp 0.5s var(--ease-out) 0ms forwards;
+}
+.animate-hero-headline {
+  opacity: 0;
+  animation: heroFadeUp 0.5s var(--ease-out) 80ms forwards;
+}
+.animate-hero-subhead {
+  opacity: 0;
+  animation: heroFadeUp 0.5s var(--ease-out) 160ms forwards;
+}
+.animate-hero-cta {
+  opacity: 0;
+  animation: heroFadeUp 0.5s var(--ease-out) 240ms forwards;
+}
+.animate-hero-motif {
+  opacity: 0;
+  animation: heroFadeUp 0.6s var(--ease-out) 300ms forwards;
+}
+
+/* GPU-composited Floating Orbs (18–24s smooth loops) */
+@keyframes orbDrift1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(35px, -25px, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(-20px, 20px, 0) scale(0.95);
+  }
+}
+
+@keyframes orbDrift2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-30px, 30px, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(20px, -15px, 0) scale(0.92);
+  }
+}
+
+.animate-orb-1 {
+  animation: orbDrift1 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.animate-orb-2 {
+  animation: orbDrift2 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* Gentle 6s Float Loop for Motif */
+@keyframes motifFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.animate-motif-float {
+  animation: motifFloat 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Clamped Typography & Proportional Rhythm */
+.hero-headline {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: var(--lh-tight);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.03em;
+}
+
+.hero-subhead {
+  font-size: var(--step-1);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+  max-width: 56ch;
+}
+
+/* Primary Focal CTA with hover arrow nudge and glow */
+.hero-cta-btn {
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.35), var(--shadow-sm);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.hero-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow), 0 16px 32px -4px rgba(220, 38, 38, 0.45);
+}
+.hero-cta-btn:active {
+  transform: translateY(0);
+}
+.hero-cta-btn .cta-arrow-icon {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.hero-cta-btn:hover .cta-arrow-icon {
+  transform: translateX(4px);
 }
 
 .glass-panel {

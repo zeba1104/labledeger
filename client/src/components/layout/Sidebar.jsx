@@ -119,7 +119,7 @@ export default function Sidebar({
             <button
               key={item.id}
               onClick={() => handleNav(item.id)}
-              title={collapsedMode ? item.label : undefined}
+              title={collapsedMode ? `${item.label}${item.badge ? ` (${item.badge})` : ''}` : undefined}
               className={`
                 w-full flex items-center ${collapsedMode ? 'justify-center px-2' : 'justify-between px-3'} py-2.5 rounded-xl text-xs font-semibold
                 transition-all duration-150 ease-out group relative sidebar-nav-item
@@ -256,7 +256,7 @@ export default function Sidebar({
         `}
       >
         {/* Navigation list */}
-        <div className="p-3 space-y-1 overflow-y-auto flex-1">
+        <div className={`p-3 space-y-1 ${isCollapsed ? 'overflow-visible' : 'overflow-y-auto'} flex-1`}>
           {renderNavGroup('Specimen Operations', coreNavItems, false)}
           {renderNavGroup('Research & Regulatory', complianceNavItems, false)}
           {renderNavGroup('Laboratory Governance', adminNavItems, false)}
