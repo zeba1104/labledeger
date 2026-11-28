@@ -156,6 +156,7 @@ function MainApp() {
 
         {/* Viewport Content - offset dynamically so the fixed sidebar never overlaps */}
         <main className={`flex-1 transition-all duration-[var(--dur-base)] ease-[var(--ease-standard)] ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'} min-w-0`}>
+          <div key={activeView} className="animate-page-enter">
           {activeView === 'dashboard' && (
             <Dashboard
               key={refreshKey}
@@ -221,6 +222,7 @@ function MainApp() {
               key={refreshKey}
             />
           )}
+          </div>
         </main>
       </div>
 

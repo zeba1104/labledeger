@@ -82,18 +82,34 @@ export default function Dashboard({
     e.currentTarget.style.setProperty('--my', `${y}px`);
   };
 
-  if (loading) {
-    return (
-      <div className="p-4 sm:p-6 lg:p-8 space-y-6 animate-pulse">
-        <div className="h-28 bg-slate-200/70 rounded-2xl"></div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="h-32 bg-slate-200/60 rounded-2xl"></div>
-          ))}
-        </div>
-      </div>
-    );
-  }
+  const useCountUp = (target, active, duration = 650) => {
+    const [val, setVal] = useState(0);
+    useEffect(() => {
+      if (!active) return;
+      const numeric = Number(target) || 0;
+      const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || numeric === 0) {
+        setVal(numeric);
+        return;
+      }
+      let startTime = null;
+      let rafId = null;
+      const step = (ts) => {
+        if (!startTime) startTime = ts;
+        const progress = Math.min((ts - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        setVal(Math.round(numeric * eased));
+        if (progress < 1) {
+          rafId = window.requestAnimationFrame(step);
+        }
+      };
+      rafId = window.requestAnimationFrame(step);
+      return () => {
+        if (rafId) window.cancelAnimationFrame(rafId);
+      };
+    }, [target, active, duration]);
+    return val;
+  };
 
   const metrics = stats?.metrics || {
     totalSamples: 0,
@@ -104,6 +120,29 @@ export default function Dashboard({
     occupancyRate: 0,
     totalStorageSlots: 0
   };
+
+  const animatedTotalSamples = useCountUp(metrics.totalSamples, !loading);
+  const animatedOccupancy = useCountUp(metrics.occupancyRate, !loading);
+  const animatedTransfers = useCountUp(metrics.totalTransfers, !loading);
+  const animatedAudits = useCountUp(metrics.totalAuditEntries, !loading);
+
+  if (loading) {
+    return (
+      <div className="p-4 sm:p-6 lg:p-8 space-y-6">
+        <div className="h-40 rounded-3xl skeleton-shimmer border border-slate-200/70"></div>
+        <div className="h-28 rounded-3xl skeleton-shimmer border border-slate-200/70"></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="h-36 rounded-2xl skeleton-shimmer border border-slate-200/70"></div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 h-64 rounded-2xl skeleton-shimmer border border-slate-200/70"></div>
+          <div className="h-64 rounded-2xl skeleton-shimmer border border-slate-200/70"></div>
+        </div>
+      </div>
+    );
+  }
 
   const typeCounts = stats?.typeCounts || {};
 
@@ -313,7 +352,7 @@ export default function Dashboard({
             </div>
           </div>
           <div className="mt-3.5 flex items-baseline space-x-2">
-            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">{metrics.totalSamples}</span>
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-red-600 transition-colors tracking-tight">{animatedTotalSamples}</span>
             <span className="text-xs text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/70">{metrics.activeStoredSamples} Stored</span>
           </div>
           <p className="text-[11px] text-slate-400 mt-2 flex items-center">
@@ -338,13 +377,13 @@ export default function Dashboard({
             </div>
           </div>
           <div className="mt-3.5 flex items-baseline space-x-2">
-            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors tracking-tight">{metrics.occupancyRate}%</span>
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 group-hover:text-rose-600 transition-colors tracking-tight">{animatedOccupancy}%</span>
             <span className="text-xs text-slate-500 font-semibold">{metrics.totalStorageSlots} Total Slots</span>
           </div>
           {/* Progress Bar */}
           <div className="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
             <div 
-              className="bg-gradient-to-r from-red-500 to-rose-600 h-full rounded-full transition-all duration-1000 ease-out"
+              className="bg-gradient-to-r from-red-500 to-rose-600 h-full rounded-full stage-progress-fill"
               style={{ width: `${Math.min(metrics.occupancyRate, 100)}%` }}
             />
           </div>
@@ -365,7 +404,7 @@ export default function Dashboard({
             </div>
           </div>
           <div className="mt-3.5 flex items-baseline space-x-2">
-            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalTransfers}</span>
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{animatedTransfers}</span>
             <span className="text-xs text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/70">Verified Custody</span>
           </div>
           <p className="text-[11px] text-slate-400 mt-2">Freezer & custodian relocations</p>
@@ -386,10 +425,93 @@ export default function Dashboard({
             </div>
           </div>
           <div className="mt-3.5 flex items-baseline space-x-2">
-            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{metrics.totalAuditEntries}</span>
+            <span className="text-[1.953rem] sm:text-3xl font-extrabold text-slate-900 tracking-tight">{animatedAudits}</span>
             <span className="text-xs text-slate-700 font-bold bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200/80">Tamper-Proof</span>
           </div>
           <p className="text-[11px] text-slate-400 mt-2">Full GLP & FDA accountability</p>
+        </div>
+      </div>
+
+      {/* Cryo-Chain Sample Journey Pipeline (Distinctive Lab Workflow Strip) */}
+      <div className="saas-card rounded-2xl p-5 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <div className="flex items-center space-x-2">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
+                Live Workflow
+              </span>
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 tracking-tight">
+                Cryo-Chain Specimen Journey
+              </h3>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              End-to-end sample progression from intake barcoding to regulatory audit
+            </p>
+          </div>
+          <button
+            onClick={() => setActiveView('samples')}
+            className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center px-3 py-1.5 rounded-xl bg-red-50/70 hover:bg-red-100/70 border border-red-200/60 transition-colors self-start sm:self-auto"
+          >
+            <span>Open Live Status Board</span>
+            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {[
+            {
+              stage: '1. Intake & QR',
+              count: metrics.totalSamples,
+              sub: 'Barcoded & Indexed',
+              pct: metrics.totalSamples > 0 ? 100 : 0,
+              color: 'from-red-600 to-rose-500',
+              view: 'samples'
+            },
+            {
+              stage: '2. Cryo-Stored',
+              count: metrics.activeStoredSamples,
+              sub: 'Active Freezer Slots',
+              pct: metrics.totalSamples > 0 ? Math.round((metrics.activeStoredSamples / metrics.totalSamples) * 100) : 0,
+              color: 'from-emerald-500 to-emerald-600',
+              view: 'storage'
+            },
+            {
+              stage: '3. In Transit / Assay',
+              count: metrics.totalTransfers,
+              sub: `${metrics.totalExperiments} Linked Assays`,
+              pct: metrics.totalSamples > 0 ? Math.min(100, Math.round(((metrics.totalTransfers + metrics.totalExperiments) / (metrics.totalSamples * 2)) * 100)) : 0,
+              color: 'from-amber-500 to-rose-500',
+              view: 'transfers'
+            },
+            {
+              stage: '4. Flagged / Viability',
+              count: (expiryAlerts.expiringCount || 0) + (expiryAlerts.expiredCount || 0),
+              sub: `${expiryAlerts.expiredCount || 0} Expired • ${expiryAlerts.expiringCount || 0} Expiring`,
+              pct: metrics.totalSamples > 0 ? Math.min(100, Math.round((((expiryAlerts.expiringCount || 0) + (expiryAlerts.expiredCount || 0)) / metrics.totalSamples) * 100)) : 0,
+              color: 'from-red-600 to-amber-500',
+              view: 'samples'
+            }
+          ].map((s, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveView(s.view)}
+              className="text-left p-3.5 rounded-xl bg-slate-50/80 hover:bg-white border border-slate-200/80 hover:border-red-300 transition-all group shadow-xs hover:shadow-md"
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-bold text-slate-800 group-hover:text-red-700 transition-colors">{s.stage}</span>
+                <span className="font-mono text-xs font-extrabold text-slate-900 bg-white px-2 py-0.5 rounded-md border border-slate-200/80 shadow-xs">
+                  {s.count}
+                </span>
+              </div>
+              <div className="w-full h-1.5 bg-slate-200/80 rounded-full overflow-hidden mb-1.5">
+                <div
+                  className={`h-full rounded-full bg-gradient-to-r ${s.color} stage-progress-fill`}
+                  style={{ width: `${s.pct}%` }}
+                />
+              </div>
+              <span className="text-[11px] text-slate-500">{s.sub}</span>
+            </button>
+          ))}
         </div>
       </div>
 
